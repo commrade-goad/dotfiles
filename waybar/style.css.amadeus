@@ -1,0 +1,318 @@
+*{
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: Jetbrains Mono, MesloLGS Nerd Font Mono, Noto Sans Mono CJK JP, Noto Sans Mono CJK HK, Noto Sans Mono CJK KR, Noto Sans Mono CJK SC, Noto Sans Mono CJK TC;
+    font-size: 14px;
+    /* border-radius: 7px 7px 7px 7px */
+}
+
+
+/* accent color : #798c77 */
+/* accent color lighter : #7affb1 */
+/* red/urgent : #f53c3c */
+/* green/batt charging : #798c77 */
+
+
+window#waybar {
+    background-color: rgba(43, 54, 49, 0.8);
+    border: transparent;
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
+    border-radius: 0;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
+#workspaces button {
+    padding: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+    background-color: transparent;
+    color: #ffffff;
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -2px transparent;
+    /* Avoid rounded borders under each workspace name */
+    border: none;
+    border-radius: 0;
+    font-size: 5px;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 -2px #444d43;
+}
+
+#workspaces button.focused {
+    /* background-color: #64727D; */
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 -2px #798c77;
+}
+
+#workspaces button.urgent {
+    background-color: #f53c3c;
+}
+
+/* DISABLE MODULE HOVER EFFECT */
+button {
+    border: none;
+    border-radius: 0;
+
+}
+button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background: inherit;
+}
+
+#mode {
+    background-color: rgba(0,0,0,0.2);
+    border: 2px solid #798c77;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#tray,
+#mode,
+#idle_inhibitor,
+#custom-media,
+#custom-dunst,
+#mpd {
+    padding: 0 10px;
+    color: #FFFFFF;
+    margin: 0px 1px;
+    border-radius: 0px;
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#custom-media{
+    background-color: rgba(0,0,0,0.2);
+    color: #ffffff;
+    box-shadow: inset 0 -2px transparent;
+}
+
+#custom-media:hover{
+    background-color: rgba(255,255,255,0.05);
+}
+
+#custom-dunst{
+   color: #ffffff;
+   box-shadow: inset 0 -2px transparent;
+}
+
+#custom-dunst:hover{
+   background-color: rgba(0,0,0,0.15);
+}
+
+#custom-dunst.enabled{
+   color: #ffffff;
+   box-shadow: inset 0 -2px transparent;
+}
+
+#custom-dunst.disabled{
+   color: #ffffff;
+   background-color: rgba(0,0,0,0.3);
+   box-shadow: inset 0 -2px #798c77;
+}
+
+#clock {
+    color: #ffffff;
+    background-color: transparent;
+}
+
+#battery {
+    background-color: transparent;
+    box-shadow: inset 0 -2px transparent;
+    border-radius: 0;
+}
+
+#battery.charging, #battery.plugged {
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: inset 0 -2px #798c77;
+}
+
+@keyframes blink {
+    to {
+        background-color: transparent;
+	box-shadow: inset 0 -2px transparent;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: inset 0 -2px #f53c3c;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#cpu {
+    background-color: #798c77;
+    color: #333333;
+}
+
+#memory {
+    background-color: transparent;
+    color: #FFFFFF;
+}
+
+#disk {
+    background-color: #964B00;
+}
+
+#backlight {
+    background-color: #798c77;
+}
+
+#network {
+    background-color: transparent;
+    box-shadow: inset 0 -2px transparent;
+}
+
+#network:hover{
+    background-color: rgba(0,0,0,0.15);
+}
+
+#network.disconnected {
+    background-color: transparent;
+    box-shadow: inset 0 -2px #f53c3c;
+}
+
+#pulseaudio {
+    background-color: transparent;
+    box-shadow: inset 0 -2px transparent;
+}
+
+#pulseaudio:hover{
+    background-color: rgba(0,0,0,0.15);
+    /* box-shadow: inset 0 -2px #b8e3e2; */
+}
+
+#pulseaudio.muted {
+    background-color: transparent;
+    box-shadow: inset 0 -2px #f53c3c;
+}
+#temperature {
+    background-color: #f0932b;
+}
+
+#temperature.critical {
+    background-color: #eb4d4b;
+}
+
+#tray {
+    background-color: transparent;
+    box-shadow: inset 0 -2px transparent;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: inset 0 -2px #f53c3c;
+}
+
+#idle_inhibitor {
+    background-color: transparent;
+    box-shadow: inset 0 -2px transparent;
+}
+
+#idle_inhibitor:hover{
+    background-color: rgba(0,0,0,0.15);
+}
+
+#idle_inhibitor.activated {
+    background-color: rgba(0,0,0,0.3);
+    box-shadow: inset 0 -2px #798c77;
+}
+
+#mpd {
+    background-color: #66cc99;
+    color: #2a5c45;
+}
+
+#mpd.disconnected {
+    background-color: #f53c3c;
+}
+
+#mpd.stopped {
+    background-color: #90b1b1;
+}
+
+#mpd.paused {
+    background-color: #51a37a;
+}
+
+#language {
+    background: #00b093;
+    color: #740864;
+    padding: 0 5px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state {
+    background: transparent;
+    padding: 0 0px;
+    min-width: 16px;
+    box-shadow: inset 0 -2px transparent;
+}
+
+#keyboard-state > label {
+    padding: 0 5px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 -2px #798c77;
+}

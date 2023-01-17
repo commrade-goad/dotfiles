@@ -1,0 +1,5 @@
+configuration {
+ font: "MesloLGS Nerd Font 10";
+ }
+@theme "dark"
+
