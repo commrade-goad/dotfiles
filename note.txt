@@ -1,0 +1,23 @@
+[ DEPENDENCIES ]
+sway
+waybar
+swaylock
+swayidle
+rofi-lbonn-wayland
+swaybg
+dunst
+pavucontrol
+xdg-desktop-portal-wlr
+grim
+wl-clipboard
+wofi
+copyq
+alacritty
+playerctl
+brightnessctl
+pamixer
+autotiling
+slurp
+nvim
+nerd-fonts-meslo
+ttf-jetbrains-mono
