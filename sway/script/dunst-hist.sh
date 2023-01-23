@@ -13,7 +13,7 @@ done <<< "$(echo "$json" | jq -c '.data[][]')"
 user_input=$(printf '%s\n' "${appname_summary_pairs[@]}" | rofi -dmenu -window-title "  History ")
 pop_notif=$(echo $user_input | awk -F'[' '{print$NF}' | sed 's/\]//g')
 
-if [ $pop_notif > 0 ]
+if [ $pop_notif -gt 0 ]
 then
     dunstctl history-pop $pop_notif
 else
