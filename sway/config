@@ -90,6 +90,9 @@ output HDMI-A-1 resolution 1920x1080 position 1920,0
 
 # KEY BINDINGS
 
+    # Start notif history
+    bindsym Ctrl+Shift+h exec ~/.config/sway/script/dunst-hist.sh
+
     # Start file manager 
     bindsym $mod+Shift+t exec pcmanfm 
 
@@ -116,13 +119,13 @@ output HDMI-A-1 resolution 1920x1080 position 1920,0
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 ## Brightness key
-bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- && notify-send "[ ☾ ] $(( $(brightnessctl get)*100/255 ))%" -t 500 
-bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+ && notify-send "[ ☼ ] $(( $(brightnessctl get)*100/255 ))%" -t 500
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- && dunstify -h int:value:$(( $(brightnessctl get)*100/255 )) "[ ☾ ] $(( $(brightnessctl get)*100/255 ))%" -t 500 
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+ && dunstify -h int:value:$(( $(brightnessctl get)*100/255 )) "[ ☼ ] $(( $(brightnessctl get)*100/255 ))%" -t 500
 
 ## Volume Key
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "🔊 Mute/Unmute" -t 500
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && notify-send "[ 🔊 ] $(pamixer --get-volume)%" -t 500
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && notify-send "[ 🔊 ] $(pamixer --get-volume)%" -t 500
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && dunstify -h int:value:$(pamixer --get-volume) "[ 🔊 ] $(pamixer --get-volume)%" -t 500
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && dunstify -h int:value:$(pamixer --get-volume) "[ 🔊 ] $(pamixer --get-volume)%" -t 500
 
 ## Touchpad
 bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
