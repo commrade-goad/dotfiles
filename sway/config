@@ -5,7 +5,7 @@
 # CC      CC
 #  CCC    CC
 #   CCCCCCCGoad Sway Config file.
-# last edited: 2023-01-17
+# last edited: 2023-01-22 
 
 # VARIABLES
 set $mod Mod4
@@ -40,7 +40,7 @@ bindsym $mod+Shift+u exec ~/.config/sway/script/emoji.sh
 input * xkb_numlock enable
 
 # WALLPAPER
-output * bg ~/Pictures/Random/Wallpaper/snow-forest/1.jpg fill
+output * bg ~/Pictures/Random/koishi-wallpaper-waifu2x-ascii.png fill
 
 # HDMI DEFAULT SETTINGS
 output HDMI-A-1 resolution 1920x1080 position 1920,0
@@ -50,6 +50,7 @@ output HDMI-A-1 resolution 1920x1080 position 1920,0
 #output * adaptive_sync on
 
 ## If wine app has a problem
+#exec_always xrandr --output XWAYLAND0 --primary
 #exec_always xrandr --output $(xrandr | grep -m 1 XWAYLAND | awk '{print $1;}') --primary
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -115,13 +116,13 @@ output HDMI-A-1 resolution 1920x1080 position 1920,0
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 ## Brightness key
-bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- && notify-send "☾  $(brightnessctl get)%" -t 500 
-bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+ && notify-send "☼ $(brightnessctl get)%" -t 500
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- && notify-send "[ ☾ ] $(( $(brightnessctl get)*100/255 ))%" -t 500 
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+ && notify-send "[ ☼ ] $(( $(brightnessctl get)*100/255 ))%" -t 500
 
 ## Volume Key
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "🔊 Mute/Unmute" -t 500
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && notify-send "🔊 $(pamixer --get-volume)%" -t 500
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && notify-send "🔊 $(pamixer --get-volume)%" -t 500
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && notify-send "[ 🔊 ] $(pamixer --get-volume)%" -t 500
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && notify-send "[ 🔊 ] $(pamixer --get-volume)%" -t 500
 
 ## Touchpad
 bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
