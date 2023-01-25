@@ -6,7 +6,7 @@
 // CC      CC
 //  CCC    CC
 //   CCCCCCCGoad Waybar Config file.
-// last edited: 2023-01-17
+// last edited: 2023-01-24 
 
     // "layer": "top", // Waybar at top layer
     // "position": "bottom", // Waybar position (top|bottom|left|right)
@@ -188,5 +188,6 @@
     "restart-interval": 1,
     "exec": "~/.config/waybar/scripts/dunst.sh",
     "on-click": "dunstctl set-paused toggle",
+    "on-click-right": "~/.config/sway/script/notif-history",
     },
 }

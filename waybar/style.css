@@ -6,7 +6,7 @@
  CC      CC
   CCC    CC
    CCCCCCCGoad Waybar CSS file.
- last edited: 2023-01-23
+ last edited: 2023-01-24 
 */
 *{
     /* `otf-font-awesome` is required to be installed for icons */
@@ -81,6 +81,7 @@ window#waybar.chromium {
 
 #workspaces button.urgent {
     background-color: @red;
+    color: @base;
 }
 
 #mode {
