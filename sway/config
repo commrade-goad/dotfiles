@@ -8,7 +8,7 @@
 # last edited: 2023-02-16 
 
 # AMADEUS VID
-#exec mpv --no-border --no-osd-bar --no-osc --no-window-dragging --ontop --fullscreen --title=splash ~/.local/share/amadeus-splash.mp4
+#exec mpv --no-border --no-osd-bar --no-osc --no-window-dragging --ontop --fullscreen --title=splash ~/.local/share/assets/amadeus-splash.mp4
 exec "wl-gammactl -c 0.935 -b 0.998 -g 0.806"
 exec wl-mpris-idle-inhibit
 
@@ -33,7 +33,7 @@ exec copyq
 
 # LOCK SCREEN VAR
 set $screenlockbg /tmp/screenlockbg.png
-set $screenlock grim -s 1 $screenlockbg && convert $screenlockbg -blur 0x2.5 -shave 3 -bordercolor white -border 3 ~/Downloads/lock_vector_smaller_wshadow.png -gravity center -geometry +4+0 -composite $screenlockbg && swaylock -f -i $screenlockbg -s fill
+set $screenlock grim -s 1 $screenlockbg && convert $screenlockbg -blur 0x2.5 -shave 3 -bordercolor white -border 3 ~/.local/share/assets/lock_vector_smaller_wshadow.png -gravity center -geometry +4+0 -composite $screenlockbg && swaylock -f -i $screenlockbg -s fill
 
 # CLIPBOARD
 bindsym $mod+Shift+v exec copyq toggle
