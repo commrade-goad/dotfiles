@@ -5,7 +5,13 @@
 # CC      CC
 #  CCC    CC
 #   CCCCCCCGoad Sway Config file.
-# last edited: 2023-01-24 
+# last edited: 2023-02-16 
+
+# AMADEUS VID
+#exec mpv --no-border --no-osd-bar --no-osc --no-window-dragging --ontop --fullscreen --title=splash ~/.local/share/amadeus-splash.mp4
+exec "wl-gammactl -c 0.935 -b 0.998 -g 0.806"
+exec wl-mpris-idle-inhibit
+
 
 # VARIABLES
 set $mod Mod4
@@ -17,17 +23,17 @@ set $term alacritty
 set $menu rofi_path | rofi -show drun -show-icons | xargs swaymsg exec --
 
 # STARTUP
-exec ~/.config/sway/script/goad-rust-batt-reminder
+exec ~/.config/sway/script/goad-rust-batt-reminder-beta
 exec /usr/bin/autotiling
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-exec copyq
 ## set default terminal
 exec export TERM=alacritty
 exec export TERMINAL=alacritty
+exec copyq
 
 # LOCK SCREEN VAR
 set $screenlockbg /tmp/screenlockbg.png
-set $screenlock grim -s 0.1 $screenlockbg && swaylock -f -i $screenlockbg -s fill
+set $screenlock grim -s 1 $screenlockbg && convert $screenlockbg -blur 0x2.5 -shave 3 -bordercolor white -border 3 ~/Downloads/lock_vector_smaller_wshadow.png -gravity center -geometry +4+0 -composite $screenlockbg && swaylock -f -i $screenlockbg -s fill
 
 # CLIPBOARD
 bindsym $mod+Shift+v exec copyq toggle
@@ -46,6 +52,7 @@ output * bg ~/Pictures/Random/koishi-wallpaper-waifu2x-ascii.png fill
 output HDMI-A-1 resolution 1920x1080 position 1920,0
 
 # DISPLAY STUFF
+
 ## Turn on adaptive sync
 #output * adaptive_sync on
 
@@ -80,6 +87,9 @@ output HDMI-A-1 resolution 1920x1080 position 1920,0
 	accel_profile "flat"
    }
 
+## Set compose key
+input * xkb_options compose:rctrl
+
 ## Easier way to configure input device
 # input type:Mouse {
 # dwt enabled
@@ -94,7 +104,7 @@ output HDMI-A-1 resolution 1920x1080 position 1920,0
     bindsym Ctrl+Shift+h exec ~/.config/sway/script/notif-history
 
     # Start file manager 
-    bindsym $mod+Shift+t exec pcmanfm 
+    bindsym $mod+Shift+t exec nemo 
 
     # Start a terminal
     bindsym $mod+Return exec $term
@@ -119,16 +129,17 @@ output HDMI-A-1 resolution 1920x1080 position 1920,0
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 ## Brightness key
-bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- && dunstify --appname=sway -h int:value:$(( $(brightnessctl get)*100/255 )) "[ ☾ ] $(( $(brightnessctl get)*100/255 ))%" -t 500 
-bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+ && dunstify --appanme=sway -h int:value:$(( $(brightnessctl get)*100/255 )) "[ ☼ ] $(( $(brightnessctl get)*100/255 ))%" -t 500
+bindsym --locked XF86MonBrightnessDown exec ~/.config/sway/script/hotkey.py brightness down
+bindsym --locked XF86MonBrightnessUp exec ~/.config/sway/script/hotkey.py brightness up
 
 ## Volume Key
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "🔊 Mute/Unmute" -t 500
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && dunstify --appname=sway -h int:value:$(pamixer --get-volume) "[ 🔊 ] $(pamixer --get-volume)%" -t 500
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && dunstify --appname=sway -h int:value:$(pamixer --get-volume) "[ 🔊 ] $(pamixer --get-volume)%" -t 500
+bindsym XF86AudioMute exec ~/.config/sway/script/hotkey.py volume toggle 
+bindsym XF86AudioRaiseVolume exec ~/.config/sway/script/hotkey.py volume up
+bindsym XF86AudioLowerVolume exec ~/.config/sway/script/hotkey.py volume down
 
 ## Touchpad
-bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
+#bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
+bindsym Ctrl+F7 exec ~/.config/sway/script/hotkey.py touchpad toggle 
 
 ## Alt + Tab key
 bindsym Alt+Tab exec ~/.config/sway/script/task-switcher.py
@@ -157,9 +168,9 @@ mode $exit {
 bindsym --to-code $mod+Shift+x mode $exit
 
 ## Pause or play media
-bindsym $mod+Shift+p exec playerctl play-pause
+bindsym --locked $mod+Shift+p exec playerctl play-pause
 
-## stay on top window
+## stay on other workspace
 bindsym $mod+Shift+w sticky toggle
 
     # Move your focus around
@@ -352,7 +363,7 @@ include catppuccin-mocha
 client.focused           $blue        $base $text  $blue      $blue
 client.focused_inactive  $overlay1    $base $text  $overlay1  $overlay1
 client.unfocused         $overlay1    $base $text  $overlay1  $overlay1
-client.urgent            $red         $base $red   $overlay0  $red
+client.urgent            $red         $base $red   $red  $red
 client.placeholder       $overlay0    $base $text  $overlay0  $overlay0
 client.background        $base
 

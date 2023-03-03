@@ -31,6 +31,7 @@ return require('packer').startup(function(use)
 
   }
   use ('tpope/vim-fugitive')
+  -- use ('andweeb/presence.nvim')
   -- LSP
   use {
   'VonHeikemen/lsp-zero.nvim',

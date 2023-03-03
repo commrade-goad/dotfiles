@@ -5,7 +5,6 @@ lsp.preset('recommended')
 
 lsp.ensure_installed({
   'eslint',
-  'sumneko_lua',
 })
 
 lsp.nvim_workspace()

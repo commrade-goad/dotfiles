@@ -14,7 +14,8 @@
     // "width": 1280, // Waybar width
     "spacing": 0, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["custom/start", "sway/workspaces", "sway/mode", "custom/media"],
+    //custom/start and custom/separator
+    "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
     "modules-center": ["sway/window"],
     "modules-right": ["tray", "custom/dunst", "idle_inhibitor", "pulseaudio", "network", "keyboard-state", "battery","clock"],
     // Modules configuration
@@ -182,6 +183,13 @@
           "on-scroll-down": "playerctl previous",
           "exec": "$HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null",
      },
+"custom/weather": {
+    "format": "{}",
+    "tooltip": true,
+    "interval": 3600,
+    "exec": "$HOME/.config/waybar/scripts/waybar-wttr.py",
+    "return-type": "json"
+},
 "custom/dunst": {
     "return-type": "json",
     "format": "{}",
@@ -190,4 +198,11 @@
     "on-click": "dunstctl set-paused toggle",
     "on-click-right": "~/.config/sway/script/notif-history",
     },
+"custom/start":{
+        "format": "  ",
+        "on-click": "rofi -show drun",
+    },
+"custom/separator":{
+        "format": "|"
+    }
 }

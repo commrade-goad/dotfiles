@@ -1,25 +1,32 @@
 -- IMPORTS
 require('vars')         -- Variables
+require('plug')         -- Plugins: UNCOMMENT THIS LINE
 require('opts')         -- Options
 require('keys')         -- Keymaps
-require('plug')         -- Plugins: UNCOMMENT THIS LINE
 require('lspconf')
 -- require('lsptesting')
 -- require('coc')
+-- '=' is indent
 
 -- PLUGINS: Add this section
 require('nvim-tree').setup{
     sync_root_with_cwd = true
 }
+
 require('lualine').setup{
 	options = {
+        icons_enabled = true,
         theme = 'catppuccin',
-        disabled_filetypes = {'packer', 'NvimTree'}}
+        component_separators = { left = '|', right = '|'},
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = {'packer', 'NvimTree'}
+	},
 }
 require('catppuccin')
 require('nvim-autopairs').setup({
   disable_filetype = { "TelescopePrompt" , "vim" },
 })
+--require("presence"):setup()
 require('telescope').setup{
   defaults = {
     mappings = {
@@ -55,3 +62,22 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+-- SNIPPETS STUFF
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_snipmate").load({ path = { "~/.config/nvim/snippets" } })
+require("luasnip.loaders.from_snipmate").lazy_load()
+
+-- FIX NVIM_TREE
+local function open_nvim_tree(data)
+  -- buffer is a directory
+  local directory = vim.fn.isdirectory(data.file) == 1
+  if not directory then
+    return
+  end
+  -- change to the directory
+  vim.cmd.cd(data.file)
+  -- open the tree
+  require("nvim-tree.api").tree.open()
+end
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
