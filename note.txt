@@ -16,8 +16,11 @@ alacritty
 playerctl
 brightnessctl
 pamixer
-autotiling
 slurp
 nvim
 nerd-fonts-meslo
-ttf-jetbrains-mono
+ttf-jetbrains-mono-nerd
+qt5ct
+qt6ct
+nwg-look
+smartmontools

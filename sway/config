@@ -5,7 +5,7 @@
 # CC      CC
 #  CCC    CC
 #   CCCCCCCGoad Sway Config file.
-# last edited: 2023-02-16 
+# last edited: 2023-03-13
 
 # AMADEUS VID
 #exec mpv --no-border --no-osd-bar --no-osc --no-window-dragging --ontop --fullscreen --title=splash ~/.local/share/assets/amadeus-splash.mp4
@@ -24,12 +24,14 @@ set $menu rofi_path | rofi -show drun -show-icons | xargs swaymsg exec --
 
 # STARTUP
 exec ~/.config/sway/script/goad-rust-batt-reminder-beta
-exec /usr/bin/autotiling
+#exec /usr/bin/autotiling
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 ## set default terminal
 exec export TERM=alacritty
 exec export TERMINAL=alacritty
+exec export QT_QPA_PLATFORMTHEME=qt5ct
 exec copyq
+exec copyq config hide_main_window true
 
 # LOCK SCREEN VAR
 set $screenlockbg /tmp/screenlockbg.png
@@ -75,16 +77,16 @@ output HDMI-A-1 resolution 1920x1080 position 1920,0
    input <identifier> repeat_rate 30
 
    input "1739:52545:SYNA7DB5:01_06CB:CD41_Touchpad" {
-       dwt disable
-       tap enabled
-       natural_scroll enabled
-       middle_emulation enabled
-       pointer_accel 0.05
+        dwt disable
+        tap enabled
+        natural_scroll enabled
+        middle_emulation enabled
+        pointer_accel 0.05
    }
 
    input "10077:2982:USB_OPTICAL_MOUSE" {
-   	dwt enabled
-	accel_profile "flat"
+   	    dwt disable
+	    accel_profile "flat"
    }
 
 ## Set compose key
@@ -129,17 +131,17 @@ input * xkb_options compose:rctrl
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 ## Brightness key
-bindsym --locked XF86MonBrightnessDown exec ~/.config/sway/script/hotkey.py brightness down
-bindsym --locked XF86MonBrightnessUp exec ~/.config/sway/script/hotkey.py brightness up
+bindsym --locked XF86MonBrightnessDown exec ~/.config/sway/script/ruskey brightness down
+bindsym --locked XF86MonBrightnessUp exec ~/.config/sway/script/ruskey brightness up
 
 ## Volume Key
-bindsym XF86AudioMute exec ~/.config/sway/script/hotkey.py volume toggle 
-bindsym XF86AudioRaiseVolume exec ~/.config/sway/script/hotkey.py volume up
-bindsym XF86AudioLowerVolume exec ~/.config/sway/script/hotkey.py volume down
+bindsym XF86AudioMute exec ~/.config/sway/script/ruskey volume toggle 
+bindsym XF86AudioRaiseVolume exec ~/.config/sway/script/ruskey volume up
+bindsym XF86AudioLowerVolume exec ~/.config/sway/script/ruskey volume down
 
 ## Touchpad
 #bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
-bindsym Ctrl+F7 exec ~/.config/sway/script/hotkey.py touchpad toggle 
+#bindsym Ctrl+F7 exec python ~/.config/sway/script/hotkey.pyc touchpad toggle 
 
 ## Alt + Tab key
 bindsym Alt+Tab exec ~/.config/sway/script/task-switcher.py
@@ -360,11 +362,14 @@ include catppuccin-mocha
 # target                 title     bg    text   indicator  border
 
 ## Current theme
-client.focused           $blue        $base $text  $blue      $blue
-client.focused_inactive  $overlay1    $base $text  $overlay1  $overlay1
-client.unfocused         $overlay1    $base $text  $overlay1  $overlay1
-client.urgent            $red         $base $red   $red  $red
-client.placeholder       $overlay0    $base $text  $overlay0  $overlay0
+client.focused           $blue        $base $text       $blue       $blue
+client.focused_inactive  $overlay1    $base $overlay1   $overlay1   $overlay1
+client.unfocused         $overlay1    $base $overlay1   $overlay1   $overlay1
+client.urgent            $red         $base $red        $red        $red
+client.placeholder       $overlay0    $base $text       $overlay0   $overlay0
 client.background        $base
+
+## Font
+font pango:JetBrainsMono Nerd Font Mono Bold 10
 
 include /etc/sway/config.d/*

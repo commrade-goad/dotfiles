@@ -7,7 +7,7 @@ opt.syntax = "ON"
 opt.termguicolors = true
 opt.number = true
 opt.rnu = true
-cmd('colorscheme catppuccin')
+cmd('colorscheme catppuccin-mocha')
 cmd('filetype plugin on')
 --o.clipboard = 'unnamedplus'
 o.showmode = false
@@ -26,7 +26,7 @@ opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
-opt.wrap = false
+opt.wrap = true
 opt.hlsearch = false
 opt.incsearch =true
 opt.scrolloff = 8
