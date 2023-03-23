@@ -5,7 +5,7 @@
 # CC      CC
 #  CCC    CC
 #   CCCCCCCGoad Sway Config file.
-# last edited: 2023-03-13
+# last edited: 2023-03-19
 
 # AMADEUS VID
 #exec mpv --no-border --no-osd-bar --no-osc --no-window-dragging --ontop --fullscreen --title=splash ~/.local/share/assets/amadeus-splash.mp4
@@ -106,7 +106,7 @@ input * xkb_options compose:rctrl
     bindsym Ctrl+Shift+h exec ~/.config/sway/script/notif-history
 
     # Start file manager 
-    bindsym $mod+Shift+t exec nemo 
+    bindsym $mod+Shift+t exec thunar 
 
     # Start a terminal
     bindsym $mod+Return exec $term
@@ -135,9 +135,14 @@ bindsym --locked XF86MonBrightnessDown exec ~/.config/sway/script/ruskey brightn
 bindsym --locked XF86MonBrightnessUp exec ~/.config/sway/script/ruskey brightness up
 
 ## Volume Key
-bindsym XF86AudioMute exec ~/.config/sway/script/ruskey volume toggle 
-bindsym XF86AudioRaiseVolume exec ~/.config/sway/script/ruskey volume up
-bindsym XF86AudioLowerVolume exec ~/.config/sway/script/ruskey volume down
+bindsym --locked XF86AudioMute exec ~/.config/sway/script/ruskey volume toggle 
+bindsym --locked XF86AudioRaiseVolume exec ~/.config/sway/script/ruskey volume up
+bindsym --locked XF86AudioLowerVolume exec ~/.config/sway/script/ruskey volume down
+
+## Some Media keys
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
 
 ## Touchpad
 #bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
@@ -147,7 +152,7 @@ bindsym XF86AudioLowerVolume exec ~/.config/sway/script/ruskey volume down
 bindsym Alt+Tab exec ~/.config/sway/script/task-switcher.py
 
 ## Master Options
-bindsym $mod+x exec ~/.config/sway/script/master-menu.sh
+bindsym $mod+x exec ~/.config/sway/script/cusprus
 
 ## Legacy master options
 set $exit "[s]leep,[p]oweroff,[r]eboot,[l]ogout,l[o]ck,[1]FHD,[2]HD"
@@ -297,17 +302,17 @@ for_window [class="qBittorrent" window_role="pop-up"] floating enable
 for_window [class="mtp-ng-qt" window_role="Open"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
-for_window [class=".*.exe"] floating enable; max_render_time off
-for_window [app_id="pavucontrol"] sticky enable; floating enable
-for_window [class="Steam"] floating enable; max_render_time off
+for_window [class=".*.exe"] floating enable, max_render_time off
+for_window [app_id="pavucontrol"] sticky enable, floating enable
+for_window [class="Steam"] floating enable, max_render_time off
 for_window [class="firefox"] max_render_time off
 for_window [app_id="firefox"] max_render_time off
 for_window [title=".*Winetricks"] floating enable
-for_window [app_id="firefox" title="^Picture-in-Picture$"] floating enable; sticky enable
-for_window [app_id="mpv"] inhibit_idle visible; max_render_time off; floating enable
+for_window [app_id="firefox" title="^Picture-in-Picture$"] floating enable, sticky enable
+for_window [app_id="mpv"] inhibit_idle visible, max_render_time off, floating enable
 for_window [title=".*QjackCtl"] floating enable
 for_window [class="Minecraft Launcher"] floating enable
-for_window [class="Minecraft"] floating enable; max_render_time off
+for_window [class="Minecraft"] floating enable, max_render_time off
 for_window [app_id="minecraft-launcher"] floating enable
 for_window [app_id="copyq"] floating enable
 for_window [title="Firefox.*Sharing Indicator"] floating enable, move position 1600 0, border none, nofocus
@@ -319,6 +324,7 @@ for_window [app_id="telegramdesktop" title="Telegram"] floating disable
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable
 for_window [title="Choose Files"] floating enable
 for_window [app_id="org.gnome.Nautilus"] border none 
+for_window [app_id="org.gnome.Calculator"] border none, floating enable
 
 # SCREENSHOT
 
@@ -333,7 +339,9 @@ bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 # Allow switching between workspaces with left and right swipes
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
-bindgesture swipe:up exec $HOME/.config/sway/script/task-switcher.py 
+bindgesture swipe:4:up exec $HOME/.config/sway/script/task-switcher.py 
+bindgesture swipe:3:up scratchpad show
+bindgesture swipe:3:down move scratchpad
 
 bar {
     swaybar_command waybar

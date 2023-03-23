@@ -60,6 +60,8 @@
     # Set the maximum width for the progress bar
     progress_bar_max_width = 300
 
+    progress_bar_corner_radius = 2
+    highlight = "#89b4fa"
 
     # Show how many messages are currently hidden (because of
     # notification_limit).
@@ -405,10 +407,12 @@
 #    summary = "foobar"
 #    skip_display = true
 
-#[history-ignore]
+[history-ignore]
 #    # This notification will not be saved in history
 #    summary = "foobar"
 #    history_ignore = yes
+    #appaname="sway"
+    #history_ignore = yes
 
 #[skip-display]
 #    # This notification will not be displayed, but will be included in the history
