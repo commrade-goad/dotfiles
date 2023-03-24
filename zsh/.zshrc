@@ -15,7 +15,6 @@ ZSH_THEME="cg"
 export EDITOR='nvim'
 $HOME/Documents/Programming/shell/default.sh
 
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -103,21 +102,15 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="exa -l --all --icons --header --git --group-directories-first"
 alias restart-plasma="kquitapp5 plasmashell && kstart5 plasmashell"
-#alias restart-plasma-f="kquitapp5 plasmashell || killall plasmashell && kstart5 plasmashell"
-#alias sch-zoom="firefox 'https://us02web.zoom.us/my/kelasxismakstagnes?pwd=b0lYRVpyemx2QlJZR0E4ci96Wnd0dz09'"
-alias sch-zoom="xdg-open 'https://us06web.zoom.us/j/87416985509?pwd=Rkk5UElPenVKMXVFNFNxZzFJckpGQT09'"
 alias clean-orphan="sudo pacman -Qtdq | sudo pacman -Rns -"
 alias clean-orphan-all="sudo pacman -Qttdq | sudo pacman -Rns -"
 alias yt-dl="python3 '$HOME/git/goad-yt-dlp-helper/yt-dlp-helper.pyc'"
 alias weather="curl wttr.in"
 alias calendar="cal -3"
-#alias osis-disc="echo 'https://discord.gg/qTg84cHDR4'"
-alias osu="echo 'lib32-libxcomposite lib32-gnutls(lib32-gmp lib32-nettle lib32-gnutls)' && gamemoderun wine '$HOME/.wine/drive_c/users/fernando/AppData/Local/osu!/osu!.exe'"
-alias osu-nogamemode="wine '$HOME/.wine/drive_c/users/fernando/AppData/Local/osu!/osu!.exe'"
+alias osu="echo 'lib32-libxcomposite lib32-gnutls(lib32-gmp lib32-nettle lib32-gnutls)' && gamemoderun wine '$HOME/.wine/drive_c/users/$USER/AppData/Local/osu!/osu!.exe'"
+alias osu-nogamemode="wine '$HOME/.wine/drive_c/users/$USER/AppData/Local/osu!/osu!.exe'"
 #alias fate="wine '/media/Fate stay night Realta Nua/game/Fate.exe'"
 #alias tsuki="cd /media/Tsukihime/Tsukihime && wine tsukihime.exe"
 #alias nbfc-stat="mono /opt/nbfc/nbfc.exe status --all"
@@ -138,8 +131,7 @@ alias update="yay -Syu"
 alias binom-calc="~/git/rust-binom-calc/target/release/rust-binom-calc"
 alias open="xdg-open"
 alias user-mount="udisksctl"
-#alias mount-tools="~/Documents/Programming/shell/mount-tools"
+alias color-correct="swaymsg exec \"wl-gammactl -c 0.935 -b 0.998 -g 0.806\""
 #alias echo="printf"
 #env XDG_CURRENT_DESKTOP=sway sway
-#alias setres="$HOME/Documents/Programming/shell/display.sh"
 #alias cp="rsync -ah --info=progress2"
