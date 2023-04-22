@@ -24,7 +24,7 @@ window {
     border: 2px;
     border-color: @blue;
     background-color: @bg-col;
-    border-radius: 0;
+    border-radius: 6;
 }
 
 mainbox {
@@ -42,7 +42,7 @@ prompt {
     background-color: @blue;
     padding: 6px;
     text-color: @bg-col;
-    border-radius: 0px;
+    border-radius: 3px;
     margin: 20px 0px 0px 20px;
 }
 

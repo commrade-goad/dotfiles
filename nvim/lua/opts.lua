@@ -29,9 +29,21 @@ opt.smartindent = true
 opt.wrap = true
 opt.hlsearch = false
 opt.incsearch =true
-opt.scrolloff = 8
-opt.updatetime = 750
+opt.scrolloff = 4
+opt.updatetime = 50
+opt.swapfile = false
+vim.lsp.set_log_level("off")
+
+-- NETRW STUFF
+vim.g.netrw_liststyle = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_sizestyle= "h"
+vim.g.netrw_winsize = 25
+vim.g.netrw_localcopydircmd = "cp -r"
+vim.g.netrw_keepdir = 0
+-- SHIFT+I > show banner
+-- i > change view
 
 -- COLOR STUFF
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})

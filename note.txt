@@ -24,3 +24,6 @@ qt5ct
 qt6ct
 nwg-look
 smartmontools
+hyprpaper
+hyprland
+xdg-desktop-portal-hyprland

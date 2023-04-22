@@ -1,13 +1,14 @@
 -- [[ plug.lua ]]
 return require('packer').startup(function(use)
   -- [[ Plugins Go Here ]]
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons'
-  }
-  use {
-	'nvim-lualine/lualine.nvim'
-  }
+  -- use {
+  --   'kyazdani42/nvim-tree.lua',
+  --   requires = 'kyazdani42/nvim-web-devicons'
+  -- }
+  use {'prichrd/netrw.nvim',
+       requires = 'kyazdani42/nvim-web-devicons'}
+
+  use ('nvim-lualine/lualine.nvim')
   use {
 	'catppuccin/nvim', as = 'catppuccin'
   }
@@ -22,16 +23,17 @@ return require('packer').startup(function(use)
 	'windwp/nvim-autopairs',
 	config = function() require("nvim-autopairs").setup {} end,
   }
+  -- use {
+  --   'jghauser/follow-md-links.nvim'
+  -- }
   use {
   	'nvim-telescope/telescope.nvim', tag = '0.1.x',
   	requires = {'nvim-lua/plenary.nvim'}
 }
-  use {
-	'ap/vim-css-color'
-
-  }
+  use ('ap/vim-css-color')
   use ('tpope/vim-fugitive')
-  -- use ('andweeb/presence.nvim')
+  use ('numToStr/Comment.nvim')
+  use ('andweeb/presence.nvim')
   -- LSP
   use {
   'VonHeikemen/lsp-zero.nvim',

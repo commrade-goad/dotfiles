@@ -9,10 +9,10 @@ require('lspconf')
 -- '=' is indent
 
 -- PLUGINS: Add this section
-require('nvim-tree').setup{
-    sync_root_with_cwd = true
-}
-
+--require('nvim-tree').setup{
+--    sync_root_with_cwd = true
+--}
+require'netrw'.setup()
 require('lualine').setup{
 	options = {
         icons_enabled = true,
@@ -23,10 +23,11 @@ require('lualine').setup{
 	},
 }
 require('catppuccin')
+require('Comment').setup()
 require('nvim-autopairs').setup({
   disable_filetype = { "TelescopePrompt" , "vim" },
 })
---require("presence"):setup()
+require("presence"):setup()
 require('telescope').setup{
   defaults = {
     mappings = {
@@ -40,6 +41,7 @@ require('telescope').setup{
   extensions = {
   }
 }
+
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = { "c", "lua", "rust", "python" },
@@ -69,15 +71,15 @@ require("luasnip.loaders.from_snipmate").load({ path = { "~/.config/nvim/snippet
 require("luasnip.loaders.from_snipmate").lazy_load()
 
 -- FIX NVIM_TREE
-local function open_nvim_tree(data)
-  -- buffer is a directory
-  local directory = vim.fn.isdirectory(data.file) == 1
-  if not directory then
-    return
-  end
-  -- change to the directory
-  vim.cmd.cd(data.file)
-  -- open the tree
-  require("nvim-tree.api").tree.open()
-end
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+-- local function open_nvim_tree(data)
+--   -- buffer is a directory
+--   local directory = vim.fn.isdirectory(data.file) == 1
+--   if not directory then
+--     return
+--   end
+--   -- change to the directory
+--   vim.cmd.cd(data.file)
+--   -- open the tree
+--   require("nvim-tree.api").tree.open()
+-- end
+-- vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })

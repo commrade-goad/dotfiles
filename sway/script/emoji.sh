@@ -1,11 +1,15 @@
 #!/bin/bash
-wtype 0
-if [ $? -eq 0 ]
-then
-    sed '1,/^### DATA ###$/d' $0 | wofi --show dmenu -i | cut -d ' ' -f 1 | tr -d '\n' | wtype -
-else
-    sed '1,/^### DATA ###$/d' $0 | wofi --show dmenu -i | cut -d ' ' -f 1 | tr -d '\n' | wl-copy
-fi
+# wtype 0
+# if [ $? -eq 0 ]
+# then
+#     sed '1,/^### DATA ###$/d' $0 | rofi -dmenu -window-title ' 🙂 Emoji ' -i | cut -d ' ' -f 1 | tr -d '\n' | wtype -
+# else
+#     sed '1,/^### DATA ###$/d' $0 | rofi -dmenu -window-title ' 🙂 Emoji ' -i | cut -d ' ' -f 1 | tr -d '\n' | wl-copy
+# fi
+
+USER_CHOICE=$(sed '1,/^### DATA ###$/d' $0 | rofi -dmenu -window-title ' 🙂 Emoji ' -i | cut -d ' ' -f 1 | tr -d '\n')
+wtype $USER_CHOICE
+wl-copy $USER_CHOICE
 exit
 ### DATA ###
 😀 grinning face face smile happy joy :D grin

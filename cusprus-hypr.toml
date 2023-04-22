@@ -1,0 +1,3 @@
+prompt_name = "  Master "
+pretty_name = ["⏻ Shutdown", " Reboot", "Z Suspend", " Logout", " Lock"]
+command = ["systemctl poweroff", "systemctl reboot",  "systemctl suspend", "hyprctl dispatch exit",  "~/.config/hypr/scripts/lock.sh"]

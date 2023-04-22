@@ -25,6 +25,13 @@ lsp.set_preferences({
   }
 })
 
+lsp.setup_nvim_cmp({
+  preselect = 'none',
+  completion = {
+    completeopt = 'menu,menuone,noinsert,noselect'
+  },
+})
+
 lsp.setup()
 vim.diagnostic.config({
   virtual_text = true,
@@ -34,4 +41,5 @@ vim.diagnostic.config({
   severity_sort = true,
   float = true,
 })
+
 --vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
