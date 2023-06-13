@@ -67,6 +67,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
+  # opacity: 0.96
   opacity: 1
 
   # Startup Mode (changes require restart)
@@ -117,9 +118,9 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    #family: 'MesloLGS Nerd Font Mono'
-    #family: 'Comic Mono'
-    family: 'JetBrainsMono Nerd Font Mono'
+    # family: 'MesloLGS Nerd Font Mono'
+    # family: 'Comic Mono'
+    family: 'JetBrainsMonoNL Nerd Font Mono'
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -926,8 +927,9 @@ cursor:
 
 # THEME
 import:
-  # uncomment the flavour you want below:
-  - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
-#  - ~/.config/alacritty/catppuccin/catppuccin-macchiato.yml
-#  - ~/.config/alacritty/catppuccin/catppuccin-frappe.yml
-#  - ~/.config/alacritty/catppuccin/catppuccin-latte.yml
+# - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
+# - ~/.config/alacritty/catppuccin/catppuccin-macchiato.yml
+# - ~/.config/alacritty/catppuccin/catppuccin-frappe.yml
+# - ~/.config/alacritty/catppuccin/catppuccin-latte.yml
+# - ~/.config/alacritty/gruvbox-material.yml
+ - ~/.config/alacritty/active.yml

@@ -2,16 +2,20 @@
 return require('packer').startup(function(use)
   -- [[ Plugins Go Here ]]
   -- use {
-  --   'kyazdani42/nvim-tree.lua',
-  --   requires = 'kyazdani42/nvim-web-devicons'
-  -- }
-  use {'prichrd/netrw.nvim',
-       requires = 'kyazdani42/nvim-web-devicons'}
-
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --     branch = "v2.x",
+  --     requires = {
+  --       "nvim-lua/plenary.nvim",
+  --       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+  --       "MunifTanjim/nui.nvim",
+  --     }
+  --   }
+  use ('nvim-tree/nvim-web-devicons')
   use ('nvim-lualine/lualine.nvim')
   use {
 	'catppuccin/nvim', as = 'catppuccin'
   }
+  use ('sainnhe/gruvbox-material')
   use {
 	'nvim-treesitter/nvim-treesitter',
 	run = function()
@@ -19,6 +23,11 @@ return require('packer').startup(function(use)
             	ts_update()
         end,
   }
+  -- use {
+  --     'akinsho/bufferline.nvim',
+  --     tag = "*",
+  --     requires = 'nvim-tree/nvim-web-devicons'
+  -- }
   use {
 	'windwp/nvim-autopairs',
 	config = function() require("nvim-autopairs").setup {} end,
@@ -34,6 +43,11 @@ return require('packer').startup(function(use)
   use ('tpope/vim-fugitive')
   use ('numToStr/Comment.nvim')
   use ('andweeb/presence.nvim')
+  -- DASHBOARD
+  use {
+      'goolord/alpha-nvim',
+      config = (require 'welcome')
+  }
   -- LSP
   use {
   'VonHeikemen/lsp-zero.nvim',
@@ -54,8 +68,8 @@ return require('packer').startup(function(use)
     -- Snippets
     {'L3MON4D3/LuaSnip'},
     {'rafamadriz/friendly-snippets'},
+    }
   }
-}
 end,
 {
   config = {

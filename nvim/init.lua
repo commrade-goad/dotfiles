@@ -1,27 +1,53 @@
 -- IMPORTS
 require('vars')         -- Variables
-require('plug')         -- Plugins: UNCOMMENT THIS LINE
+require('plug')         -- Plugins
 require('opts')         -- Options
 require('keys')         -- Keymaps
 require('lspconf')
--- require('lsptesting')
--- require('coc')
--- '=' is indent
 
--- PLUGINS: Add this section
+-- PLUGINS: 
 --require('nvim-tree').setup{
 --    sync_root_with_cwd = true
 --}
-require'netrw'.setup()
 require('lualine').setup{
 	options = {
         icons_enabled = true,
-        theme = 'catppuccin',
+        theme = "catppuccin",
         component_separators = { left = '|', right = '|'},
         section_separators = { left = '', right = ''},
-        disabled_filetypes = {'packer', 'NvimTree'}
-	},
+        disabled_filetypes = {'packer', 'NvimTree', 'alpha'},
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = false,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+        }
+    },
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        -- lualine_c = {'filename', 'buffers'},
+        lualine_c = {'buffers'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
 }
+-- require("bufferline").setup{}
 require('catppuccin')
 require('Comment').setup()
 require('nvim-autopairs').setup({
@@ -54,14 +80,17 @@ require'nvim-treesitter.configs'.setup {
     -- `false` will disable the whole extension
     enable = true,
     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-    disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
-    end,
+    -- disable = function(lang, buf)
+    --     local max_filesize = 100 * 1024 -- 100 KB
+    --     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+    --     if ok and stats and stats.size > max_filesize then
+    --         return true
+    --     end
+    -- end,
     additional_vim_regex_highlighting = false,
+    indent = {
+        enable = true
+    }
   },
 }
 
@@ -69,17 +98,3 @@ require'nvim-treesitter.configs'.setup {
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_snipmate").load({ path = { "~/.config/nvim/snippets" } })
 require("luasnip.loaders.from_snipmate").lazy_load()
-
--- FIX NVIM_TREE
--- local function open_nvim_tree(data)
---   -- buffer is a directory
---   local directory = vim.fn.isdirectory(data.file) == 1
---   if not directory then
---     return
---   end
---   -- change to the directory
---   vim.cmd.cd(data.file)
---   -- open the tree
---   require("nvim-tree.api").tree.open()
--- end
--- vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })

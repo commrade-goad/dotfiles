@@ -37,15 +37,17 @@ tooltip {
 }
 
 #workspaces button.urgent {
-    color: #11111b;
-    background: #a6e3a1;
-    border-radius: 10px;
+    /* color: #11111b; */
+    color: #a6e3a1;
+    box-shadow: inset 0 -2px #a6e3a1;
+    /* border-radius: 0px 0px 0px 2px; */
 }
 
 #workspaces button:hover {
     background: #11111b;
     color: #cdd6f4;
-    border-radius: 10px;
+    /* border-radius: 10px; */
+    /* border-radius: 0px 0px 0px 2px; */
 }
 
 #custom-language,
@@ -64,7 +66,7 @@ tooltip {
     padding: 0px 10px;
     margin: 3px 0px;
     margin-top: 10px;
-    border: 1px solid #181825;
+    /* border: 1px solid #181825; */
 }
 
 #tray {
@@ -87,11 +89,24 @@ tooltip {
     margin-left: 10px;
 }
 #custom-media {
-    color: #ffffff;
-    border-radius: 10px 0px 0px 10px;
+    color: #f9e2af;
+    border-radius: 0px 10px 10px 0px;
     margin-top: 10;
-    background-color: transparent;
+    background-color: #1e1e2e;
+    margin-bottom: 3;
+    padding-right: 10px;
 }
+
+#custom-media.custom-mpv {
+    color: #cba6f7;
+}
+
+#custom-separator {
+    background-color: #1e1e2e;
+    margin-top: 10;
+    margin-bottom: 3;
+}
+
 #idle_inhibitor {
     background-color: #1e1e2e;
     color: #cba6f7;
@@ -99,6 +114,11 @@ tooltip {
     margin-top: 10px;
     padding-left: 10px;
     padding-right: 5px;
+    margin-bottom: 3;
+}
+
+#idle_inhibitor.activated{
+    color:  #eba0ac;
 }
 
 #keyboard-state {
@@ -108,6 +128,7 @@ tooltip {
     margin-top: 10px;
     padding-left: 10px;
     padding-right: 5px;
+    margin-bottom: 3;
 }
 #keyboard-state > label {
     padding: 3px;
@@ -117,10 +138,18 @@ tooltip {
     margin-left: 2px;
 }
 
+/* #keyboard-state > label.numlock.locked{ */
+/*     box-shadow: inset 0 -1px #f9e2af; */
+/* } */
+
 #keyboard-state > label.capslock{
     color: #f38ba8;
     margin-right: 2px;
 }
+
+/* #keyboard-state > label.capslock.locked{ */
+/*     box-shadow: inset 0 -1px #f38ba8; */
+/* } */
 
 #custom-dunst {
     background-color: #1e1e2e;
@@ -129,6 +158,11 @@ tooltip {
     margin-top: 10px;
     padding-left: 10px;
     padding-right: 5px;
+    margin-bottom: 3;
+}
+
+#custom-dunst.disabled{
+    color: #f5c2e7;
 }
 
 #custom-language {
@@ -146,13 +180,13 @@ tooltip {
 
 #window {
     border-radius: 10px;
-    margin-left: 60px;
-    margin-right: 60px;
+    margin-left: 10px;
+    margin-right: 5px;
 }
 
 #clock {
     color: #fab387;
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 0px 0px 10px;
     margin-left: 5px;
     border-right: 0px;
 }
@@ -161,7 +195,8 @@ tooltip {
     color: #f9e2af;
     border-left: 0px;
     border-right: 0px;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 0px 0px 0px 0px;
+    padding-left: 5;
 }
 
 #pulseaudio {
@@ -175,14 +210,14 @@ tooltip {
     border-radius: 0px 10px 10px 0px;
     border-left: 0px;
     border-right: 0px;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 #battery {
     color: #a6e3a1;
-    border-radius: 0 10px 10px 0;
-    margin-right: 10px;
+    border-radius: 0 0px 0px 0;
     border-left: 0px;
+    padding-right: 10;
 }
 
 #custom-weather {

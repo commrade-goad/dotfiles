@@ -42,4 +42,8 @@ vim.diagnostic.config({
   float = true,
 })
 
+local lspconfig = require('lspconfig')
+lspconfig.clangd.setup{
+    cmd = {"clangd", "--compile-commands-dir=compiledb/"}
+}
 --vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
