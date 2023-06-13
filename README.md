@@ -6,3 +6,5 @@ all of the binary file in ``sway/script`` or ``waybar/scripts`` folder source co
   - [cusprus](https://github.com/commrade-goad/cusprus)
   - [dunst-notif-history](https://github.com/commrade-goad/dunst-notif-history)
   - [ruskey](https://github.com/commrade-goad/ruskey)
+  - [batt-watchdog](https://github.com/commrade-goad/batt-watchdog)
+  - [media-master](https://github.com/commrade-goad/media-master)
