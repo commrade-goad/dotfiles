@@ -42,8 +42,21 @@ vim.diagnostic.config({
   float = true,
 })
 
-local lspconfig = require('lspconfig')
-lspconfig.clangd.setup{
-    cmd = {"clangd", "--compile-commands-dir=compiledb/"}
-}
+local cmp = require('cmp')
+
+cmp.setup({
+    mapping = {
+        ['<CR>'] = cmp.mapping.confirm({select = false}),
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    }
+})
+
+-- local lspconfig = require('lspconfig')
+-- lspconfig.clangd.setup{
+--     cmd = {"clangd", "--compile-commands-dir=compiledb/", "--background-index", "--clang-tidy"},
+-- }
+
 --vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]

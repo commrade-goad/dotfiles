@@ -106,7 +106,7 @@ local amadeus = {
 }
 
 -- Set header
-dashboard.section.header.val = kosh
+dashboard.section.header.val = amadeus
 
 -- math.randomseed(os.time())
 -- local function pick_color()
@@ -126,8 +126,9 @@ dashboard.section.buttons.val = {
     dashboard.button( "f", "󰈞  > Find file", ":Telescope find_files hidden=true<CR>"),
     -- dashboard.button( "f", "  > Open file", ":e "),
     dashboard.button( "r", "  > Recent"   , ":Telescope oldfiles<CR>"),
-    dashboard.button( "s", "  > Settings" , ":cd ~/.config/nvim | :e .<CR>"),
-    dashboard.button( "q", "󰗼  > Quit NVIM", ":qa<CR>"),
+    -- dashboard.button( "s", "  > Settings" , ":cd ~/.config/nvim | :e .<CR>"),
+    dashboard.button( "s", "  > Settings" , ":cd ~/.config/nvim | :Telescope find_files<CR>"),
+    dashboard.button( "q", "󰗼  > Quit", ":qa<CR>"),
 }
 
 -- Set footer

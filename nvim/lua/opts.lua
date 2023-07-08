@@ -3,12 +3,16 @@ local opt = vim.opt
 local cmd = vim.api.nvim_command
 local o = vim.o
 
+local g = vim.g
+g.t_co = 256
+g.background = "dark"
+
 opt.syntax = "ON"
 opt.termguicolors = true
 opt.number = true
 opt.rnu = true
 opt.timeoutlen = 500
-cmd('colorscheme catppuccin-mocha')
+cmd('colorscheme gruvbox-material')
 cmd('filetype plugin on')
 --o.clipboard = 'unnamedplus'
 o.showmode = false
@@ -41,6 +45,7 @@ vim.g.netrw_banner = 0
 vim.g.netrw_sizestyle= "h"
 vim.g.netrw_winsize = 25
 vim.g.netrw_localcopydircmd = "cp -r"
+vim.g.netrw_localrmdir = "rm -r"
 vim.g.netrw_keepdir = 1
 -- SHIFT+I > show banner
 -- i > change view
