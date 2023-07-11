@@ -43,6 +43,16 @@ vim.diagnostic.config({
 })
 
 local cmp = require('cmp')
+local completion = {
+    {name = 'nvim_lsp'},
+    {name = 'luasnip'},
+    {name = 'async_path'},
+    {name = 'calc'},
+    {name = 'nvim_lua'},
+    {name = 'orgmode'},
+    {name = 'buffer'},
+}
+-- all source here : https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources
 
 cmp.setup({
     mapping = {
@@ -51,12 +61,17 @@ cmp.setup({
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
-    }
+    },
+    sources = completion,
 })
 
+-- CUSTOM COMMAND = BAD
 -- local lspconfig = require('lspconfig')
 -- lspconfig.clangd.setup{
 --     cmd = {"clangd", "--compile-commands-dir=compiledb/", "--background-index", "--clang-tidy"},
 -- }
 
---vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+-- SNIPPETS STUFF
+-- require('luasnip.loaders.from_vscode').lazy_load()
+-- require('luasnip.loaders.from_snipmate').load({ path = { '~/.config/nvim/snippets' } })
+-- require('luasnip.loaders.from_snipmate').lazy_load()

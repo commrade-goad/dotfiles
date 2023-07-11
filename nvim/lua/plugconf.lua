@@ -49,14 +49,14 @@ require('telescope').setup()
 -- require('command-completion').setup()
 
 require'nvim-treesitter.configs'.setup {
-    -- A list of parser names, or "all"
     ensure_installed = {"c", "cpp", "rust", "python", "lua"},
     sync_install = false,
 
     auto_install = true,
     highlight = {
         enable = true,
-        additional_vim_regex_highlighting = false,
+        -- additional_vim_regex_highlighting = false,
+        additional_vim_regex_highlighting = {'org'},
     },
     incremental_selection = {
         disable = {},
@@ -74,7 +74,11 @@ require'nvim-treesitter.configs'.setup {
     }
 }
 
--- SNIPPETS STUFF
--- require('luasnip.loaders.from_vscode').lazy_load()
--- require('luasnip.loaders.from_snipmate').load({ path = { '~/.config/nvim/snippets' } })
--- require('luasnip.loaders.from_snipmate').lazy_load()
+require('orgmode').setup_ts_grammar()
+require('orgmode').setup()
+
+require'nvim-lastplace'.setup {
+    lastplace_ignore_buftype = {"quickfix", "nofile", "help", "alpha"},
+    lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
+    lastplace_open_folds = true
+}

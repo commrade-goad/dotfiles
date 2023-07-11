@@ -34,7 +34,12 @@ function M.input_compile_command()
     if GLOBAL_compile_command == nil then
         GLOBAL_compile_command = ""
     end
-    local compile_command = vim.fn.input("Enter Compile command : ", GLOBAL_compile_command)
+    local compile_command = vim.fn.input({
+        prompt = "Enter Compile command : ",
+        default = GLOBAL_compile_command,
+        completion = "shellcmd",
+        wildchar = vim.api.nvim_replace_termcodes("<Tab>", true, false, true),
+    })
     if compile_command ~= "" then
         GLOBAL_compile_command = compile_command
     end
@@ -84,5 +89,34 @@ if Nvim_cc_auto_sync == true then
 local command = "autocmd BufEnter * lua require('nvim-cc').sync_directory_to_buffer()"
 vim.cmd(command)
 end
+
+-- RUN COMMAND
+
+function M.input_run_command()
+    if GLOBAL_run_command == nil then
+        GLOBAL_run_command = ""
+    end
+    local compile_command = vim.fn.input({
+        prompt = "Enter Run command : ",
+        default = GLOBAL_run_command,
+        completion = "shellcmd",
+        wildchar = vim.api.nvim_replace_termcodes("<Tab>", true, false, true),
+    })
+    if compile_command ~= "" then
+        GLOBAL_run_command = compile_command
+    end
+end
+
+function M.run_run_command()
+    if GLOBAL_run_command == "" or GLOBAL_run_command == nil then
+        print("There is no run command specified!")
+        return
+    end
+    local cmd = "split | terminal echo \"> " .. GLOBAL_run_command .. "\" && " .. GLOBAL_run_command
+    vim.cmd(cmd)
+    vim.cmd("startinsert")
+end
+
+-- END MODULE
 
 return M

@@ -34,6 +34,11 @@ vim.keymap.set("n", "<leader>cs", function () nvim_cc.run_compile_command_silent
 vim.keymap.set("n", "<leader>cf", function () nvim_cc.set_compile_command_from_file() end)
 ----------------------------------------
 
+-- R CATEGORY / THE RUN FUNC
+vim.keymap.set("n", "<leader>rR", function () nvim_cc.input_run_command() end)
+vim.keymap.set("n", "<leader>rr", function () nvim_cc.run_run_command() end)
+----------------------------------------
+
 -- S CATEGORY / THE SYNC FUNC
 vim.keymap.set("n", "<leader>sd", function () -- sync file dir to current dir
     nvim_cc.sync_directory_to_buffer()
@@ -47,12 +52,13 @@ map("n", "<leader>be", [[:tabe <CR>]], {}) -- new empty buffer (tmp)
 map("n", "<leader>bn", ":bNext<CR>", {noremap=true}) -- [space] + l to go to the next buffer
 map("n", "<leader>bl", ":Telescope buffers<CR>", {noremap=true}) -- [space] + b + b to spawn telescope that show opened buffer
 map("n", "<leader>bs", ":vsp | Telescope buffers<CR>", {noremap=true}) -- select buffer then do vertical split
-map("n", "<leader>bc", ":bd<CR>", {noremap=true}) -- remove / delete buffer
+map("n", "<leader>bc", ":bd!<CR>", {noremap=true}) -- remove / delete buffer
 ----------------------------------------
 
 -- S CATEGORY / THE SUBTITUTE FUNC
 map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {noremap=true}) -- subtitute selected text with [space]+s
 map("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]], {noremap=true}) -- subtitute selected text with [space]+ss with choice
+map("v", "<leader>s", [[:s///gIc<Left><Left><Left><left><left>]], {noremap=true}) -- subtitute selected text with [space]+s
 ----------------------------------------
 
 -------------------------------------------------------------
