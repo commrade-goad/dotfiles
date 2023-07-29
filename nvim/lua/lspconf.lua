@@ -43,6 +43,7 @@ vim.diagnostic.config({
 })
 
 local cmp = require('cmp')
+local cmp_action = require('lsp-zero').cmp_action()
 local completion = {
     {name = 'nvim_lsp'},
     {name = 'luasnip'},
@@ -50,19 +51,46 @@ local completion = {
     {name = 'calc'},
     {name = 'nvim_lua'},
     {name = 'orgmode'},
-    {name = 'buffer'},
+    {name = 'buffer', keyword_length = 4},
 }
 -- all source here : https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources
 
 cmp.setup({
     mapping = {
         ['<CR>'] = cmp.mapping.confirm({select = false}),
+        ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+        ['<C-b>'] = cmp_action.luasnip_jump_backward(),
     },
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
     sources = completion,
+    formatting = {
+        -- fields = {'menu', 'abbr', 'kind'},
+        fields = {'abbr', 'kind', 'menu'},
+        format = function(entry, item)
+            local menu_icon = {
+                -- nvim_lsp = '',
+                -- luasnip = '',
+                -- buffer = '',
+                -- async_path = '',
+                -- nvim_lua = '󰢱',
+                -- calc = '󰃬',
+                -- orgmode = '',
+                nvim_lsp = '[LSP]',
+                luasnip = '[SNP]',
+                buffer = '[BUF]',
+                async_path = '[DIR]',
+                nvim_lua = '[VIM]',
+                calc = '[CAL]',
+                orgmode = '[ORG]',
+            }
+            item.menu = menu_icon[entry.source.name]
+            return item
+        end,
+    },
+
 })
 
 -- CUSTOM COMMAND = BAD
@@ -72,6 +100,6 @@ cmp.setup({
 -- }
 
 -- SNIPPETS STUFF
--- require('luasnip.loaders.from_vscode').lazy_load()
--- require('luasnip.loaders.from_snipmate').load({ path = { '~/.config/nvim/snippets' } })
--- require('luasnip.loaders.from_snipmate').lazy_load()
+require('luasnip.loaders.from_vscode').lazy_load()
+require('luasnip.loaders.from_snipmate').load({ path = { '~/.config/nvim/snippets' } })
+require('luasnip.loaders.from_snipmate').lazy_load()

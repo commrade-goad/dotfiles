@@ -25,7 +25,15 @@ function M.set_compile_command_from_file()
     local success, file_content = pcall(vim.fn.readfile, file_path)
 
     if success and #file_content > 0 then
-        GLOBAL_compile_command = file_content[1]
+        GLOBAL_compile_command = ""
+        for index in pairs(file_content)
+        do
+            if GLOBAL_compile_command ~= nil and GLOBAL_compile_command ~= "" then
+                GLOBAL_compile_command = GLOBAL_compile_command .. " && " .. file_content[index]
+            else
+                GLOBAL_compile_command = file_content[index]
+            end
+        end
         print("nvim-cc : ".. GLOBAL_compile_command)
     end
 end
@@ -81,42 +89,21 @@ function M.sync_directory_to_buffer()
 end
 
 if Nvim_cc_auto_read == true then
-    local command = "autocmd BufEnter * lua require('nvim-cc').set_compile_command_from_file()"
-    vim.cmd(command)
+    vim.api.nvim_create_autocmd("BufEnter", {
+        group = vim.api.nvim_create_augroup("nvim-cc-autoread", {clear = true}),
+        callback = function ()
+            M.set_compile_command_from_file()
+        end
+    })
 end
 
 if Nvim_cc_auto_sync == true then
-local command = "autocmd BufEnter * lua require('nvim-cc').sync_directory_to_buffer()"
-vim.cmd(command)
-end
-
--- RUN COMMAND
-
-function M.input_run_command()
-    if GLOBAL_run_command == nil then
-        GLOBAL_run_command = ""
-    end
-    local compile_command = vim.fn.input({
-        prompt = "Enter Run command : ",
-        default = GLOBAL_run_command,
-        completion = "shellcmd",
-        wildchar = vim.api.nvim_replace_termcodes("<Tab>", true, false, true),
+    vim.api.nvim_create_autocmd("BufEnter", {
+        group = vim.api.nvim_create_augroup("nvim-cc-autosync", {clear = true}),
+        callback = function ()
+            M.sync_directory_to_buffer()
+        end
     })
-    if compile_command ~= "" then
-        GLOBAL_run_command = compile_command
-    end
 end
-
-function M.run_run_command()
-    if GLOBAL_run_command == "" or GLOBAL_run_command == nil then
-        print("There is no run command specified!")
-        return
-    end
-    local cmd = "split | terminal echo \"> " .. GLOBAL_run_command .. "\" && " .. GLOBAL_run_command
-    vim.cmd(cmd)
-    vim.cmd("startinsert")
-end
-
--- END MODULE
 
 return M

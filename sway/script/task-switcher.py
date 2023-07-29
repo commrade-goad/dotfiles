@@ -64,7 +64,7 @@ def build_wofi_string(windows):
 # Executes wofi with the given input string
 def show_wofi(windows):
 
-    command="rofi -dmenu -window-title '  Window '"
+    command="rofi -dmenu -window-title '  Window '"
     
     process = subprocess.Popen(command,shell=True,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
     return process.communicate(input=windows)[0]

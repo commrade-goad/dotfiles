@@ -106,7 +106,7 @@ local amadeus = {
 }
 
 -- Set header
-dashboard.section.header.val = amadeus
+dashboard.section.header.val = kosh
 
 -- math.randomseed(os.time())
 -- local function pick_color()
@@ -155,15 +155,3 @@ alpha.setup(dashboard.opts)
 vim.cmd([[
     autocmd FileType alpha setlocal nofoldenable
 ]])
-
-
--- ==============================================
--- STUPID DEPRECATED
--- Set the contents of the buffer for new files
--- vim.o.shortmess = vim.o.shortmess .. "I"
--- vim.bo[1].filetype = "txt"  -- set the filetype to text
--- vim.bo[1].buftype = "nofile"  -- set the buftype to nofile
--- vim.bo[1].swapfile = false  -- disable swapfile
--- vim.bo[1].modifiable = true
--- vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.fn.readfile("/home/fernando/Documents/nvim-startup.txt"))
--- vim.bo[1].modifiable = false

@@ -1,11 +1,11 @@
 require('lualine').setup{
     options = {
         icons_enabled = true,
-        theme = "gruvbox-material",
-        component_separators = { left = '|', right = '|'},
-        -- component_separators = { left = '', right = ''},
+        theme = "catppuccin",
+        -- component_separators = { left = '|', right = '|'},
+        component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
-        disabled_filetypes = {'packer', 'NvimTree', 'alpha'},
+        disabled_filetypes = {'NvimTree', 'alpha'},
         ignore_focus = {},
         always_divide_middle = true,
         globalstatus = false,
@@ -16,14 +16,20 @@ require('lualine').setup{
         }
     },
     sections = {
+        -- new style
         lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        -- lualine_c = {'filename', 'buffers'},
+        lualine_b = {'branch', 'diff'},
         lualine_c = {'buffers'},
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
-        -- lualine_x = {'encoding', 'fileformat'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_x = {'fileformat', 'location'},
+        lualine_y = {'diagnostics'},
+        lualine_z = {}
+        ----------------------------
+        -- lualine_a = {'mode'},
+        -- lualine_b = {'branch', 'diff','diagnostics'},
+        -- lualine_c = {'filename'},
+        -- lualine_x = {'encoding', 'fileformat', 'filetype'},
+        -- lualine_y = {'progress'},
+        -- lualine_z = {'location'}
     },
     inactive_sections = {
         lualine_a = {},
@@ -41,9 +47,6 @@ require('lualine').setup{
 -- require('bufferline').setup{}
 require('catppuccin')
 require('Comment').setup()
--- require('nvim-autopairs').setup({
---   disable_filetype = { 'TelescopePrompt' , 'vim' },
--- })
 require('presence'):setup()
 require('telescope').setup()
 -- require('command-completion').setup()
@@ -77,8 +80,18 @@ require'nvim-treesitter.configs'.setup {
 require('orgmode').setup_ts_grammar()
 require('orgmode').setup()
 
-require'nvim-lastplace'.setup {
+require('nvim-lastplace').setup {
     lastplace_ignore_buftype = {"quickfix", "nofile", "help", "alpha"},
     lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
     lastplace_open_folds = true
 }
+
+require('nvim-surround').setup()
+
+-- INDENT STYLE
+-- LINK : https://github.com/lukas-reineke/indent-blankline.nvim
+-- require("indent_blankline").setup {
+--     show_end_of_line = true,
+--     show_current_context = true,
+--     show_current_context_start = false,
+-- }

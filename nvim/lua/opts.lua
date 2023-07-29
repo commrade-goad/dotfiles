@@ -12,7 +12,7 @@ opt.termguicolors = true
 opt.number = true
 opt.rnu = true
 opt.timeoutlen = 500
-cmd('colorscheme gruvbox-material')
+cmd('colorscheme catppuccin-mocha')
 cmd('filetype plugin on')
 --o.clipboard = 'unnamedplus'
 o.showmode = false
@@ -38,6 +38,19 @@ opt.scrolloff = 4
 opt.updatetime = 50
 opt.swapfile = false
 vim.lsp.set_log_level("off")
+
+-- NEWLINE AND ETC
+-- MORE INFO : https://neovim.io/doc/user/options.html#'listchars'
+-- vim.opt.list = true
+-- vim.opt.listchars = {eol = '↲', space = '·', tab = ' -󰌒', trail = '-', extends = '>', precedes = '<', nbsp = ' '}
+-- vim.opt.listchars = {eol = '↲'}
+
+-- FOLD
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldenable = true
+opt.foldlevel = 99
+opt.foldlevelstart = -1
 
 -- NETRW STUFF
 vim.g.netrw_liststyle = 0

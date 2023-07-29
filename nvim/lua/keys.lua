@@ -1,64 +1,76 @@
 local nvim_cc = require('nvim-cc')
 local map = vim.api.nvim_set_keymap
+local common = {noremap = true}
 -- map("i", "jk", "<ESC>", {})
 -- vim.g.mapleader = " "
 
 -- SPECIAL 
-map("v", "<leader>y", "\"+y" , {noremap=true}) -- Yank/copy some text with ctrl+y on visual mode
-map("n", "<leader>t", ":tabe .<CR>", {noremap=true}) -- open up new tab on normal mode with [space]+t
-map("n", "<leader>h", ":tab Alpha<CR>", {noremap=true}) -- open up alpha with [space]h 
-map("t", "<Esc>", "<C-\\><C-n>", {noremap = true}) -- exit term mode with esc
-map("v", "J", ":m '>+1<CR>gv=gv", {noremap=true}) -- move out text
-map("v", "K", ":m '<-2<CR>gv=gv", {noremap=true}) -- move out text
-map("n", "<F5>", [[:e .<CR>]], {}) -- refresh netrw view
-map("v", "mf", ":normal mf<CR>", {noremap=true}) -- for netrw markfile
-map("n", "<leader>gs", ":Git<CR>", {noremap=true}) -- git repos stuff with [space]+g+s
+map("v", "<leader>y", "\"+y" , common) -- Yank/copy some text with [space]+y on visual mode
+map("n", "<leader>t", ":tabe .<CR>", common) -- open up new tab on normal mode with [space]+t
+map("n", "<leader>h", ":tab Alpha<CR>", common) -- open up alpha with [space]h 
+map("n", "<leader>gs", ":Git<CR>", common) -- git repos stuff with [space]+g+s
+map("n", "<leader>gsd", ":Git diff<CR>", common) -- git diff with [space]+g+s+d
+map("t", "<Esc>", "<C-\\><C-n>", common) -- exit term mode with esc
+map("v", "J", ":m '>+1<CR>gv=gv", common) -- move out text
+map("v", "K", ":m '<-2<CR>gv=gv", common) -- move out text
+map("v", "mf", ":normal mf<CR>", common) -- for netrw markfile
+map("n", "<leader><leader>x", "<cmd>source %<CR>", common) -- source a lua file
+----------------------------------------
+
+-- L CATEGORY / CUSTOM LSP BIND
+map("n", "<leader>lr", ":Telescope lsp_references<CR>", common) -- telescope lsp references [space]lr
+map("n", "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", common) -- code action with [space]la
+map("n", "<leader>ld", ":Telescope diagnostics<CR>", common) -- diagnostics use Ctrl+q to spawn quickfix buffer
+map("n", "<leader>lf", ":set foldmethod=expr<CR>", common) -- activate fold to the current buffer
 ----------------------------------------
 
 -- F CATEGORY / THE FILE FUNC
-local builtin = require("telescope.builtin")
-map("n", "<leader>ff", ":Telescope find_files<CR>", {noremap=true}) -- telescope with cwd
--- map("n", "<leader>ffs", ":vsp | Telescope find_files<CR>", {noremap=true}) -- find files and open it on vsplit
-map("n", "<leader>fr", ":Telescope oldfiles<CR>", {noremap=true}) -- telescope with oldfiles
-map("n", "<leader>fp", ":Telescope git_files<CR>", {noremap=true}) -- telescope with git files
-map("n", "<leader>f", ":Ex<CR>", {noremap=true}) -- open netrw with [space]+f
-vim.keymap.set("n", "<leader>fs", function()
-   builtin.grep_string({search = vim.fn.input("Find String : ")}) -- findout some text on the working dir using [space]+f+s
-end)
+map("n", "<leader>ff", ":Telescope find_files<CR>", common) -- telescope with cwd
+map("n", "<leader>fr", ":Telescope oldfiles<CR>", common) -- telescope with oldfiles
+map("n", "<leader>fp", ":Telescope git_files<CR>", common) -- telescope with git files
+map("n", "<leader>f", ":Ex<CR>", common) -- open netrw with [space]+f
 ----------------------------------------
 
 -- C CATEGORY / THE COMPILE FUNC
-vim.keymap.set("n", "<leader>cC", function () nvim_cc.input_compile_command() end)
-vim.keymap.set("n", "<leader>cc", function () nvim_cc.run_compile_command() end)
-vim.keymap.set("n", "<leader>cs", function () nvim_cc.run_compile_command_silent() end)
-vim.keymap.set("n", "<leader>cf", function () nvim_cc.set_compile_command_from_file() end)
-----------------------------------------
-
--- R CATEGORY / THE RUN FUNC
-vim.keymap.set("n", "<leader>rR", function () nvim_cc.input_run_command() end)
-vim.keymap.set("n", "<leader>rr", function () nvim_cc.run_run_command() end)
-----------------------------------------
-
--- S CATEGORY / THE SYNC FUNC
-vim.keymap.set("n", "<leader>sd", function () -- sync file dir to current dir
+vim.keymap.set("n", "<leader>cC", function () nvim_cc.input_compile_command() end) -- compile command input
+vim.keymap.set("n", "<leader>cc", function () nvim_cc.run_compile_command() end) -- run compile command
+vim.keymap.set("n", "<leader>cd", function () nvim_cc.run_compile_command_silent() end) -- compile command default or silent
+vim.keymap.set("n", "<leader>cf", function () nvim_cc.set_compile_command_from_file() end) -- set compile command from file
+vim.keymap.set("n", "<leader>cs", function () -- sync file dir to current dir and do <leader>cf auto
     nvim_cc.sync_directory_to_buffer()
     nvim_cc.set_compile_command_from_file()
     print("cwd & cc set.")
 end)
 ----------------------------------------
 
--- B CATEGORY / THE BUFFER FUNC
-map("n", "<leader>be", [[:tabe <CR>]], {}) -- new empty buffer (tmp)
-map("n", "<leader>bn", ":bNext<CR>", {noremap=true}) -- [space] + l to go to the next buffer
-map("n", "<leader>bl", ":Telescope buffers<CR>", {noremap=true}) -- [space] + b + b to spawn telescope that show opened buffer
-map("n", "<leader>bs", ":vsp | Telescope buffers<CR>", {noremap=true}) -- select buffer then do vertical split
-map("n", "<leader>bc", ":bd!<CR>", {noremap=true}) -- remove / delete buffer
+-- S CATEGORY / THE SEARCH/SUBTITUTE FUNC
+map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], common) -- subtitute word with [space]+s
+map("n", "<leader>sw", "<cmd>normal! *<CR>", common) -- search text with [space]+sw
+map("n", "<leader>sb", "<cmd>normal! #<CR>", common) -- search text with [space]+sb
+map("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]], common) -- subtitute word with [space]+ss with choice
+map("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", common) -- search vim help [space]+sh
+vim.keymap.set("n", "<leader>fs", function()
+    local builtin = require("telescope.builtin")
+    builtin.grep_string({search = vim.fn.input("Find String : ")}) -- findout some text on the working dir using [space]+f+s
+end)
 ----------------------------------------
 
--- S CATEGORY / THE SUBTITUTE FUNC
-map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {noremap=true}) -- subtitute selected text with [space]+s
-map("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]], {noremap=true}) -- subtitute selected text with [space]+ss with choice
-map("v", "<leader>s", [[:s///gIc<Left><Left><Left><left><left>]], {noremap=true}) -- subtitute selected text with [space]+s
+-- B CATEGORY / THE BUFFER FUNC
+map("n", "<leader>be", [[:tabe <CR>]], {}) -- new empty buffer tab (tmp)
+map("n", "<leader>bn", ":bNext<CR>", common) -- [space] + l to go to the next buffer
+map("n", "<leader>bp", ":bprev<CR>", common) -- [space] + l to go to the next buffer
+map("n", "<leader>bl", ":Telescope buffers<CR>", common) -- [space] + b + b to spawn telescope that show opened buffer
+map("n", "<leader>bs", ":vsp | Telescope buffers<CR>", common) -- select buffer then do vertical split
+map("n", "<leader>bc", ":bd!<CR>", common) -- remove / delete buffer
+----------------------------------------
+
+-- J CATEGORY / THE JUMP FUNC
+map("n", "<leader><leader>j", "<cmd>normal! %<CR>", common) -- jump parent
+map("n", "<leader>jh", "<cmd>normal! ^<CR>", common) -- jump first
+map("n", "<leader>jl", "<cmd>normal! $<CR>", common) -- jump last
+map("v", "<leader><leader>j", "<cmd>normal! %<CR>", common) -- jump parent
+map("v", "<leader>jh", "<cmd>normal! ^<CR>", common) -- jump first
+map("v", "<leader>jl", "<cmd>normal! $<CR>", common) -- jump last
 ----------------------------------------
 
 -------------------------------------------------------------
@@ -104,9 +116,12 @@ map("v", "<leader>s", [[:s///gIc<Left><Left><Left><left><left>]], {noremap=true}
 -- [INSERT MODE] Ctrl+w => delete backward like db
 -- [INSERT MODE] Ctrl+u => delete all characters backward 
 -- [INSERT MODE] Ctrl+o => go to command mode on insert mode
+-- mark -> create inside buffer mark with `m[a-z]` jump using `[a-z]
+-- mark -> create buffer mark with `m[A-Z]` jump using `[A-Z]
 
 -- LSP
 ----------------
+-- K: vim.lsp.buf.hover()
 -- gd: Jumps to the definition of the symbol under the cursor. See :help vim.lsp.buf.definition().
 -- gD: Jumps to the declaration of the symbol under the cursor. Some servers don't implement this feature. See :help vim.lsp.buf.declaration().
 -- gi: Lists all the implementations for the symbol under the cursor in the quickfix window. See :help vim.lsp.buf.implementation().
