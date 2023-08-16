@@ -20,7 +20,7 @@ require('lualine').setup{
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diff'},
         lualine_c = {'buffers'},
-        lualine_x = {'fileformat', 'location'},
+        lualine_x = {'fileformat', 'location', 'filetype'},
         lualine_y = {'diagnostics'},
         lualine_z = {}
         ----------------------------
@@ -33,10 +33,10 @@ require('lualine').setup{
     },
     inactive_sections = {
         lualine_a = {},
-        lualine_b = {},
+        lualine_b = {'branch', 'diff'},
         lualine_c = {'filename'},
-        lualine_x = {'location'},
-        lualine_y = {},
+        lualine_x = {'fileformat', 'location', 'filetype'},
+        lualine_y = {'diagnostics'},
         lualine_z = {}
     },
     tabline = {},
@@ -59,7 +59,7 @@ require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
         -- additional_vim_regex_highlighting = false,
-        additional_vim_regex_highlighting = {'org'},
+        additional_vim_regex_highlighting = {'org', 'markdown'},
     },
     incremental_selection = {
         disable = {},
@@ -86,7 +86,8 @@ require('nvim-lastplace').setup {
     lastplace_open_folds = true
 }
 
-require('nvim-surround').setup()
+-- require('nvim-surround').setup()
+require('gitsigns').setup()
 
 -- INDENT STYLE
 -- LINK : https://github.com/lukas-reineke/indent-blankline.nvim

@@ -62,12 +62,12 @@ change_hyprpaper() {
 change_nvim() {
     if [ $selected_theme == "cat" ]
     then
-        sed -i 's/theme =.*/theme = "catppuccin",/' $HOME/.config/nvim/init.lua
+        sed -i 's/theme =.*/theme = "catppuccin",/' $HOME/.config/nvim/lua/plugconf.lua
         sed -i "s/colorscheme .*/colorscheme catppuccin-mocha')/" $HOME/.config/nvim/lua/opts.lua
         sed -i "s/dashboard.section.header.val =.*/dashboard.section.header.val = kosh/" $HOME/.config/nvim/lua/welcome.lua
     elif [ $selected_theme == "gruvbox" ]
     then
-        sed -i 's/theme =.*/theme = "gruvbox-material",/' $HOME/.config/nvim/init.lua
+        sed -i 's/theme =.*/theme = "gruvbox-material",/' $HOME/.config/nvim/lua/plugconf.lua
         sed -i "s/colorscheme .*/colorscheme gruvbox-material')/" $HOME/.config/nvim/lua/opts.lua
         sed -i "s/dashboard.section.header.val =.*/dashboard.section.header.val = amadeus/" $HOME/.config/nvim/lua/welcome.lua
     fi
@@ -97,9 +97,9 @@ change_gtk() {
     # GTK3 n GTK+
     if [ $selected_theme == "cat" ]
     then
-        sed -i 's/gtk-theme=.*/gtk-theme=Catppuccin-Mocha-Standard-Green-Dark/' $HOME/.local/share/nwg-look/gsettings
-        sed -i 's/gtk-theme-name=.*/gtk-theme-name=Catppuccin-Mocha-Standard-Green-Dark/' $HOME/.config/gtk-3.0/settings.ini
-        sed -i 's/gtk-theme-name=.*/gtk-theme-name=\"Catppuccin-Mocha-Standard-Green-Dark\"/' $HOME/.gtkrc-2.0
+        sed -i 's/gtk-theme=.*/gtk-theme=Catppuccin-Mocha-Standard-Green-dark/' $HOME/.local/share/nwg-look/gsettings
+        sed -i 's/gtk-theme-name=.*/gtk-theme-name=Catppuccin-Mocha-Standard-Green-dark/' $HOME/.config/gtk-3.0/settings.ini
+        sed -i 's/gtk-theme-name=.*/gtk-theme-name=\"Catppuccin-Mocha-Standard-Green-dark\"/' $HOME/.gtkrc-2.0
     elif [ $selected_theme == "gruvbox" ]
     then
         sed -i 's/gtk-theme=.*/gtk-theme=Gruvbox-Material-Dark/' $HOME/.local/share/nwg-look/gsettings
@@ -117,16 +117,6 @@ change_gtk() {
     elif [ $selected_theme == "gruvbox" ]
     then
         cp -r /home/fernando/.config/gtk-4.0/gruvbox/* /home/fernando/.config/gtk-4.0/
-    fi
-}
-
-change_brave_tab(){
-    if [ $selected_theme == "cat" ]
-    then
-        cp $HOME/Desktop/tsoding/simple-new-tab/cat.png $HOME/Desktop/tsoding/simple-new-tab/bg.png
-    elif [ $selected_theme == "gruvbox" ]
-    then
-        cp $HOME/Desktop/tsoding/simple-new-tab/gruvbox.png $HOME/Desktop/tsoding/simple-new-tab/bg.png
     fi
 }
 
@@ -149,7 +139,6 @@ main() {
     change_qt5ct
     change_qt6ct
     change_gtk
-    change_brave_tab
 }
 
 main

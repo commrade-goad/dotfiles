@@ -1,5 +1,11 @@
 local M = {}
 
+Nvim_cc_term_buffn = nil
+
+if Nvim_cc_split_size == nil then
+    Nvim_cc_split_size = 15
+end
+
 if Nvim_cc_auto_read == nil then
     Nvim_cc_auto_read = false
 end
@@ -58,8 +64,17 @@ function M.run_compile_command()
         print("There is no compile command specified!")
         return
     end
-    local cmd = "split | terminal echo \"> " .. GLOBAL_compile_command .. "\" && " .. GLOBAL_compile_command
+
+    local split_mode
+    if Nvim_cc_vsplit_mode == nil or Nvim_cc_vsplit_mode == false then
+        Nvim_cc_vsplit_mode = false
+        split_mode = "split"
+    else
+        split_mode = "vsplit"
+    end
+    local cmd = Nvim_cc_split_size .. split_mode .. " | terminal echo \"> " .. GLOBAL_compile_command .. "\" && " .. GLOBAL_compile_command
     vim.cmd(cmd)
+    Nvim_cc_term_buffn = vim.api.nvim_get_current_buf()
     vim.cmd("startinsert")
 end
 

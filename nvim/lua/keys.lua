@@ -21,7 +21,8 @@ map("n", "<leader><leader>x", "<cmd>source %<CR>", common) -- source a lua file
 map("n", "<leader>lr", ":Telescope lsp_references<CR>", common) -- telescope lsp references [space]lr
 map("n", "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", common) -- code action with [space]la
 map("n", "<leader>ld", ":Telescope diagnostics<CR>", common) -- diagnostics use Ctrl+q to spawn quickfix buffer
-map("n", "<leader>lf", ":set foldmethod=expr<CR>", common) -- activate fold to the current buffer
+map("n", "<leader>lf", ":set foldmethod=expr<CR>", common) -- activate fold to the current buffer and toggle with za
+map("n", "<leader>lfb", ":lua vim.lsp.buf.format()<CR>", common) -- format code
 ----------------------------------------
 
 -- F CATEGORY / THE FILE FUNC
@@ -33,7 +34,14 @@ map("n", "<leader>f", ":Ex<CR>", common) -- open netrw with [space]+f
 
 -- C CATEGORY / THE COMPILE FUNC
 vim.keymap.set("n", "<leader>cC", function () nvim_cc.input_compile_command() end) -- compile command input
-vim.keymap.set("n", "<leader>cc", function () nvim_cc.run_compile_command() end) -- run compile command
+-- vim.keymap.set("n", "<leader>cc", function () nvim_cc.run_compile_command() end) -- run compile command
+vim.keymap.set("n", "<leader>cc", function ()
+    if Nvim_cc_term_buffn == nil or vim.fn.bufexists(Nvim_cc_term_buffn) ~= 1 then
+        nvim_cc.run_compile_command()
+    else
+        print("The compile command buff already running...")
+    end
+end) -- run compile command
 vim.keymap.set("n", "<leader>cd", function () nvim_cc.run_compile_command_silent() end) -- compile command default or silent
 vim.keymap.set("n", "<leader>cf", function () nvim_cc.set_compile_command_from_file() end) -- set compile command from file
 vim.keymap.set("n", "<leader>cs", function () -- sync file dir to current dir and do <leader>cf auto
@@ -112,7 +120,28 @@ map("v", "<leader>jl", "<cmd>normal! $<CR>", common) -- jump last
 -- goto normal mode in terminal => Ctrl+\+Ctrl+n
 -- :w [name] is the equivalent of save as
 -- :e to edit in current tabs or whatever that will spawn new buffer
--- f" => jump to next quote
+
+-- f<char> => jump to next specified char 
+-- F<char> => jump to prev specified char 
+-- t<char> => jump to next before the specified char 
+-- T<char> => jump to prev before the specified char 
+-- ; => to repeat the jump next
+-- , => to repeat the jump prev 
+-- w => word
+-- W => WORD
+-- b => back
+-- B => BACK
+-- e => next end of word
+-- E => next end of WORD
+-- ge => prev end of word
+-- gE => prev end of WORD
+-- { and } => paragraf
+-- ]) or [(   ||   ]} and [{ to jump to close n open with the cursor in neither
+-- Ctrl+e down and Ctrl+y up
+-- <n>G => jump with jumplist
+-- Ctrl+O and Ctrl+I => prev and next jumplist
+-- . => repeat c and d mode => cw cb dw db
+
 -- [INSERT MODE] Ctrl+w => delete backward like db
 -- [INSERT MODE] Ctrl+u => delete all characters backward 
 -- [INSERT MODE] Ctrl+o => go to command mode on insert mode
@@ -134,6 +163,18 @@ map("v", "<leader>jl", "<cmd>normal! $<CR>", common) -- jump last
 -- gl: Show diagnostics in a floating window. See :help vim.diagnostic.open_float().
 -- [d: Move to the previous diagnostic in the current buffer. See :help vim.diagnostic.goto_prev().
 -- ]d: Move to the next diagnostic. See :help vim.diagnostic.goto_next().
+
+-- gf: go file
+-- :copen : open quickfix
+
+-- [I: find the word
+-- [<tab>: jump to the word
+-- _ : the same as ^
+-- I = go to first nonwhitespace char on line and enter insert mode
+-- A = go to last nonwhitespace char on line and enter insert mode
+-- > : on visual mode to tab
+-- < : on visual mode to tab
+-- visual mode then do `:!` to pipe your selected text to shell command
 
 -- SPLIT STUFF
 ----------------

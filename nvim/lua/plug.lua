@@ -11,7 +11,8 @@ return {
     {'tpope/vim-fugitive'},
     {'ethanholz/nvim-lastplace'},
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
-    {'kylechui/nvim-surround', event = "VeryLazy"},
+    -- {'kylechui/nvim-surround', event = "VeryLazy"},
+    {'lewis6991/gitsigns.nvim', lazy = true},
 
     -- ORG MODE SUPPORT
     {'nvim-orgmode/orgmode', lazy = true},

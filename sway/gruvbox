@@ -1,0 +1,7 @@
+set $red       #cc241d
+set $green     #ebdbb2
+set $text      #ebdbb2
+set $overlay1  #7c6f64
+set $overlay0  #665c54
+set $base      #282828
+
