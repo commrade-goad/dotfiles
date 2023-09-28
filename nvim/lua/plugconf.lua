@@ -86,7 +86,6 @@ require('nvim-lastplace').setup {
     lastplace_open_folds = true
 }
 
--- require('nvim-surround').setup()
 require('gitsigns').setup()
 
 -- INDENT STYLE

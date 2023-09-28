@@ -328,6 +328,7 @@ for_window [app_id="brave-browser"] floating disable
 for_window [title="Picture in Picture"] floating enable, sticky enable
 for_window [app_id="calendar-dialog"] floating enable
 for_window [app_id="nmtui-dialog"] floating enable
+for_window [app_id="rmon-dialog"] floating enable
 for_window [title="File Operation Progress" app_id="thunar"] floating enable
 
 # SCREENSHOT

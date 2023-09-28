@@ -10,6 +10,7 @@ map("n", "<leader>t", ":tabe .<CR>", common) -- open up new tab on normal mode w
 map("n", "<leader>h", ":tab Alpha<CR>", common) -- open up alpha with [space]h 
 map("n", "<leader>gs", ":Git<CR>", common) -- git repos stuff with [space]+g+s
 map("n", "<leader>gsd", ":Git diff<CR>", common) -- git diff with [space]+g+s+d
+map("n", "<leader>gp", ":Git push<CR>", common)
 map("t", "<Esc>", "<C-\\><C-n>", common) -- exit term mode with esc
 map("v", "J", ":m '>+1<CR>gv=gv", common) -- move out text
 map("v", "K", ":m '<-2<CR>gv=gv", common) -- move out text
@@ -103,10 +104,6 @@ map("v", "<leader>jl", "<cmd>normal! $<CR>", common) -- jump last
 -- [INSER MODE STUFF] normal mode {a, i} => `a` is `forward` meanwhile `i` is `backward`
 -- y5j => will copy 1 until line 5 below
 -- Ctrl+^ => jump to previous file (opened one)
--- ci" => same as di" and enter insert mode
--- di" => delete inside "
--- ciw => cutout word
--- yi" => yank inside "
 -- Ctrl+u => go to the top
 -- Shift+d => delete front char
 -- Close buffer with Ctrl+w+c
@@ -141,12 +138,27 @@ map("v", "<leader>jl", "<cmd>normal! $<CR>", common) -- jump last
 -- <n>G => jump with jumplist
 -- Ctrl+O and Ctrl+I => prev and next jumplist
 -- . => repeat c and d mode => cw cb dw db
+-- :.!<cmd> => pass the currnet line or selection to shell and capture the output
+-- :,+5.!tac => reverse 5j
+-- "<a-z>y => to yank to certain register
+-- "<a-z>p => to paste from certain register
+-- ci" => same as di" and enter insert mode     -\
+-- di" => delete inside "                       --- can be customized to use ( [ {
+-- yi" => yank inside "                         _/
+-- ct<char> => change any string until the specified char
+-- ciw => cutout word same as cw
 
 -- [INSERT MODE] Ctrl+w => delete backward like db
 -- [INSERT MODE] Ctrl+u => delete all characters backward 
 -- [INSERT MODE] Ctrl+o => go to command mode on insert mode
 -- mark -> create inside buffer mark with `m[a-z]` jump using `[a-z]
 -- mark -> create buffer mark with `m[A-Z]` jump using `[A-Z]
+
+-- MACRO
+-- record => q<a-z>
+-- exit record => q
+-- do the macro => @<a-z>
+----------------
 
 -- LSP
 ----------------

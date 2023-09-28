@@ -6,10 +6,10 @@
     "margin-bottom": 0,
     "margin-right": 10,
     "spacing": 5,
-    "modules-left": ["cpu", "wlr/workspaces","hyprland/window"],
+    "modules-left": ["cpu", "hyprland/workspaces","hyprland/window"],
     "modules-center": ["custom/media"],
     "modules-right": ["tray", "custom/dunst", "idle_inhibitor", "keyboard-state", "pulseaudio", "network", "battery", "clock"],
-    "wlr/workspaces": {
+    "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "on-click": "activate",
