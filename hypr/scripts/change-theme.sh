@@ -97,9 +97,9 @@ change_gtk() {
     # GTK3 n GTK+
     if [ $selected_theme == "cat" ]
     then
-        sed -i 's/gtk-theme=.*/gtk-theme=Catppuccin-Mocha-Standard-Green-dark/' $HOME/.local/share/nwg-look/gsettings
-        sed -i 's/gtk-theme-name=.*/gtk-theme-name=Catppuccin-Mocha-Standard-Green-dark/' $HOME/.config/gtk-3.0/settings.ini
-        sed -i 's/gtk-theme-name=.*/gtk-theme-name=\"Catppuccin-Mocha-Standard-Green-dark\"/' $HOME/.gtkrc-2.0
+        sed -i 's/gtk-theme=.*/gtk-theme=Catppuccin-Mocha-Standard-Green-Dark/' $HOME/.local/share/nwg-look/gsettings
+        sed -i 's/gtk-theme-name=.*/gtk-theme-name=Catppuccin-Mocha-Standard-Green-Dark/' $HOME/.config/gtk-3.0/settings.ini
+        sed -i 's/gtk-theme-name=.*/gtk-theme-name=\"Catppuccin-Mocha-Standard-Green-Dark\"/' $HOME/.gtkrc-2.0
     elif [ $selected_theme == "gruvbox" ]
     then
         sed -i 's/gtk-theme=.*/gtk-theme=Gruvbox-Material-Dark/' $HOME/.local/share/nwg-look/gsettings

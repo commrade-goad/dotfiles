@@ -16,6 +16,8 @@ map("v", "J", ":m '>+1<CR>gv=gv", common) -- move out text
 map("v", "K", ":m '<-2<CR>gv=gv", common) -- move out text
 map("v", "mf", ":normal mf<CR>", common) -- for netrw markfile
 map("n", "<leader><leader>x", "<cmd>source %<CR>", common) -- source a lua file
+map("n", "<leader>pc", "<cmd>CccPick<CR>", common) -- color picker
+map("n", "<leader>ut", "<cmd>UndotreeToggle<CR>", common) -- undo tree
 ----------------------------------------
 
 -- L CATEGORY / CUSTOM LSP BIND
@@ -24,6 +26,7 @@ map("n", "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", common) -- code act
 map("n", "<leader>ld", ":Telescope diagnostics<CR>", common) -- diagnostics use Ctrl+q to spawn quickfix buffer
 map("n", "<leader>lf", ":set foldmethod=expr<CR>", common) -- activate fold to the current buffer and toggle with za
 map("n", "<leader>lfb", ":lua vim.lsp.buf.format()<CR>", common) -- format code
+map("n", "<leader>lqf", ":lua vim.diagnostic.setqflist()<CR>", common) -- quickfix list
 ----------------------------------------
 
 -- F CATEGORY / THE FILE FUNC
@@ -74,10 +77,10 @@ map("n", "<leader>bc", ":bd!<CR>", common) -- remove / delete buffer
 ----------------------------------------
 
 -- J CATEGORY / THE JUMP FUNC
-map("n", "<leader><leader>j", "<cmd>normal! %<CR>", common) -- jump parent
+map("n", "<leader>jj", "<cmd>normal! %<CR>", common) -- jump parent
 map("n", "<leader>jh", "<cmd>normal! ^<CR>", common) -- jump first
 map("n", "<leader>jl", "<cmd>normal! $<CR>", common) -- jump last
-map("v", "<leader><leader>j", "<cmd>normal! %<CR>", common) -- jump parent
+map("v", "<leader>jj", "<cmd>normal! %<CR>", common) -- jump parent
 map("v", "<leader>jh", "<cmd>normal! ^<CR>", common) -- jump first
 map("v", "<leader>jl", "<cmd>normal! $<CR>", common) -- jump last
 ----------------------------------------
@@ -187,6 +190,8 @@ map("v", "<leader>jl", "<cmd>normal! $<CR>", common) -- jump last
 -- > : on visual mode to tab
 -- < : on visual mode to tab
 -- visual mode then do `:!` to pipe your selected text to shell command
+-- visual mode do gq to hardformat text
+-- gj and gk to go up and down visual line (linewrap)
 
 -- SPLIT STUFF
 ----------------

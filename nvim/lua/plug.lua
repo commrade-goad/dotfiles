@@ -12,14 +12,17 @@ return {
     {'ethanholz/nvim-lastplace'},
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
     {'lewis6991/gitsigns.nvim', lazy = true},
-
-    -- ORG MODE SUPPORT
-    {'nvim-orgmode/orgmode', lazy = true},
+    {'lukas-reineke/indent-blankline.nvim'},
+    {'uga-rosa/ccc.nvim'},
+    {'vidocqh/auto-indent.nvim'},
+    {'mbbill/undotree'},
     {'dhruvasagar/vim-table-mode'},
+
     ------------------------------------------
 
     -- LSP and syntax
     {'nvim-treesitter/nvim-treesitter'},
+    {'nvimtools/none-ls.nvim'},
     {'VonHeikemen/lsp-zero.nvim',
         dependencies = {
             -- LSP Support

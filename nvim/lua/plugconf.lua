@@ -59,7 +59,7 @@ require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
         -- additional_vim_regex_highlighting = false,
-        additional_vim_regex_highlighting = {'org', 'markdown'},
+        additional_vim_regex_highlighting = {'markdown'},
     },
     incremental_selection = {
         disable = {},
@@ -77,9 +77,6 @@ require'nvim-treesitter.configs'.setup {
     }
 }
 
-require('orgmode').setup_ts_grammar()
-require('orgmode').setup()
-
 require('nvim-lastplace').setup {
     lastplace_ignore_buftype = {"quickfix", "nofile", "help", "alpha"},
     lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
@@ -88,10 +85,34 @@ require('nvim-lastplace').setup {
 
 require('gitsigns').setup()
 
+local ccc = require("ccc")
+local mapping = ccc.mapping
+
+ccc.setup({
+  highlighter = {
+    auto_enable = true,
+    lsp = true,
+  },
+})
+
+require("auto-indent").setup({
+  lightmode = true,        -- Lightmode assumes tabstop and indentexpr not change within buffer's lifetime
+  indentexpr = nil,        -- Use vim.bo.indentexpr by default, see 'Custom Indent Evaluate Method'
+  ignore_filetype = {},    -- Disable plugin for specific filetypes, e.g. ignore_filetype = { 'javascript' }
+})
+
 -- INDENT STYLE
 -- LINK : https://github.com/lukas-reineke/indent-blankline.nvim
--- require("indent_blankline").setup {
---     show_end_of_line = true,
---     show_current_context = true,
---     show_current_context_start = false,
--- }
+require("ibl").setup()
+--[[ local highlight = {
+    "CursorColumn",
+    "Whitespace",
+}
+require("ibl").setup {
+    indent = { highlight = highlight, char = "▏" },
+    whitespace = {
+        highlight = highlight,
+        remove_blankline_trail = false,
+    },
+    scope = { enabled = false },
+} ]]

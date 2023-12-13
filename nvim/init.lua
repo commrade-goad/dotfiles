@@ -20,3 +20,4 @@ require("opts") -- options
 require("lspconf") -- lsp configuration
 require("plugconf") -- plugin configuration
 require("welcome") -- alpha dashboard configuration
+require("none") -- lint + format

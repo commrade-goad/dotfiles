@@ -3,6 +3,7 @@
 
 ARGS1=$1
 PATHTOVID="$HOME/Videos/live-wp/elaina-butterflies-wandering-witch-moewalls-com.mp4"
+# PATHTOVID="$HOME/Videos/live-wp/Mumei Terror.mp4"
 # PATHTOVID="$HOME/Videos/live-wp/inaaaaa.mp4"
 
 main () {
@@ -18,7 +19,7 @@ main () {
 launch () {
     if [ -z "$(pidof mpvpaper)" ]
     then
-        mpvpaper -o '--input-ipc-server=/tmp/mpvpaper --loop=inf' eDP-1 $PATHTOVID
+        mpvpaper -o '--input-ipc-server=/tmp/mpvpaper --loop=inf' eDP-1 "$PATHTOVID"
         exit
     fi
     exit 1
