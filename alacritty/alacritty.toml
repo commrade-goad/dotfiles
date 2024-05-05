@@ -1,0 +1,29 @@
+import = ["/home/fernando/.config/alacritty/active.toml"]
+
+[cursor.style]
+shape = "Block"
+
+[env]
+TERM = "alacritty"
+
+[font]
+size = 14.0
+
+[font.bold]
+style = "Bold"
+
+[font.bold_italic]
+style = "Bold Italic"
+
+[font.italic]
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMonoNL Nerd Font Mono"
+
+[window]
+opacity = 1
+
+[window.dimensions]
+columns = 80
+lines = 30

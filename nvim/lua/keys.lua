@@ -53,6 +53,7 @@ vim.keymap.set("n", "<leader>cs", function () -- sync file dir to current dir an
     nvim_cc.set_compile_command_from_file()
     print("cwd & cc set.")
 end)
+vim.keymap.set("n", "<leader>cw", function () nvim_cc.export_compile_command() end) -- export compile command
 ----------------------------------------
 
 -- S CATEGORY / THE SEARCH/SUBTITUTE FUNC

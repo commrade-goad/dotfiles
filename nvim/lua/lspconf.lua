@@ -3,10 +3,6 @@ vim.opt.signcolumn = 'yes' -- Reserve space for diagnostic icons
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
 
-lsp.ensure_installed({
-  'eslint',
-})
-
 lsp.nvim_workspace()
 
 lsp.set_preferences({
@@ -77,14 +73,12 @@ cmp.setup({
                 -- async_path = '',
                 -- nvim_lua = '󰢱',
                 -- calc = '󰃬',
-                -- orgmode = '',
                 nvim_lsp = '[LSP]',
                 luasnip = '[SNP]',
                 buffer = '[BUF]',
                 async_path = '[DIR]',
                 nvim_lua = '[VIM]',
                 calc = '[CAL]',
-                orgmode = '[ORG]',
             }
             item.menu = menu_icon[entry.source.name]
             return item
@@ -95,6 +89,8 @@ cmp.setup({
 
 -- CUSTOM COMMAND = BAD
 -- local lspconfig = require('lspconfig')
+-- lspconfig.phpactor.setup {
+-- }
 -- lspconfig.clangd.setup{
 --     cmd = {"clangd", "--compile-commands-dir=compiledb/", "--background-index", "--clang-tidy"},
 -- }

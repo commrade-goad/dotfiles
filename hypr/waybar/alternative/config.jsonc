@@ -44,8 +44,9 @@
         // "format": "{:󰃵 %d/%m/%y 󰥔 %R}",
         "format": " {:%d/%m/%y 󰥔 %R}",
         "tooltip-format": "<big>{:%d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-        "on-click": "alacritty --class calendar-dialog --option window.dimensions.columns=70 window.dimensions.lines=12 --command ~/.config/hypr/scripts/calendar.sh"
-        // "interval": 30
+        "on-click": "alacritty --class calendar-dialog --option window.dimensions.columns=70 window.dimensions.lines=12 --command ~/.config/hypr/scripts/calendar.sh",
+        "on-click-right": "alacritty --class calendar-dialog --option window.dimensions.columns=70 window.dimensions.lines=12 --command ~/.config/hypr/scripts/curtime",
+        "interval": 30
     },
     "cpu": {
         "interval": 10,

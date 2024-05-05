@@ -37,7 +37,7 @@ opt.incsearch =true
 opt.scrolloff = 4
 opt.updatetime = 50
 opt.swapfile = false
-vim.lsp.set_log_level("off")
+-- vim.lsp.set_log_level("off")
 
 -- NEWLINE AND ETC
 -- MORE INFO : https://neovim.io/doc/user/options.html#'listchars'
