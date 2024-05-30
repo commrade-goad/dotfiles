@@ -27,3 +27,5 @@ smartmontools
 hyprpaper
 hyprland
 xdg-desktop-portal-hyprland
+hyprlock
+hypridle

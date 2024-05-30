@@ -5,9 +5,9 @@ status=$(pidof wl-gammactl)
 if [ -z "$status"]
 then
     command $p_command &
-    notify-send "wl-gammactl RESTARTED" -t 500
+    notify-send "wl-gammactl RESTARTED" -t 500 -a "System"
 else
     pkill wl-gammactl
     command $p_command &
-    notify-send "wl-gammactl RESTARTED" -t 500
+    notify-send "wl-gammactl RESTARTED" -t 500 -a "System"
 fi

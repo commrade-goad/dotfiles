@@ -1,3 +1,33 @@
 prompt_name = "  Master "
-pretty_name = ["⏻ Shutdown", " Reboot", "Z Suspend", " Logout", " Lock", "󱋆 Display", " App", "󰂚 Notifications", " Emoji", "󰎈 Media", " Theme"]
-command = ["systemctl poweroff", "systemctl reboot",  "systemctl suspend", "~/.config/hypr/scripts/logout.sh",  "~/.config/hypr/scripts/lock.sh", "~/Documents/Programming/shell/wlr-display.sh", "rofi -show drun", "~/.config/sway/script/notif-history", "~/.config/sway/script/emoji.sh", "~/.config/hypr/scripts/media-play-pause -p", "~/.config/hypr/scripts/change-theme.sh"]
+pretty_name = [
+    "󰸉 Toggle Live Wallpaper",
+    "󰐎 Play-Pause Live Wallpaper",
+    "󱄄 Fix Display Color",
+    "⏻ Shutdown",
+    " Reboot",
+    "Z Suspend",
+    " Logout",
+    " Lock", 
+	"󱋆 Display", 
+	" App", 
+	"󰂚 Notifications", 
+	" Emoji", 
+	"󰎈 Media",
+    "󰈈 Idle Inhibit"
+]
+command = [
+    "~/.config/hypr/scripts/toggle-wp.sh",
+    "~/.config/sway/script/livewp.sh toggle", 
+	"~/.config/hypr/scripts/display-color.sh", 
+	"systemctl poweroff", 
+	"systemctl reboot", 
+	"systemctl suspend", 
+	"~/.config/hypr/scripts/logout.sh", 
+	"loginctl lock-session", 
+	"~/Documents/Programming/shell/wlr-display.sh", 
+	"rofi -show drun", 
+	"~/.config/sway/script/notif-history", 
+	"~/.config/sway/script/emoji.sh", 
+	"~/.config/hypr/scripts/media-play-pause -p",
+    "~/.config/hypr/scripts/idle-inhibit.sh"
+]
