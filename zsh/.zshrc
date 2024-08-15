@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -13,13 +10,9 @@ ZSH_THEME="cg"
 ##USER
 #neofetch --ascii_distro arch_small --disable title underline model shell resolution wm term icons cpu gpu cols
 export EDITOR='nvim'
-$HOME/Documents/Programming/shell/default.sh
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# /home/fernando/Documents/Programming/shell/reimoo.sh
+/home/fernando/Documents/Programming/shell/default.sh
+PATH="$PATH:/home/fernando/.local/bin"
 
 # Uncomment the following line to use case-sensitive completion.
 #CASE_SENSITIVE="true"
@@ -96,42 +89,48 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-alias ls="exa -l --all --icons --header --git --group-directories-first"
+alias ls="eza -l --all --icons --header --git --group-directories-first"
 alias restart-plasma="kquitapp5 plasmashell && kstart5 plasmashell"
 alias clean-orphan="sudo pacman -Qtdq | sudo pacman -Rns -"
 alias clean-orphan-all="sudo pacman -Qttdq | sudo pacman -Rns -"
-alias yt-dl="python3 '$HOME/git/goad-yt-dlp-helper/yt-dlp-helper.pyc'"
+alias yt-dl="python3 '/home/fernando/git/goad-yt-dlp-helper/src/yt-dlp-helper-v2-5.py'"
 alias weather="curl wttr.in"
 alias calendar="cal -3"
-alias osu="echo 'lib32-libxcomposite lib32-gnutls(lib32-gmp lib32-nettle lib32-gnutls)' && gamemoderun wine '$HOME/.wine/drive_c/users/$USER/AppData/Local/osu!/osu!.exe'"
-alias osu-nogamemode="wine '$HOME/.wine/drive_c/users/$USER/AppData/Local/osu!/osu!.exe'"
-#alias fate="wine '/media/Fate stay night Realta Nua/game/Fate.exe'"
-#alias tsuki="cd /media/Tsukihime/Tsukihime && wine tsukihime.exe"
-#alias nbfc-stat="mono /opt/nbfc/nbfc.exe status --all"
-#alias nbfc="mono /opt/nbfc/nbfc.exe"
 alias v="nvim"
-alias sv="sudo nvim"
-alias vn-wine="WINEPREFIX='$HOME/.local/share/wineprefixes/VisNov/' wine"
+alias sv="sudoedit"
+alias vn-wine="WINEPREFIX='/home/fernando/.local/share/wineprefixes/VisNov/' wine"
+alias sy-wine="WINEPREFIX=/home/fernando/.local/share/wineprefixes/sybase wine"
 alias jplocale="LC_ALL=ja_JP.UTF8"
-#alias baloo-kill="killall baloo_file; killall /usr/lib/baloorunner; killall /usr/bin/baloo_file_extractor"
+alias jplocale-shift="LC_ALL=ja_JP.sjis"
 alias touhou-playlist="mpv 'https://www.youtube.com/playlist?list=PLXZnhQ4xFkPXkPd0aiW3V12UMBFD38tXg' --no-video"
-#alias jpv="LC_ALL=ja_JP.sjis nvim"
-alias jpv="LC_ALL=ja_JP.UTF8 nvim"
 alias convert-sjis="~/Documents/Programming/shell/convert-sjis.sh"
-alias img2ascii="$HOME/Documents/Programming/Rust/ascii-art/target/release/ascii-art"
-alias img2ascii-py="python3 $HOME/Documents/Programming/Python/linux/ascii-project/ascii-v2-unix.py"
+alias img2ascii-py="python3 /home/fernando/Documents/Programming/Python/linux/ascii-project/ascii-v2-unix.py"
 alias :wq="exit"
 alias update="yay -Syu"
 alias binom-calc="~/git/rust-binom-calc/target/release/rust-binom-calc"
-alias open="xdg-open"
+alias open="frun xdg-open"
 alias user-mount="udisksctl"
-alias color-correct="swaymsg exec \"wl-gammactl -c 0.935 -b 0.998 -g 0.806\""
-#alias echo="printf"
-#env XDG_CURRENT_DESKTOP=sway sway
-#alias cp="rsync -ah --info=progress2"
+alias vkeybind="nvim ~/.config/nvim/lua/keys.lua"
+alias neofetch="fastfetch"
+alias reload-waybar="pkill waybar && hyprctl dispatch -- exec waybar -s ~/.config/hypr/waybar/alternative/style.css -c ~/.config/hypr/waybar/alternative/config.jsonc"
+alias m-build="meson build && cp ./build/compile_commands.json ./"
+alias login-sql="mysql -u root -p -S /opt/lampp/var/mysql/mysql.sock"
+alias cat="bat"
+alias rm="trash"
+eval "$(zoxide init zsh)"
+# alias restart-plasma-f="kquitapp5 plasmashell || killall plasmashell && kstart5 plasmashell"
+# alias sch-zoom="firefox 'https://us02web.zoom.us/my/kelasxismakstagnes?pwd=b0lYRVpyemx2QlJZR0E4ci96Wnd0dz09'"
+# alias sch-zoom="xdg-open 'https://us06web.zoom.us/j/87416985509?pwd=Rkk5UElPenVKMXVFNFNxZzFJckpGQT09'"
+# alias osis-disc="echo 'https://discord.gg/qTg84cHDR4'"
+# alias osu="echo 'lib32-libxcomposite lib32-gnutls(lib32-gmp lib32-nettle lib32-gnutls)' && gamemoderun wine '/home/fernando/.wine/drive_c/users/fernando/AppData/Local/osu!/osu!.exe'"
+# alias fate="wine '/media/Fate stay night Realta Nua/game/Fate.exe'"
+# alias nbfc-stat="mono /opt/nbfc/nbfc.exe status --all"
+# alias nbfc="mono /opt/nbfc/nbfc.exe"
+# alias baloo-kill="killall baloo_file; killall /usr/lib/baloorunner; killall /usr/bin/baloo_file_extractor"
+# alias jpv="LC_ALL=ja_JP.sjis nvim"
+# alias jpv="LC_ALL=ja_JP.UTF8 nvim"
+# alias img2ascii="broke for now"
+# alias color-correct="swaymsg exec \"wl-gammactl -c 0.935 -b 0.998 -g 0.806\""
+# alias compile-hypr="~/Documents/Programming/shell/recompile-hypr.sh"
+# alias echo="printf"
+# alias cp="rsync -ah --info=progress2"

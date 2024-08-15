@@ -10,12 +10,15 @@ TERM = "alacritty"
 size = 14.0
 
 [font.bold]
+family = "JetBrainsMonoNL Nerd Font Mono"
 style = "Bold"
 
 [font.bold_italic]
+family = "JetBrainsMonoNL Nerd Font Mono"
 style = "Bold Italic"
 
 [font.italic]
+family = "JetBrainsMonoNL Nerd Font Mono"
 style = "Italic"
 
 [font.normal]

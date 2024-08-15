@@ -62,7 +62,8 @@
 
     progress_bar_corner_radius = 2
     # highlight = "#89b4fa"
-    highlight = "#a6e3a1"
+    # highlight = "#a6e3a1"
+    highlight = "#cba6f7"
 
     # Show how many messages are currently hidden (because of
     # notification_limit).
@@ -93,7 +94,8 @@
 
     # Defines color of the frame around the notification window.
     #frame_color = "#87bbff"
-    frame_color = "#a6e3a1"
+    # frame_color = "#a6e3a1"
+    frame_color = "#cba6f7"
 
     # Define a color for the separator.
     # possible values are:
@@ -234,7 +236,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 6
+    corner_radius = 3
 
     # Ignore the dbus closeNotification message.
     # Useful to enforce the timeout set by dunst configuration. Without this

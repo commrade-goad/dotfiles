@@ -13,10 +13,11 @@ return {
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
     {'lewis6991/gitsigns.nvim', lazy = true},
     {'lukas-reineke/indent-blankline.nvim'},
-    {'uga-rosa/ccc.nvim'},
+    -- {'uga-rosa/ccc.nvim'},
     {'vidocqh/auto-indent.nvim'},
     {'mbbill/undotree'},
     {'dhruvasagar/vim-table-mode'},
+    {'windwp/nvim-ts-autotag'},
 
     ------------------------------------------
 

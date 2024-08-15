@@ -2,7 +2,6 @@ prompt_name = "  Master "
 pretty_name = [
     "󰸉 Toggle Live Wallpaper",
     "󰐎 Play-Pause Live Wallpaper",
-    "󱄄 Fix Display Color",
     "⏻ Shutdown",
     " Reboot",
     "Z Suspend",
@@ -13,15 +12,14 @@ pretty_name = [
 	"󰂚 Notifications", 
 	" Emoji", 
 	"󰎈 Media",
-    "󰈈 Idle Inhibit"
+    "󱄄 Fix Display Color",
 ]
 command = [
     "~/.config/hypr/scripts/toggle-wp.sh",
     "~/.config/sway/script/livewp.sh toggle", 
-	"~/.config/hypr/scripts/display-color.sh", 
 	"systemctl poweroff", 
 	"systemctl reboot", 
-	"systemctl suspend", 
+	"loginctl lock-session && systemctl suspend", 
 	"~/.config/hypr/scripts/logout.sh", 
 	"loginctl lock-session", 
 	"~/Documents/Programming/shell/wlr-display.sh", 
@@ -29,5 +27,5 @@ command = [
 	"~/.config/sway/script/notif-history", 
 	"~/.config/sway/script/emoji.sh", 
 	"~/.config/hypr/scripts/media-play-pause -p",
-    "~/.config/hypr/scripts/idle-inhibit.sh"
+	"~/.config/hypr/scripts/display-color.sh", 
 ]

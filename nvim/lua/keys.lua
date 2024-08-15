@@ -70,11 +70,12 @@ end)
 
 -- B CATEGORY / THE BUFFER FUNC
 map("n", "<leader>be", [[:tabe <CR>]], {}) -- new empty buffer tab (tmp)
-map("n", "<leader>bn", ":bNext<CR>", common) -- [space] + l to go to the next buffer
-map("n", "<leader>bp", ":bprev<CR>", common) -- [space] + l to go to the next buffer
+map("n", "<leader>bn", ":bNext<CR>", common) -- [space] + b + n to go to the next buffer
+map("n", "<leader>bp", ":bprev<CR>", common) -- [space] + b + p to go to the next buffer
 map("n", "<leader>bl", ":Telescope buffers<CR>", common) -- [space] + b + b to spawn telescope that show opened buffer
 map("n", "<leader>bs", ":vsp | Telescope buffers<CR>", common) -- select buffer then do vertical split
 map("n", "<leader>bc", ":bd!<CR>", common) -- remove / delete buffer
+map("n", "<leader>br", ":e<CR>", common) -- remove / delete buffer
 ----------------------------------------
 
 -- J CATEGORY / THE JUMP FUNC

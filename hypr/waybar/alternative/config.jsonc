@@ -155,8 +155,8 @@
         "capslock": true,
         "format": "{icon}",
         "format-icons": {
-            "locked": "",
-            "unlocked": ""
+            "locked": "",
+            "unlocked": ""
         }
     },
     "custom/dunst": {

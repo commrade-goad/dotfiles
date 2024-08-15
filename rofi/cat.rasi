@@ -9,7 +9,7 @@
     fg-col: #cdd6f4;
     fg-col2: #f38ba8;
     grey: #6c7086;
-    catppuccin-green: #a6e3a1;
+    accent-color: #cba6f7;
 
     width: 720;
     font: "JetBrainsMono Nerd Font Mono 12";
@@ -23,9 +23,9 @@ element-text, element-icon , mode-switcher {
 window {
     height: 420px;
     border: 2px;
-    border-color: @catppuccin-green;
+    border-color: @accent-color;
     background-color: @bg-col;
-    border-radius: 6;
+    border-radius: 3;
     padding: 0 15;
 }
 
@@ -41,10 +41,10 @@ inputbar {
 }
 
 prompt {
-    background-color: @catppuccin-green;
+    background-color: @accent-color;
     padding: 6px;
     text-color: @bg-col;
-    border-radius: 5px;
+    border-radius: 3px;
     margin: 20px 0px 0px 0px;
 }
 
@@ -80,9 +80,9 @@ element-icon {
 }
 
 element selected {
-    background-color:  @catppuccin-green ;
+    background-color:  @accent-color ;
     text-color: @selected-col;
-    border-radius: 6;
+    border-radius: 3;
 }
 
 mode-switcher {
@@ -100,6 +100,6 @@ button {
 
 button selected {
   background-color: @bg-col;
-  text-color: @catppuccin-green;
+  text-color: @accent-color;
 }
 

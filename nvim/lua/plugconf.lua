@@ -85,15 +85,15 @@ require('nvim-lastplace').setup {
 
 require('gitsigns').setup()
 
-local ccc = require("ccc")
-local mapping = ccc.mapping
-
-ccc.setup({
-  highlighter = {
-    auto_enable = true,
-    lsp = true,
-  },
-})
+-- local ccc = require("ccc")
+-- local mapping = ccc.mapping
+--
+-- ccc.setup({
+--   highlighter = {
+--     auto_enable = true,
+--     lsp = true,
+--   },
+-- })
 
 require("auto-indent").setup({
   lightmode = true,        -- Lightmode assumes tabstop and indentexpr not change within buffer's lifetime
@@ -116,3 +116,21 @@ require("ibl").setup {
     },
     scope = { enabled = false },
 } ]]
+
+-- AUTO CLOSE HTML TAGS
+require('nvim-ts-autotag').setup({
+    opts = {
+        -- Defaults
+        enable_close = true, -- Auto close tags
+        enable_rename = true, -- Auto rename pairs of tags
+        enable_close_on_slash = false -- Auto close on trailing </
+    },
+    -- Also override individual filetype configs, these take priority.
+    -- Empty by default, useful if one of the "opts" global settings
+    -- doesn't work well in a specific filetype
+    per_filetype = {
+        ["html"] = {
+            enable_close = false
+        }
+    }
+})
