@@ -18,6 +18,13 @@ map("v", "mf", ":normal mf<CR>", common) -- for netrw markfile
 map("n", "<leader><leader>x", "<cmd>source %<CR>", common) -- source a lua file
 map("n", "<leader>pc", "<cmd>CccPick<CR>", common) -- color picker
 map("n", "<leader>ut", "<cmd>UndotreeToggle<CR>", common) -- undo tree
+vim.keymap.set("n", "<leader>dl", function ()
+    local cursor_pos = vim.api.nvim_win_get_cursor(0)
+    print(cursor_pos)
+    vim.cmd("normal! yyp")
+    vim.api.nvim_win_set_cursor(0, {cursor_pos[1] + 1, cursor_pos[2]})
+
+end) -- duplicate line and cursor stays
 ----------------------------------------
 
 -- L CATEGORY / CUSTOM LSP BIND
@@ -39,11 +46,20 @@ map("n", "<leader>f", ":Ex<CR>", common) -- open netrw with [space]+f
 -- C CATEGORY / THE COMPILE FUNC
 vim.keymap.set("n", "<leader>cC", function () nvim_cc.input_compile_command() end) -- compile command input
 -- vim.keymap.set("n", "<leader>cc", function () nvim_cc.run_compile_command() end) -- run compile command
+-- vim.keymap.set("n", "<leader>cc", function ()
+--     if Nvim_cc_term_buffn == nil or vim.fn.bufexists(Nvim_cc_term_buffn) ~= 1 then
+--         nvim_cc.run_compile_command()
+--     else
+--         print("The compile command buff already running...")
+--     end
+-- end) -- run compile command
 vim.keymap.set("n", "<leader>cc", function ()
+    vim.cmd("mark A")
     if Nvim_cc_term_buffn == nil or vim.fn.bufexists(Nvim_cc_term_buffn) ~= 1 then
         nvim_cc.run_compile_command()
     else
-        print("The compile command buff already running...")
+        vim.api.nvim_buf_delete(Nvim_cc_term_buffn, { force = true })
+        nvim_cc.run_compile_command()
     end
 end) -- run compile command
 vim.keymap.set("n", "<leader>cd", function () nvim_cc.run_compile_command_silent() end) -- compile command default or silent
@@ -54,6 +70,8 @@ vim.keymap.set("n", "<leader>cs", function () -- sync file dir to current dir an
     print("cwd & cc set.")
 end)
 vim.keymap.set("n", "<leader>cw", function () nvim_cc.export_compile_command() end) -- export compile command
+vim.keymap.set("n", "<leader>cj", function () nvim_cc.jump_to_error_position() end) -- jump compile command
+
 ----------------------------------------
 
 -- S CATEGORY / THE SEARCH/SUBTITUTE FUNC
@@ -100,6 +118,7 @@ map("v", "<leader>jl", "<cmd>normal! $<CR>", common) -- jump last
 
 -- BASIC
 ----------------
+-- daw -> delete word
 -- to move around in tab use 'gt' or 'gT'
 -- shift+k is a LSP jumping ones
 -- [Ctrl]+r is redo

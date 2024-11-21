@@ -10,9 +10,9 @@ require('lualine').setup{
         always_divide_middle = true,
         globalstatus = false,
         refresh = {
-            statusline = 1000,
-            tabline = 1000,
-            winbar = 1000,
+            statusline = 200,
+            tabline = 500,
+            winbar = 500,
         }
     },
     sections = {
@@ -20,7 +20,7 @@ require('lualine').setup{
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diff'},
         lualine_c = {'buffers'},
-        lualine_x = {'fileformat', 'location', 'filetype'},
+        lualine_x = {'fileformat','location', 'filetype'},
         lualine_y = {'diagnostics'},
         lualine_z = {}
         ----------------------------
@@ -85,15 +85,16 @@ require('nvim-lastplace').setup {
 
 require('gitsigns').setup()
 
--- local ccc = require("ccc")
--- local mapping = ccc.mapping
---
--- ccc.setup({
---   highlighter = {
---     auto_enable = true,
---     lsp = true,
---   },
--- })
+local ccc = require("ccc")
+local mapping = ccc.mapping
+
+ccc.setup({
+  highlighter = {
+    auto_enable = true,
+    lsp = true,
+  },
+})
+
 
 require("auto-indent").setup({
   lightmode = true,        -- Lightmode assumes tabstop and indentexpr not change within buffer's lifetime
@@ -103,13 +104,13 @@ require("auto-indent").setup({
 
 -- INDENT STYLE
 -- LINK : https://github.com/lukas-reineke/indent-blankline.nvim
-require("ibl").setup()
+-- require("ibl").setup()
 --[[ local highlight = {
     "CursorColumn",
     "Whitespace",
 }
 require("ibl").setup {
-    indent = { highlight = highlight, char = "▏" },
+    indent = { highlight = highlight, char = "" },
     whitespace = {
         highlight = highlight,
         remove_blankline_trail = false,

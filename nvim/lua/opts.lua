@@ -43,7 +43,8 @@ opt.swapfile = false
 -- MORE INFO : https://neovim.io/doc/user/options.html#'listchars'
 vim.opt.list = true
 -- vim.opt.listchars = {eol = '↲', space = '·', tab = " -󰌒", trail = '-', extends = '>', precedes = '<', nbsp = ' '}
-vim.opt.listchars = {eol = '↲', space = '·', trail = '>'}
+-- vim.opt.listchars = {eol = '↲', space = '·', trail = '>'}
+vim.opt.listchars = {eol = '↲'}
 
 -- FOLD
 opt.foldmethod = "expr"

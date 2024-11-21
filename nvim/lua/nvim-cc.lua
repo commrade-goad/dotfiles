@@ -1,5 +1,7 @@
 local M = {}
 
+ModCwd = nil
+
 Nvim_cc_term_buffn = nil
 
 if Nvim_cc_split_size == nil then
@@ -18,13 +20,24 @@ if Nvim_cc_file_name == nil or Nvim_cc_file_name == "" then
     Nvim_cc_file_name = "nvim-cc.txt"
 end
 
+if Nvim_cc_blacklist_dir_name == nil or Nvim_cc_blacklist_dir_name == "" then
+    Nvim_cc_blacklist_dir_name = {"src"}
+end
+
+if Nvim_cc_modcwd == nil or Nvim_cc_modcwd == "" then
+    Nvim_cc_modcwd = ""
+end
+
 function M.set_compile_command_from_file()
     local current_buffer = vim.api.nvim_get_current_buf()
     local current_file = vim.api.nvim_buf_get_name(current_buffer)
     local directory = vim.fn.fnamemodify(current_file, ":h")
 
-    if directory:sub(-4) == "/src" then
-        directory = directory:sub(1, -5)
+    for i = 1, #Nvim_cc_blacklist_dir_name, 1 do
+        local item = Nvim_cc_blacklist_dir_name[i]
+        if directory:sub(-#item -1) == "/" .. item then
+            directory = directory:sub(1, -#item - 2)
+        end
     end
 
     local file_path = directory .. "/" .. Nvim_cc_file_name
@@ -34,11 +47,22 @@ function M.set_compile_command_from_file()
         Nvim_cc_compile_command = ""
         for index in pairs(file_content)
         do
+            if string.sub(file_content[index], 1, 1) == "#" then
+                local filtered_str = string.sub(file_content[index], 2, #file_content[index])
+                filtered_str = filtered_str:match("^%s*(.-)%s*$")
+                local read_func = load(filtered_str)
+                if read_func then
+                    read_func()
+                    Nvim_cc_modcwd = ModCwd
+                end
+                goto continue
+            end
             if Nvim_cc_compile_command ~= nil and Nvim_cc_compile_command ~= "" then
                 Nvim_cc_compile_command = Nvim_cc_compile_command .. " && " .. file_content[index]
             else
                 Nvim_cc_compile_command = file_content[index]
             end
+            ::continue::
         end
         print("nvim-cc : ".. Nvim_cc_compile_command)
     end
@@ -95,8 +119,11 @@ function M.sync_directory_to_buffer()
     local current_file = vim.api.nvim_buf_get_name(current_buffer)
     local directory = vim.fn.fnamemodify(current_file, ":h")
 
-    if directory:sub(-4) == "/src" then
-        directory = directory:sub(1, -5)
+    for i = 1, #Nvim_cc_blacklist_dir_name, 1 do
+        local item = Nvim_cc_blacklist_dir_name[i]
+        if directory:sub(-#item -1) == "/" .. item then
+            directory = directory:sub(1, -#item - 2)
+        end
     end
 
     vim.cmd('cd ' .. directory)
@@ -110,6 +137,47 @@ function M.export_compile_command()
         print("Saved " .. Nvim_cc_file_name)
     else
         print("Failed to export " .. Nvim_cc_file_name)
+    end
+end
+
+function M.jump_to_error_position()
+    local old_cwd = vim.fn.getcwd()
+    local new_cwd = vim.fn.getcwd() .. "/" .. Nvim_cc_modcwd
+    local line = vim.fn.getline(".")
+    local file, line_num, col_num = line:match("([^:]+):(%d+):(%d+)")
+    if col_num == nil or col_num == "" then
+        file, line_num = line:match("([^:]+):(%d+)")
+        col_num = 1
+    end
+    if file and line_num then
+        -- `0` to get the current one
+        for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            if buf ~= Nvim_cc_term_buffn then
+                vim.api.nvim_set_current_win(win)
+                break
+            end
+        end
+
+        vim.cmd("cd " .. new_cwd)
+        file = file:match("^%s*(.-)%s*$")
+        file = file:match("([A-Za-z%.][A-Za-z0-9/%.%-%_]*)")
+        local filec = vim.fn.getcwd() .. "/" .. file
+        -- `0` to get the current one
+        if vim.api.nvim_buf_get_name(0) ~= filec then
+            local file_check = io.open(filec,"r")
+            if file_check == nil then
+                print("nvim-cc : file doesn't exist!.")
+                return
+            end
+            vim.cmd("edit " .. file)
+            io.close(file_check)
+        end
+
+        vim.api.nvim_win_set_cursor(0, {tonumber(line_num), tonumber(col_num) - 1})
+        vim.cmd("cd " .. old_cwd)
+    else
+        print("nvim-cc : not a valid jump pattern.")
     end
 end
 
