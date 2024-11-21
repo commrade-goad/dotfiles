@@ -47,7 +47,7 @@ require('lualine').setup{
 -- require('bufferline').setup{}
 require('catppuccin')
 require('Comment').setup()
--- require('presence'):setup()
+require("presence").setup()
 require('telescope').setup()
 -- require('command-completion').setup()
 
@@ -85,7 +85,7 @@ require('nvim-lastplace').setup {
 
 require('gitsigns').setup()
 
-local ccc = require("ccc")
+--[[ local ccc = require("ccc")
 local mapping = ccc.mapping
 
 ccc.setup({
@@ -93,7 +93,7 @@ ccc.setup({
     auto_enable = true,
     lsp = true,
   },
-})
+}) ]]
 
 
 require("auto-indent").setup({
