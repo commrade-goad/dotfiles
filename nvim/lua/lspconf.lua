@@ -1,45 +1,55 @@
 vim.opt.signcolumn = 'yes' -- Reserve space for diagnostic icons
 
-local lsp = require('lsp-zero')
-lsp.preset('recommended')
+-- Reserve a space in the gutter
+vim.opt.signcolumn = 'yes'
 
-lsp.nvim_workspace()
 
-lsp.set_preferences({
-  suggest_lsp_servers = true,
-  setup_servers_on_start = true,
-  set_lsp_keymaps = true,
-  configure_diagnostics = true,
-  cmp_capabilities = true,
-  manage_nvim_cmp = true,
-  call_servers = 'local',
-  sign_icons = {
-    error = 'x',
-    warn = '!',
-    hint = 'H',
-    info = 'i'
-  }
+require('mason').setup()
+require('mason-lspconfig').setup()
+
+require("mason-lspconfig").setup_handlers {
+    function (server_name)
+        require("lspconfig")[server_name].setup {}
+    end,
+    ["rust_analyzer"] = function ()
+        require("rust-tools").setup {}
+    end
+}
+
+-- Add cmp_nvim_lsp capabilities settings to lspconfig
+-- This should be executed before you configure any language server
+local lspconfig_defaults = require('lspconfig').util.default_config
+lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+    'force',
+    lspconfig_defaults.capabilities,
+    require('cmp_nvim_lsp').default_capabilities()
+)
+
+-- This is where you enable features that only work
+-- if there is a language server active in the file
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP actions',
+    callback = function(event)
+        local opts = {buffer = event.buf}
+
+        vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+        vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+        vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+        vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
+        vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
+        vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+        vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+        vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+        vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    end,
 })
 
-lsp.setup_nvim_cmp({
-  preselect = 'none',
-  completion = {
-    completeopt = 'menu,menuone,noinsert,noselect'
-  },
-})
-
-lsp.setup()
-vim.diagnostic.config({
-  virtual_text = true,
-  signs = true,
-  update_in_insert = false,
-  underline = true,
-  severity_sort = true,
-  float = true,
-})
+-- require('lspconfig').gleam.setup({})
+-- require('lspconfig').ocamllsp.setup({})
 
 local cmp = require('cmp')
-local cmp_action = require('lsp-zero').cmp_action()
+
 local completion = {
     {name = 'nvim_lsp'},
     {name = 'luasnip'},
@@ -49,19 +59,30 @@ local completion = {
     {name = 'orgmode'},
     {name = 'buffer', keyword_length = 4},
 }
--- all source here : https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources
 
 cmp.setup({
-    mapping = {
-        ['<CR>'] = cmp.mapping.confirm({select = false}),
-        ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-        ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-    },
+    sources = completion,
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
-    sources = completion,
+    snippet = {
+        expand = function(args)
+            vim.snippet.expand(args.body)
+        end,
+    },
+    completion = { completeopt = 'menu,menuone,noinsert'},
+    mapping = cmp.mapping.preset.insert({
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        -- to use tab to autocomplete --
+        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+
+        -- to use tab to move the autocomplete --
+        --[[ ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(), ]]
+    }),
     formatting = {
         -- fields = {'menu', 'abbr', 'kind'},
         fields = {'abbr', 'kind', 'menu'},
@@ -84,28 +105,9 @@ cmp.setup({
             return item
         end,
     },
-
 })
-
--- CUSTOM COMMAND = BAD
-
--- for GODOT
---[[ local lspconfig = require('lspconfig')
-lspconfig.gdscript.setup {}
-local pipepath = vim.fn.stdpath("cache") .. "/server.pipe"
-if not vim.loop.fs_stat(pipepath) then
-  vim.fn.serverstart(pipepath)
-end ]]
------------------------------
-
--- local lspconfig = require('lspconfig')
--- lspconfig.phpactor.setup {
--- }
--- lspconfig.clangd.setup{
---     cmd = {"clangd", "--compile-commands-dir=compiledb/", "--background-index", "--clang-tidy"},
--- }
 
 -- SNIPPETS STUFF
 require('luasnip.loaders.from_vscode').lazy_load()
-require('luasnip.loaders.from_snipmate').load({ path = { '~/.config/nvim/snippets' } })
-require('luasnip.loaders.from_snipmate').lazy_load()
+-- require('luasnip.loaders.from_snipmate').load({ path = { '~/.config/nvim/snippets' } })
+-- require('luasnip.loaders.from_snipmate').lazy_load()

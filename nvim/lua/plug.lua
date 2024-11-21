@@ -24,26 +24,22 @@ return {
     -- LSP and syntax
     {'nvim-treesitter/nvim-treesitter'},
     {'nvimtools/none-ls.nvim'},
-    {'VonHeikemen/lsp-zero.nvim',
-        dependencies = {
-            -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+    -- LSP Support
+    {'neovim/nvim-lspconfig'},
+    {'williamboman/mason.nvim'},
+    {'williamboman/mason-lspconfig.nvim'},
 
-            -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
-            {'hrsh7th/cmp-calc',},
-            {'FelipeLema/cmp-async-path',},
+    -- Autocompletion
+    {'hrsh7th/nvim-cmp'},
+    {'hrsh7th/cmp-buffer'},
+    {'saadparwaiz1/cmp_luasnip'},
+    {'hrsh7th/cmp-nvim-lsp'},
+    {'hrsh7th/cmp-nvim-lua'},
+    {'hrsh7th/cmp-calc',},
+    {'FelipeLema/cmp-async-path',},
 
-            -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
-        }
-    },
+    -- Snippets
+    {'L3MON4D3/LuaSnip'},
+    {'rafamadriz/friendly-snippets'},
     ------------------------------------------
 }
