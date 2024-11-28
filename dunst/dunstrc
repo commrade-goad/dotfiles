@@ -63,7 +63,7 @@
     progress_bar_corner_radius = 2
     # highlight = "#89b4fa"
     # highlight = "#a6e3a1"
-    highlight = "#cba6f7"
+    highlight = "#bbcbe2"
 
     # Show how many messages are currently hidden (because of
     # notification_limit).
@@ -95,7 +95,7 @@
     # Defines color of the frame around the notification window.
     #frame_color = "#87bbff"
     # frame_color = "#a6e3a1"
-    frame_color = "#cba6f7"
+    frame_color = "#bbcbe2"
 
     # Define a color for the separator.
     # possible values are:
@@ -302,21 +302,21 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#1e1e2e"
+    background = "#2e3440"
     foreground = "#cdd6f4"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_normal]
-    background = "#1e1e2e"
+    background = "#2e3440"
     foreground = "#cdd6f4"
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_critical]
-    background = "#1e1e2e"
+    background = "#2e3440"
     foreground = "#f38ba8"
     frame_color = "#f38ba8"
     highlight = "#f38ba8"
@@ -412,14 +412,10 @@
 #    summary = "foobar"
 #    skip_display = true
 
+# This notification will not be saved in history
 [history-ignore]
     appname = "ruskey"
     history_ignore = yes
-#    # This notification will not be saved in history
-#    summary = "foobar"
-#    history_ignore = yes
-    #appaname="sway"
-    #history_ignore = yes
 
 #[skip-display]
 #    # This notification will not be displayed, but will be included in the history

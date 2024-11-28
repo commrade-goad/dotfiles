@@ -12,4 +12,4 @@ configuration{
     sidebar-mode: true;
 }
 
-@theme "cat"
+@theme "nord"

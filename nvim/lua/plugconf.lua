@@ -1,7 +1,7 @@
 require('lualine').setup{
     options = {
         icons_enabled = true,
-        theme = "catppuccin",
+        theme = "nord",
         -- component_separators = { left = '|', right = '|'},
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
@@ -19,7 +19,8 @@ require('lualine').setup{
         -- new style
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diff'},
-        lualine_c = {'buffers'},
+        -- lualine_c = {'buffers'},
+        lualine_c = {'filename'},
         lualine_x = {'fileformat','location', 'filetype'},
         lualine_y = {'diagnostics'},
         lualine_z = {}
@@ -44,8 +45,12 @@ require('lualine').setup{
     inactive_winbar = {},
     extensions = {}
 }
--- require('bufferline').setup{}
-require('catppuccin')
+-- require('catppuccin')
+
+require('nord')
+vim.g.nord_contrast = true
+-- vim.g.nord_disable_background = true
+
 require('Comment').setup()
 require("presence").setup()
 require('telescope').setup()

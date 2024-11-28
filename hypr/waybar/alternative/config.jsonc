@@ -19,7 +19,7 @@
         "tray",
         "custom/dunst",
         "idle_inhibitor",
-        "keyboard-state",
+        // "keyboard-state",
         "pulseaudio",
         "network",
         "battery",
@@ -108,11 +108,12 @@
             "warning": 30,
             "critical": 20
         },
+        "on-click": "~/.config/hypr/scripts/tuned-gui",
         "max-length": 20,
         "format": "{icon} {capacity}%",
         "format-charging": "󰂄 {capacity}%",
         "format-plugged": " {capacity}%",
-        "format-alt": "{time} {icon}",
+        // "format-alt": "{time} {icon}",
         "format-icons": [
             "󰂎",
             "󰁺",
@@ -152,7 +153,8 @@
     },
     "keyboard-state": {
         "numlock": true,
-        "capslock": true,
+        "capslock": false,
+        // "capslock": true,
         "format": "{icon}",
         "format-icons": {
             "locked": "",

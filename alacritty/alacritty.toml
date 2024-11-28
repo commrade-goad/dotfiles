@@ -1,4 +1,5 @@
-import = ["/home/fernando/.config/alacritty/active.toml"]
+# general.import = ["/home/fernando/.config/alacritty/active.toml"]
+general.import = ["/home/fernando/.config/alacritty/nord.toml"]
 
 [cursor.style]
 shape = "Block"

@@ -3,18 +3,8 @@ vim.opt.signcolumn = 'yes' -- Reserve space for diagnostic icons
 -- Reserve a space in the gutter
 vim.opt.signcolumn = 'yes'
 
-
 require('mason').setup()
 require('mason-lspconfig').setup()
-
-require("mason-lspconfig").setup_handlers {
-    function (server_name)
-        require("lspconfig")[server_name].setup {}
-    end,
-    --[[ ["rust_analyzer"] = function ()
-        require("rust-tools").setup {}
-    end ]]
-}
 
 -- Add cmp_nvim_lsp capabilities settings to lspconfig
 -- This should be executed before you configure any language server
@@ -24,6 +14,15 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
     lspconfig_defaults.capabilities,
     require('cmp_nvim_lsp').default_capabilities()
 )
+
+require("mason-lspconfig").setup_handlers {
+    function (server_name)
+        require("lspconfig")[server_name].setup {}
+    end,
+    --[[ ["rust_analyzer"] = function ()
+        require("rust-tools").setup {}
+    end ]]
+}
 
 -- This is where you enable features that only work
 -- if there is a language server active in the file
@@ -69,19 +68,25 @@ cmp.setup({
     snippet = {
         expand = function(args)
             vim.snippet.expand(args.body)
+            -- require('luasnip').lsp_expand(args.body)
         end,
     },
     completion = { completeopt = 'menu,menuone,noinsert'},
     mapping = cmp.mapping.preset.insert({
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+
         -- to use tab to autocomplete --
-        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+        -- ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+        -- ['<C-Tab>'] = cmp.mapping.select_next_item(),
+        -- ['<C-S-Tab>'] = cmp.mapping.select_prev_item(),
+
+        -- to use enter to autocomplete --
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
         -- to use tab to move the autocomplete --
-        ['<C-Tab>'] = cmp.mapping.select_next_item(),
-        ['<C-S-Tab>'] = cmp.mapping.select_prev_item(),
         ['<C-P>'] = cmp.mapping.select_next_item(),
         ['<C-N>'] = cmp.mapping.select_prev_item(),
     }),
@@ -112,4 +117,6 @@ cmp.setup({
 -- SNIPPETS STUFF
 require('luasnip.loaders.from_vscode').lazy_load()
 -- require('luasnip.loaders.from_snipmate').load({ path = { '~/.config/nvim/snippets' } })
--- require('luasnip.loaders.from_snipmate').lazy_load()
+require('luasnip.loaders.from_snipmate').lazy_load()
+
+vim.lsp.set_log_level("off")
