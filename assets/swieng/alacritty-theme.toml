@@ -1,0 +1,50 @@
+[colors.bright]
+black = "#%t_b_black%"
+blue = "#%t_b_blue%"
+cyan = "#%t_b_cyan%"
+green = "#%t_b_green%"
+magenta = "#%t_b_magenta%"
+red = "#%t_b_red%"
+white = "#%t_b_white%"
+yellow = "#%t_b_yellow%"
+
+[colors.cursor]
+cursor = "#%t_cur_color%"
+text = "#%bgcolor%"
+
+[colors.dim]
+black = "#%t_d_black%"
+blue = "#%t_d_blue%"
+cyan = "#%t_d_cyan%"
+green = "#%t_d_green%"
+magenta = "#%t_d_magenta%"
+red = "#%t_d_red%"
+white = "#%t_d_white%"
+yellow = "#%t_d_yellow%"
+
+[colors.normal]
+black = "#%t_n_black%"
+blue = "#%t_n_blue%"
+cyan = "#%t_n_cyan%"
+green = "#%t_n_green%"
+magenta = "#%t_n_magenta%"
+red = "#%t_n_red%"
+white = "#%t_n_white%"
+yellow = "#%t_n_yellow%"
+
+[colors.primary]
+background = "#%bgcolor%"
+dim_foreground = "#%t_fgcolor_dim%"
+foreground = "#%t_fgcolor%"
+
+[colors.search.matches]
+background = "#%t_n_cyan%"
+foreground = "CellBackground"
+
+[colors.selection]
+background = "#%t_select_color%"
+text = "CellForeground"
+
+[colors.vi_mode_cursor]
+cursor = "#%t_cur_color%"
+text = "#%bgcolor%"
