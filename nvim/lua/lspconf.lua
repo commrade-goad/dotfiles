@@ -49,18 +49,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 local cmp = require('cmp')
 
-local completion = {
+local completion_mode = {
     {name = 'nvim_lsp'},
     {name = 'luasnip'},
     {name = 'async_path'},
-    {name = 'calc'},
+    -- {name = 'calc'},
     {name = 'nvim_lua'},
     {name = 'orgmode'},
     {name = 'buffer', keyword_length = 4},
 }
 
 cmp.setup({
-    sources = completion,
+    sources = completion_mode,
     --[[ window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
@@ -71,24 +71,44 @@ cmp.setup({
             -- require('luasnip').lsp_expand(args.body)
         end,
     },
-    completion = { completeopt = 'menu,menuone,noinsert'},
+    completion = {
+        preselect = 'item',
+        completeopt = 'menu,menuone,noinsert',
+    },
     mapping = cmp.mapping.preset.insert({
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
 
         -- to use tab to autocomplete --
-        -- ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-        -- ['<C-Tab>'] = cmp.mapping.select_next_item(),
-        -- ['<C-S-Tab>'] = cmp.mapping.select_prev_item(),
+        --[[ ['<Tab>'] = cmp.mapping.confirm({ select = false }),
+        ['<C-Tab>'] = cmp.mapping(function(fallback)
+            local col = vim.fn.col('.') - 1
+
+            if cmp.visible() then
+                cmp.select_next_item({behavior = 'select'})
+            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+                fallback()
+            else
+                cmp.complete()
+            end
+        end, {'i', 's'}),
+        ['<C-S-Tab>'] = cmp.mapping.select_prev_item({behavior = 'select'}), ]]
 
         -- to use enter to autocomplete --
-        ['<CR>'] = cmp.mapping.confirm({ select = false }),
-        ['<Tab>'] = cmp.mapping.select_next_item(),
-        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            local col = vim.fn.col('.') - 1
 
-        -- to use tab to move the autocomplete --
-        ['<C-P>'] = cmp.mapping.select_next_item(),
-        ['<C-N>'] = cmp.mapping.select_prev_item(),
+            if cmp.visible() then
+                cmp.select_next_item({behavior = 'select'})
+            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+                fallback()
+            else
+                cmp.complete()
+            end
+        end, {'i', 's'}),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+
     }),
     formatting = {
         -- fields = {'menu', 'abbr', 'kind'},
@@ -117,6 +137,6 @@ cmp.setup({
 -- SNIPPETS STUFF
 require('luasnip.loaders.from_vscode').lazy_load()
 -- require('luasnip.loaders.from_snipmate').load({ path = { '~/.config/nvim/snippets' } })
-require('luasnip.loaders.from_snipmate').lazy_load()
+-- require('luasnip.loaders.from_snipmate').lazy_load()
 
 vim.lsp.set_log_level("off")

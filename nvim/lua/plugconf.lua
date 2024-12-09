@@ -49,17 +49,19 @@ require('lualine').setup{
 
 require('nord')
 vim.g.nord_contrast = true
--- vim.g.nord_disable_background = true
+vim.g.nord_disable_background = true
 
 require('Comment').setup()
-require("presence").setup()
-require('telescope').setup()
+require("presence").setup({})
+require('telescope').setup({})
 -- require('command-completion').setup()
 
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {"c", "cpp", "rust", "python", "lua"},
     sync_install = false,
 
+    modules = {},
+    ignore_install = {},
     auto_install = true,
     highlight = {
         enable = true,
@@ -90,19 +92,19 @@ require('nvim-lastplace').setup {
 
 require('gitsigns').setup()
 
---[[ local ccc = require("ccc")
-local mapping = ccc.mapping
+local ccc = require("ccc")
+-- local mapping = ccc.mapping
 
 ccc.setup({
   highlighter = {
     auto_enable = true,
     lsp = true,
   },
-}) ]]
+})
 
 
 require("auto-indent").setup({
-  lightmode = true,        -- Lightmode assumes tabstop and indentexpr not change within buffer's lifetime
+  lightmode = false,        -- Lightmode assumes tabstop and indentexpr not change within buffer's lifetime
   indentexpr = nil,        -- Use vim.bo.indentexpr by default, see 'Custom Indent Evaluate Method'
   ignore_filetype = {},    -- Disable plugin for specific filetypes, e.g. ignore_filetype = { 'javascript' }
 })
