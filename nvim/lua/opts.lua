@@ -33,7 +33,8 @@ opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
 opt.wrap = true
-opt.hlsearch = false
+-- opt.hlsearch = false
+opt.hlsearch = true
 opt.incsearch =true
 opt.scrolloff = 4
 opt.updatetime = 50
@@ -64,6 +65,9 @@ vim.g.netrw_localrmdir = "rm -r"
 vim.g.netrw_keepdir = 1
 -- SHIFT+I > show banner
 -- i > change view
+
+-- ZIG WHY?????
+vim.cmd("let g:zig_fmt_autosave = 0")
 
 -- COLOR STUFF
 --[[ vim.api.nvim_set_hl(0, "Normal", { bg = "none" })

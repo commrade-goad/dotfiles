@@ -9,7 +9,7 @@ return {
     -- {'catppuccin/nvim', name = 'catppuccin', lazy = true},
     {'shaunsingh/nord.nvim', name = 'nord', lazy = true},
     {'goolord/alpha-nvim', lazy = true},
-    {'tpope/vim-fugitive', lazy = true},
+    {'tpope/vim-fugitive'},
     {'ethanholz/nvim-lastplace'},
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
     {'lewis6991/gitsigns.nvim', lazy = true},
@@ -17,8 +17,16 @@ return {
     {'uga-rosa/ccc.nvim', lazy = true},
     {'vidocqh/auto-indent.nvim', lazy = true},
     {'mbbill/undotree', lazy = true},
-    {'dhruvasagar/vim-table-mode', lazy = true},
+    {'dhruvasagar/vim-table-mode'},
     {'windwp/nvim-ts-autotag', lazy = true},
+    {
+        'stevearc/oil.nvim',
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        -- Optional dependencies
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
 
     ------------------------------------------
 

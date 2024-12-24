@@ -20,10 +20,6 @@ zstyle ':completion:*' menu select
 # Enable approximate matches (e.g., fix typos)
 zstyle ':completion:*' completer _complete _approximate
 
-# Paths for user-specific binaries
-export PATH=$HOME/bin:$PATH
-export EDITOR="nvim"
-
 # Prompt setup
 
 # [user@computer path]$ 
@@ -39,10 +35,8 @@ PROMPT="%B┌[%F{cyan}%b%n%f%B@%b%F{blue}%m%B%f]%b-%B[%F{cyan}%b%(3~|../%2~|%3~)
 # change red if not return 0
 precmd() {
   if [[ $? -eq 0 ]]; then
-    # RPROMPT="%F{green}[ok]%f"
     PROMPT="%B┌[%F{cyan}%b%n%f%B@%b%F{blue}%m%B%f]%b-%B[%F{cyan}%b%(3~|../%2~|%3~)%B%f]%b${NEWLINE}└> "
   else
-    # RPROMPT="%F{red}[err]%f"
     PROMPT="%B%F{red}┌%f[%F{cyan}%b%n%f%B@%b%F{blue}%m%B%f]%b%F{red}-%f%B[%F{cyan}%b%(3~|../%2~|%3~)%B%f]%b${NEWLINE}%F{red}└>%f "
   fi
 }
@@ -75,10 +69,22 @@ bindkey '^[[B' history-substring-search-down # Down arrow to search forward
 # Zoxide
 eval "$(zoxide init zsh)"
 
-# PATH and startup
+# Yazi
+function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
+# export and startup
 # ~/Documents/Programming/shell/reimoo.sh
 source ~/Documents/Programming/shell/default.sh
-PATH="$PATH:/home/fernando/.local/bin"
+export EDITOR="nvim"
+export PATH="$PATH:/home/fernando/.local/bin"
+# export MANPAGER='nvim +Man!'
 
 # Alias setup
 alias sudo='doas'
@@ -105,19 +111,14 @@ alias vkeybind="nvim ~/.config/nvim/lua/keys.lua"
 alias neofetch="fastfetch"
 alias reload-waybar="pkill waybar && hyprctl dispatch -- exec waybar -s ~/.config/hypr/waybar/alternative/style.css -c ~/.config/hypr/waybar/alternative/config.jsonc"
 alias m-build="meson build && cp ./build/compile_commands.json ./"
-# alias cat="bat"
-alias rm="trash"
 alias tarx="tar -xvzf"
 alias grep="grep --color=always"
 alias ip="ip --color=always"
+alias tm="tmux a || tmux"
 
 # alias sch-zoom="firefox 'https://us02web.zoom.us/my/kelasxismakstagnes?pwd=b0lYRVpyemx2QlJZR0E4ci96Wnd0dz09'"
 # alias sch-zoom="xdg-open 'https://us06web.zoom.us/j/87416985509?pwd=Rkk5UElPenVKMXVFNFNxZzFJckpGQT09'"
 # alias osis-disc="echo 'https://discord.gg/qTg84cHDR4'"
-# alias osu="echo 'lib32-libxcomposite lib32-gnutls(lib32-gmp lib32-nettle lib32-gnutls)' && gamemoderun wine '/home/fernando/.wine/drive_c/users/fernando/AppData/Local/osu!/osu!.exe'"
-# alias fate="wine '/media/Fate stay night Realta Nua/game/Fate.exe'"
 # alias jpv="LC_ALL=ja_JP.sjis nvim"
 # alias jpv="LC_ALL=ja_JP.UTF8 nvim"
-# alias color-correct="swaymsg exec \"wl-gammactl -c 0.935 -b 0.998 -g 0.806\""
-# alias echo="printf"
 # alias cp="rsync -ah --info=progress2"

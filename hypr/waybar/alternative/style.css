@@ -5,15 +5,12 @@
 }
 
 window#waybar {
-    /* background-color: #1e1e2e; */
     background-color: #2e3440;
-    color: #ffffff;
+    color: #eceff4;
     transition-property: background-color;
     transition-duration: 0.5s;
-    border-top: 8px transparent;
-    border-radius: 4px;
-    /* border-radius: 8px; */
-    margin: 16px 16px;
+    /* border-radius: 3px; */
+    border-radius: 0px;
 }
 
 #workspaces button {
@@ -21,10 +18,6 @@ window#waybar {
     color: #616274;
     border-radius: 0;
     box-shadow: inset 0 -3px transparent;
-}
-
-#workspaces button.focused {
-  color: #bf616a;
 }
 
 #workspaces button.active {
@@ -39,14 +32,11 @@ window#waybar {
 }
 
 #workspaces button.urgent {
-    background-color: #f38ba8;
+    background-color: #bf616a;
 }
 
 #window {
-    /* border-radius: 20px; */
-    /* padding-left: 10px; */
-    /* padding-right: 10px; */
-    color: #cdd6f4;
+    color: #eceff4;
 }
 
 #clock,
@@ -78,7 +68,7 @@ window#waybar {
     padding-left: 5px;
     padding-right: 0;
     margin-right: 0;
-    color: #89dceb;
+    color: #8fbcbb;
 }
 
 #memory {
@@ -97,7 +87,11 @@ window#waybar {
 }
 
 #pulseaudio {
-    color: #eba0ac;
+    color: #88c0d0;
+}
+
+#pulseaudio.muted {
+    color: #bf616a;
 }
 
 #backlight {
@@ -106,33 +100,31 @@ window#waybar {
 }
 
 #clock {
-    color: #fab387;
+    color: #d08770;
     padding-right: 5px;
-    /* background-color: #14141e; */
 }
 
 #battery {
     background-color: #2e3440;
-    color: #a6e3a1;
+    color: #81a1c1;
     padding-right: 0;
-    /* background-color: #90b1b1; */
 }
 
 #battery.charging,
 #battery.full,
 #battery.plugged {
-    color: #89dceb;
+    color: #a3be8c;
 }
 
 @keyframes blink {
     to {
         background-color: rgba(30, 34, 42, 0.5);
-        color: #ffffff;
+        color: #eceff4;
     }
 }
 
 #battery.critical:not(.charging) {
-    color: #f5c2e7;
+    color: #bf616a;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -141,19 +133,19 @@ window#waybar {
 }
 
 label:focus {
-    background-color: #000000;
+    background-color: #eceff4;
 }
 
 #network {
-    color: #f9e2af;
+    color: #ebcb8b;
 }
 
 #network.disconnected {
-    color: #f38ba8;
+    color: #bf616a;
 }
 
 #custom-media {
-    color: #f9e2af;
+    color: #ebcb8b;
 }
 
 #tray > .passive {
@@ -162,26 +154,26 @@ label:focus {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
+    background-color: #bf616a;
 }
 
 #idle_inhibitor {
-    color: #cba6f7;
+    color: #b48ead;
 }
 
 #idle_inhibitor.activated{
-    color:  #eba0ac;
-    box-shadow: inset 0 -2px #eba0ac;
+    color:  #bf616a;
+    box-shadow: inset 0 -2px #bf616a;
 }
 
 #custom-dunst {
     padding:0 3px;
-    color: #ffffff;
+    color: #a3be8c;
 }
 
 #custom-dunst.disabled{
-    color: #f5c2e7;
-    box-shadow: inset 0 -2px #f5c2e7;
+    color: #bf616a;
+    box-shadow: inset 0 -2px #bf616a;
 }
 
 #keyboard-state {

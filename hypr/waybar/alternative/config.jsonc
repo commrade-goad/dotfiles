@@ -1,10 +1,14 @@
 {
-    "height": 32,
+    "height": 34,
     "layer": "top",
-    "margin-top": 6,
-    "margin-left": 10,
+    "margin-top": 0,
+    "margin-left": 0,
     "margin-bottom": 0,
-    "margin-right": 10,
+    "margin-right": 0,
+    // "margin-top": 6,
+    // "margin-left": 10,
+    // "margin-bottom": 0,
+    // "margin-right": 10,
     "position": "top",
     "spacing": 5,
     "modules-left": [

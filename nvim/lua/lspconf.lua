@@ -55,7 +55,6 @@ local completion_mode = {
     {name = 'async_path'},
     -- {name = 'calc'},
     {name = 'nvim_lua'},
-    {name = 'orgmode'},
     {name = 'buffer', keyword_length = 4},
 }
 
