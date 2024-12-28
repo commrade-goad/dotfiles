@@ -57,7 +57,10 @@ function M.set_compile_command_from_file()
                 local read_func = load(filtered_str)
                 if read_func then
                     read_func()
-                    Nvim_cc_modcwd = ModCwd
+                    if ModCwd ~= nil then
+                        Nvim_cc_modcwd = ModCwd
+                        ModCwd = nil
+                    end
                 end
                 goto continue
             end
@@ -100,7 +103,7 @@ function M.run_compile_command()
     else
         split_mode = "vsplit"
     end
-    local cmd = Nvim_cc_split_size .. split_mode .. " | terminal echo \"> " .. Nvim_cc_compile_command .. "\" && " .. Nvim_cc_compile_command
+    local cmd = Nvim_cc_split_size .. split_mode .. " | terminal " .. Nvim_cc_compile_command
     vim.cmd(cmd)
     Nvim_cc_term_buffn = vim.api.nvim_get_current_buf()
     if Nvim_cc_start_insert == true then
@@ -151,9 +154,9 @@ function M.jump_to_error_position()
     local old_cwd = vim.fn.getcwd()
     local new_cwd = vim.fn.getcwd() .. "/" .. Nvim_cc_modcwd
     local line = vim.fn.getline(".")
-    local file, line_num, col_num = line:match("([^:]+):(%d+):(%d+)")
+    local file, line_num, col_num = line:match("(/?[^%s:]+):(%d+):(%d+)")
     if col_num == nil or col_num == "" then
-        file, line_num = line:match("([^:]+):(%d+)")
+        file, line_num = line:match("(/?[^%s:]+):(%d+)")
         col_num = 1
     end
     if file and line_num then
@@ -168,13 +171,17 @@ function M.jump_to_error_position()
 
         vim.cmd("cd " .. new_cwd)
         file = file:match("^%s*(.-)%s*$")
-        file = file:match("([A-Za-z%.][A-Za-z0-9/%.%-%_]*)")
-        local filec = vim.fn.getcwd() .. "/" .. file
+        file = file:match("([/A-Za-z%.][A-Za-z0-9/%.%-%_]*)")
+        local filec = file
+        if string.sub(file, 1, 1) ~= '/' then
+            filec = vim.fn.getcwd() .. "/" .. file
+        end
         -- `0` to get the current one
         if vim.api.nvim_buf_get_name(0) ~= filec then
             local file_check = io.open(filec,"r")
             if file_check == nil then
-                print("nvim-cc : file doesn't exist!.")
+                print("nvim-cc : file `" .. file .. "` doesn't exist!.")
+                vim.cmd("cd " .. old_cwd)
                 return
             end
             vim.cmd("edit " .. file)

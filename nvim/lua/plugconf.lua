@@ -46,14 +46,12 @@ require('lualine').setup{
     inactive_winbar = {},
     extensions = {}
 }
--- require('catppuccin')
 
-require('nord')
-vim.g.nord_contrast = true
-vim.g.nord_disable_background = true
+-- require('catppuccin')
+require('nord').setup({})
 
 require('Comment').setup()
-require("presence").setup({})
+-- require("presence").setup({})
 require('telescope').setup({})
 -- require('command-completion').setup()
 
@@ -66,7 +64,6 @@ require'nvim-treesitter.configs'.setup {
     auto_install = true,
     highlight = {
         enable = true,
-        -- additional_vim_regex_highlighting = false,
         additional_vim_regex_highlighting = {'markdown'},
     },
     incremental_selection = {
@@ -109,22 +106,6 @@ require("auto-indent").setup({
   indentexpr = nil,        -- Use vim.bo.indentexpr by default, see 'Custom Indent Evaluate Method'
   ignore_filetype = {},    -- Disable plugin for specific filetypes, e.g. ignore_filetype = { 'javascript' }
 })
-
--- INDENT STYLE
--- LINK : https://github.com/lukas-reineke/indent-blankline.nvim
--- require("ibl").setup()
---[[ local highlight = {
-    "CursorColumn",
-    "Whitespace",
-}
-require("ibl").setup {
-    indent = { highlight = highlight, char = "" },
-    whitespace = {
-        highlight = highlight,
-        remove_blankline_trail = false,
-    },
-    scope = { enabled = false },
-} ]]
 
 -- AUTO CLOSE HTML TAGS
 require('nvim-ts-autotag').setup({

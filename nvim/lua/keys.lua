@@ -6,8 +6,9 @@ local common = {noremap = true, silent = true}
 -- map("i", "jk", "<ESC>", {})
 -- vim.g.mapleader = " "
 
--- SPECIAL 
-map("v", "<leader>y", "\"+y" , common) -- Yank/copy some text with [space]+y on visual mode
+-- SPECIAL
+-- map("i", "jj", "<Esc>", common) -- Exit insert mode using jj
+map("v", "<leader>y", "\"+y", common) -- Yank/copy some text with [space]+y on visual mode
 map("n", "<leader>t", ":tabe .<CR>", common) -- open up new tab on normal mode with [space]+t
 map("n", "<leader>h", ":tab Alpha<CR>", common) -- open up alpha with [space]h 
 map("n", "<leader>gs", ":Git<CR>", common) -- git repos stuff with [space]+g+s
@@ -15,8 +16,10 @@ map("n", "<leader>gsd", ":Git diff<CR>", common) -- git diff with [space]+g+s+d
 map("n", "<leader>gp", ":Git push<CR>", common)
 map("t", "<leader><Esc>", "<C-\\><C-n>", common) -- exit term mode with [space] esc
 map("n", "<Esc>", ":noh<CR>", common) -- esc will clean search hl
-map("v", "J", ":m '>+1<CR>gv=gv", common) -- move out text
-map("v", "K", ":m '<-2<CR>gv=gv", common) -- move out text
+-- map("v", "J", ":m '>+1<CR>gv=gv", common) -- move out text
+-- map("v", "K", ":m '<-2<CR>gv=gv", common) -- move out text
+map("v", "<C-j>", ":m '>+1<CR>gv=gv", common) -- move out text
+map("v", "<C-k>", ":m '<-2<CR>gv=gv", common) -- move out text
 map("v", "mf", ":normal mf<CR>", common) -- for netrw markfile
 map("n", "<leader><leader>x", "<cmd>source %<CR>", common) -- source a lua file
 map("n", "<leader>pc", "<cmd>CccPick<CR>", common) -- color picker

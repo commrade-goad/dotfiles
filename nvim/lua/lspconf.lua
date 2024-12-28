@@ -98,14 +98,23 @@ cmp.setup({
             local col = vim.fn.col('.') - 1
 
             if cmp.visible() then
-                cmp.select_next_item({behavior = 'select'})
-            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+                cmp.select_next_item({behavior = 'select'}) elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
                 fallback()
+            elseif vim.snippet and vim.snippet.active({ direction = 1 }) then
+                vim.cmd('lua vim.snippet.jump(1)')
             else
                 cmp.complete()
             end
         end, {'i', 's'}),
-        ['<S-Tab>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item({ behavior = 'select' })
+            elseif vim.snippet and vim.snippet.active({ direction = -1 }) then
+                vim.cmd('lua vim.snippet.jump(-1)')
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
 
     }),

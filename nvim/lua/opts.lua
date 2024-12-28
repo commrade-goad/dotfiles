@@ -33,10 +33,11 @@ opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
 opt.wrap = true
--- opt.hlsearch = false
-opt.hlsearch = true
+opt.hlsearch = false
+-- opt.hlsearch = true
 opt.incsearch =true
-opt.scrolloff = 4
+-- opt.scrolloff = 4
+opt.scrolloff = 2
 opt.updatetime = 50
 opt.swapfile = false
 -- vim.lsp.set_log_level("off")
