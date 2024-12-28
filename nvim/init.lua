@@ -15,7 +15,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plug") -- plugin
 
 -- CONFIG
-require("keys") -- keybind
+-- require("keys") -- keybind
+require("keybind") -- keybind
 require("opts") -- options
 require("lspconf") -- lsp configuration
 require("plugconf") -- plugin configuration

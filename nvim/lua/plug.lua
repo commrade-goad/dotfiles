@@ -3,8 +3,19 @@ return {
     {'nvim-lualine/lualine.nvim', lazy = true},
     {'nvim-telescope/telescope.nvim', name = "telescope"},
     {'nvim-lua/plenary.nvim', lazy = true},
-    {'numToStr/Comment.nvim', lazy = true},
-    -- {'andweeb/presence.nvim', lazy = true},
+    {"folke/which-key.nvim",
+        event = "VeryLazy",
+        opts = { preset = "helix" },
+        keys = {
+            {
+                "<leader>?",
+                function()
+                    require("which-key").show({ global = false })
+                end,
+                desc = "Buffer Local Keymaps (which-key)",
+            },
+        },
+    },
     -- {'sainnhe/gruvbox-material', lazy = true},
     -- {'catppuccin/nvim', name = 'catppuccin', lazy = true},
     {"gbprod/nord.nvim", name = 'nord'},
@@ -20,10 +31,7 @@ return {
     {'windwp/nvim-ts-autotag', lazy = true},
     {
         'stevearc/oil.nvim',
-        ---@module 'oil'
-        ---@type oil.SetupOpts
         opts = {},
-        -- Optional dependencies
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
 

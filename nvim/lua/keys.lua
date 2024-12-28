@@ -60,7 +60,6 @@ vim.keymap.set("n", "<leader>cC", function () nvim_cc.input_compile_command() en
 --     end
 -- end) -- run compile command
 vim.keymap.set("n", "<leader>cc", function ()
-    vim.cmd("mark A")
     if Nvim_cc_term_buffn == nil or vim.fn.bufexists(Nvim_cc_term_buffn) ~= 1 then
         nvim_cc.run_compile_command()
     else

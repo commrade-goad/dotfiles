@@ -1,12 +1,12 @@
 require('lualine').setup{
     options = {
         icons_enabled = true,
+        theme = 'iceberg_dark',
         -- theme = "catppuccin",
-        theme = "nord",
         -- component_separators = { left = '|', right = '|'},
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
-        disabled_filetypes = {'NvimTree', 'alpha'},
+        disabled_filetypes = {'alpha'},
         ignore_focus = {},
         always_divide_middle = true,
         globalstatus = false,
@@ -50,10 +50,8 @@ require('lualine').setup{
 -- require('catppuccin')
 require('nord').setup({})
 
-require('Comment').setup()
 -- require("presence").setup({})
 require('telescope').setup({})
--- require('command-completion').setup()
 
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {"c", "cpp", "rust", "python", "lua"},

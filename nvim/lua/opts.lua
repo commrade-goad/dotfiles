@@ -13,7 +13,8 @@ opt.number = true
 opt.rnu = true
 opt.timeoutlen = 500
 -- cmd('colorscheme catppuccin-mocha')
-cmd('colorscheme nord')
+-- cmd('colorscheme nord')
+cmd('colorscheme default')
 cmd('filetype plugin on')
 --o.clipboard = 'unnamedplus'
 o.showmode = false
@@ -71,5 +72,5 @@ vim.g.netrw_keepdir = 1
 vim.cmd("let g:zig_fmt_autosave = 0")
 
 -- COLOR STUFF
---[[ vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"}) ]]
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
