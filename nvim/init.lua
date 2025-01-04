@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plug") -- plugin
 
 -- CONFIG
--- require("keys") -- keybind
+require("statusbar") -- status line
 require("keybind") -- keybind
 require("opts") -- options
 require("lspconf") -- lsp configuration
@@ -23,4 +23,3 @@ require("plugconf") -- plugin configuration
 require("welcome") -- alpha dashboard configuration
 require("none") -- lint + format
 require("snip") -- user defined snippet
-require("statusbar") -- status line

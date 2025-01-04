@@ -14,10 +14,13 @@ opt.timeoutlen = 500
 -- cmd('colorscheme catppuccin-mocha')
 cmd('colorscheme nord')
 -- cmd('colorscheme default')
+
 cmd('filetype plugin on')
 --o.clipboard = 'unnamedplus'
--- o.showmode = true
-o.showmode = false
+
+o.showmode = true
+-- o.showmode = false
+
 o.completeopt = 'noinsert,menuone,noselect'
 o.cursorline = true
 o.hidden = true
@@ -28,6 +31,7 @@ o.title = true
 o.ttimeoutlen = 0
 o.wildmenu = true
 -- opt.guicursor = "n-v-i-c:block-Cursor"
+-- opt.colorcolumn="80"
 opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
@@ -37,11 +41,9 @@ opt.wrap = true
 opt.hlsearch = false
 -- opt.hlsearch = true
 opt.incsearch =true
--- opt.scrolloff = 4
-opt.scrolloff = 2
+opt.scrolloff = 3
 opt.updatetime = 50
 opt.swapfile = false
--- vim.lsp.set_log_level("off")
 
 -- NEWLINE AND ETC
 -- MORE INFO : https://neovim.io/doc/user/options.html#'listchars'

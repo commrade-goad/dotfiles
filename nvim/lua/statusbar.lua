@@ -26,7 +26,7 @@ local function parse_shortstat_output(s)
         return nil
     end
 
-    return string.format("[%s]", table.concat(result, ", "))
+    return string.format("(%s)", table.concat(result, ", "))
 end
 
 local function get_git_changes(_, buffer)
@@ -53,21 +53,23 @@ local function get_git_changes(_, buffer)
 
     if ok then
         return result
+    else
+        return ""
     end
 end
 
-local function set_hl(hls, s)
-    if not hls or not s then
-        return s
-    end
-    hls = type(hls) == "string" and { hls } or hls
-    for _, hl in ipairs(hls) do
-        if vim.fn.hlID(hl) > 0 then
-            return ("%%#%s#%s%%0*"):format(hl, s)
-        end
-    end
-    return s
-end
+-- local function set_hl(hls, s)
+--     if not hls or not s then
+--         return s
+--     end
+--     hls = type(hls) == "string" and { hls } or hls
+--     for _, hl in ipairs(hls) do
+--         if vim.fn.hlID(hl) > 0 then
+--             return ("%%#%s#%s%%0*"):format(hl, s)
+--         end
+--     end
+--     return s
+-- end
 
 local function diagnostics(bufn) local counts = { 0, 0, 0, 0 }
     local diags = vim.diagnostic.get(bufn)
@@ -102,46 +104,47 @@ local function diagnostics(bufn) local counts = { 0, 0, 0, 0 }
         return ""
     end
     -- local contents = ("%s"):format(table.concat(items, ""))
-    local contents = ("%s"):format(table.concat(items, "|"))
-    local final = "|" .. fmt:format(contents) .. "|"
+    local contents = ("%s"):format(table.concat(items, ":"))
+    local final = "[" .. fmt:format(contents) .. "]"
     return final
 end
 
-local function mode(_, _)
-    local modes = {
-        n = { "Normal", { "StatusLine" } },
-        niI = { "Normal", { "StatusLine" } },
-        niR = { "Normal", { "StatusLine" } },
-        niV = { "Normal", { "StatusLine" } },
-        no = { "N·OpPd", { "StatusLine" } },
-        v = { "Visual", { "Directory" } },
-        V = { "V·Line", { "Directory" } },
-        ['\22'] = { "V·Blck", { "Directory" } },
-        s = { "Select", { "Search" } },
-        S = { "S·Line", { "Search" } },
-        ['\19'] = { "S·Block", { "Search" } },
-        i = { "Insert", { "DiffText" } },
-        ic = { "ICompl" },
-        R = { "Rplace", { "WarningMsg", "IncSearch" } },
-        Rv = { "VRplce", { "WarningMsg", "IncSearch" } },
-        c = { "Cmmand", { "diffAdded", "DiffAdd" } },
-        cv = { "Vim Ex" },
-        ce = { "Ex (r)" },
-        r = { "Prompt" },
-        rm = { "More  " },
-        ["r?"] = { "Cnfirm" },
-        ["!"] = { "Shell ", { "DiffAdd", "diffAdded" } },
-        nt = { "Term  ", { "Visual" } },
-        t = { "Term  ", { "DiffAdd", "diffAdded" } },
-    }
-    local fmt = " %s "
-    local m = vim.api.nvim_get_mode().mode
-    local mode_data = modes and modes[m]
-    local hls = mode_data and mode_data[2]
-    m = mode_data and mode_data[1]:upper() or m
-    m = (fmt):format(m)
-    return set_hl(hls, m) or m
-end
+-- local function mode(_, _)
+--     local modes = {
+--         n = { "Normal", { "StatusLine" } },
+--         niI = { "Normal", { "StatusLine" } },
+--         niR = { "Normal", { "StatusLine" } },
+--         niV = { "Normal", { "StatusLine" } },
+--         no = { "N·OpPd", { "StatusLine" } },
+--         v = { "Visual", { "Directory" } },
+--         V = { "V·Line", { "Directory" } },
+--         ['\22'] = { "V·Blck", { "Directory" } },
+--         s = { "Select", { "Search" } },
+--         S = { "S·Line", { "Search" } },
+--         ['\19'] = { "S·Block", { "Search" } },
+--         i = { "Insert", { "DiffText" } },
+--         ic = { "ICompl" },
+--         R = { "Rplace", { "WarningMsg", "IncSearch" } },
+--         Rv = { "VRplce", { "WarningMsg", "IncSearch" } },
+--         c = { "Cmmand", { "diffAdded", "DiffAdd" } },
+--         cv = { "Vim Ex" },
+--         ce = { "Ex (r)" },
+--         r = { "Prompt" },
+--         rm = { "More  " },
+--         ["r?"] = { "Cnfirm" },
+--         ["!"] = { "Shell ", { "DiffAdd", "diffAdded" } },
+--         nt = { "Term  ", { "Visual" } },
+--         t = { "Term  ", { "DiffAdd", "diffAdded" } },
+--     }
+--     local fmt = " %s "
+--     local m = vim.api.nvim_get_mode().mode
+--     local mode_data = modes and modes[m]
+--     local hls = mode_data and mode_data[2]
+--     m = mode_data and mode_data[1]:upper() or m
+--     m = (fmt):format(m)
+--     -- return set_hl(hls, m) or m
+--     return m
+-- end
 
 local function get_git_branch(_, buffer)
     local j = Job:new {
@@ -159,24 +162,27 @@ local function get_git_branch(_, buffer)
     end
 end
 
-local excluded_filetypes = { "alpha", "undotree", "help", "TelescopePrompt", "TelescopeResults" }
-local mres = mode()
-local diag = diagnostics(0)
-local status = false
+local excluded_filetypes = { "alpha", "undotree" }
+-- local mres = ""
+local diag = ""
+local disableSl = true
 local branch = ""
 local change = ""
-local sl = mres .. " %f %m" .. diag ..  "%=" .. change .. branch .. "%y %l:%c "
+local nlmode = ""
+local sl = ""
+vim.opt.laststatus = 0
 
 local function update_display()
-    if status then
+    if disableSl then
         vim.o.statusline = ""
         vim.opt.laststatus = 0
     else
         vim.opt.laststatus = 3
-        sl = mres .. " %f %m" .. diag ..  "%=" .. change .. branch .. "%y %l:%c "
+        -- sl = mres .. " %f %m" .. diag ..  "%=" .. change .. branch .. "%y %l:%c "
+        sl = " %f %r%m" .. diag .. branch .. "%=" .. change .. " " ..  nlmode .. "%y %l:%c "
         vim.o.statusline = sl
     end
-    vim.defer_fn(update_display, 250)
+    vim.defer_fn(update_display, 200)
 end
 
 local function check_buffer()
@@ -188,28 +194,45 @@ local function check_buffer()
             break
         end
     end
-    status = exclude
-    vim.defer_fn(check_buffer, 500)
+    disableSl = exclude
+    vim.defer_fn(check_buffer, 200)
 end
 
 local function update_diagnostic()
-    diag = diagnostics(vim.api.nvim_get_current_buf())
-    vim.defer_fn(update_diagnostic, 1000)
+    if disableSl then
+        vim.defer_fn(update_diagnostic, 1000)
+    else
+        diag = diagnostics(vim.api.nvim_get_current_buf())
+        vim.defer_fn(update_diagnostic, 1000)
+    end
 end
 
-local function update_mode()
-    mres = mode();
-    vim.defer_fn(update_mode, 250)
+-- local function update_mode()
+--     if disableSl then
+--         vim.defer_fn(update_mode, 250)
+--     else
+--         mres = mode();
+--         vim.defer_fn(update_mode, 250)
+--     end
+-- end
+
+local function get_buffer_nl()
+    local ff = vim.o.fileformat
+    if ff == "unix" then
+        return "[LF]"
+    else
+        return "[CRLF]"
+    end
 end
 
 local function setup_gitb()
-    vim.api.nvim_create_autocmd({"VimEnter", "BufWinEnter"}, {
+    vim.api.nvim_create_autocmd({"VimEnter", "BufEnter", "BufWinEnter"}, {
         callback = function ()
             local curbuff = vim.api.nvim_get_current_buf()
             local curbuffname = vim.api.nvim_buf_get_name(curbuff)
             local lb = get_git_branch(nil, curbuffname)
             if lb then
-                branch = "[" .. lb .. "]"
+                branch = "(" .. lb .. ")"
             else
                 branch = ""
             end
@@ -218,7 +241,7 @@ local function setup_gitb()
 end
 
 local function setup_gitc()
-    vim.api.nvim_create_autocmd({"VimEnter", "BufWritePost", "BufWinEnter"}, {
+    vim.api.nvim_create_autocmd({"VimEnter", "BufWritePost", "BufEnter", "BufWinEnter"}, {
         callback = function ()
             local curbuff = vim.api.nvim_get_current_buf()
             local curbuffname = vim.api.nvim_buf_get_name(curbuff)
@@ -232,14 +255,23 @@ local function setup_gitc()
     })
 end
 
+local function setup_buffernl()
+    -- add `BufWritePost` to make it change the newline mode automatically with
+    -- out reloading the buffer. Using this settings make it more heavy for no
+    -- reason at all so i dont include that.
+    vim.api.nvim_create_autocmd({"VimEnter", "BufEnter", "BufWinEnter"}, {
+        callback = function ()
+            nlmode = get_buffer_nl()
+        end
+    })
+end
+
+check_buffer()
+
 setup_gitb()
 setup_gitc()
-vim.api.nvim_create_autocmd({"VimEnter", "BufEnter"}, {
-    pattern = "*",
-    callback = function ()
-        check_buffer()
-        update_mode()
-        update_diagnostic()
-        update_display()
-    end
-})
+setup_buffernl()
+
+-- update_mode()
+update_diagnostic()
+update_display()

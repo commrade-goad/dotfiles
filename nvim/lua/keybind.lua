@@ -4,92 +4,104 @@ Nvim_cc_blacklist_dir_name = {"src", "bin"}
 local nvim_cc = require('nvim-cc')
 local wk = require("which-key")
 
+-- make `J` didnt teleport cursor
+vim.keymap.set("n", "J", "mzJ`z")
+-- make Ctrl d cursor still in the middle
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+-- make Ctrl u cursor still in the middle
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+-- make search cursor still in the middle
+vim.keymap.set("n", "n", "nzzzv")
+-- make search cursor still in the middle
+vim.keymap.set("n", "N", "Nzzzv")
+-- Ctrl ^ to alternate file
+
 wk.add({
-  { "<leader>", group = "Leader" },
-  { "<leader>y", "\"+y", desc = "Yank/Copy to System Clipboard", mode = "v" },
-  { "<leader>nt", ":tabe .<CR>", desc = "Open New Tab", mode = "n" },
-  { "<leader>h", ":tab Alpha<CR>", desc = "Open Home (Alpha)", mode = "n" },
-  { "<leader><Esc>", "<C-\\><C-n>", desc = "Exit Terminal Mode", mode = "t", hidden = true },
-  { "<Esc>", ":noh<CR>", desc = "Clear Search Highlight", mode = "n", hidden = true },
-  { "<C-j>", ":m '>+1<CR>gv=gv", desc = "Move Selection Down", mode = "v" },
-  { "<C-k>", ":m '<-2<CR>gv=gv", desc = "Move Selection Up", mode = "v" },
-  { "<C-j>", ":m .+1<CR>==", desc = "Move Line Down", mode = "n" },
-  { "<C-k>", ":m .-2<CR>==", desc = "Move Line Up", mode = "n" },
-  { "<leader>jj", "<cmd>normal! %<CR>", desc = "Jump Matching Parenthesis", mode = { "n", "v" } },
-  { "<leader>jh", "<cmd>normal! ^<CR>", desc = "Jump to Line Start", mode = { "n", "v" } },
-  { "<leader>jl", "<cmd>normal! $<CR>", desc = "Jump to Line End", mode = { "n", "v" } },
-  { "<leader><leader>x", "<cmd>source %<CR>", desc = "Source Current File (Lua)", mode = "n" },
-  { "<leader>pc", "<cmd>CccPick<CR>", desc = "Color Picker", mode = "n" },
-  { "<leader>ut", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undo Tree", mode = "n" },
+    { "<leader>", group = "Leader" },
+    { "<leader>y", "\"+y", desc = "Yank/Copy to System Clipboard", mode = "v" },
+    { "<leader>nt", ":tabe .<CR>", desc = "Open New Tab", mode = "n" },
+    { "<leader>h", ":tab Alpha<CR>", desc = "Open Home (Alpha)", mode = "n" },
+    { "<leader><Esc>", "<C-\\><C-n>", desc = "Exit Terminal Mode", mode = "t", hidden = true },
+    { "<Esc>", ":noh<CR>", desc = "Clear Search Highlight", mode = "n", hidden = true },
+    { "<C-j>", ":m '>+1<CR>gv=gv", desc = "Move Selection Down", mode = "v" },
+    { "<C-k>", ":m '<-2<CR>gv=gv", desc = "Move Selection Up", mode = "v" },
+    { "<C-j>", ":m .+1<CR>==", desc = "Move Line Down", mode = "n" },
+    { "<C-k>", ":m .-2<CR>==", desc = "Move Line Up", mode = "n" },
+    { "<leader>jj", "<cmd>normal! %<CR>", desc = "Jump Matching Parenthesis", mode = { "n", "v" } },
+    { "<leader>jh", "<cmd>normal! ^<CR>", desc = "Jump to Line Start", mode = { "n", "v" } },
+    { "<leader>jl", "<cmd>normal! $<CR>", desc = "Jump to Line End", mode = { "n", "v" } },
+    { "<leader><leader>x", "<cmd>source %<CR>", desc = "Source Current File (Lua)", mode = "n" },
+    { "<leader>pc", "<cmd>CccPick<CR>", desc = "Color Picker", mode = "n" },
+    { "<leader>ut", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undo Tree", mode = "n" },
 
-  { "<leader>dl", function()
-      local cursor_pos = vim.api.nvim_win_get_cursor(0)
-      print(cursor_pos)
-      vim.cmd("normal! yyp")
-      vim.api.nvim_win_set_cursor(0, { cursor_pos[1] + 1, cursor_pos[2] })
+    { "<leader>dl", function()
+        local cursor_pos = vim.api.nvim_win_get_cursor(0)
+        print(cursor_pos)
+        vim.cmd("normal! yyp")
+        vim.api.nvim_win_set_cursor(0, { cursor_pos[1] + 1, cursor_pos[2] })
     end,
-    desc = "Duplicate Line with Cursor",
-    mode = "n",
-  },
+        desc = "Duplicate Line with Cursor",
+        mode = "n",
+    },
 
-  { "<leader>gs", ":Git<CR>", desc = "Git Status", mode = "n" },
-  { "<leader>gsd", ":Git diff<CR>", desc = "Git Diff", mode = "n" },
-  { "<leader>gp", ":Git push<CR>", desc = "Git Push", mode = "n" },
+    { "<leader>gs", ":Git<CR>", desc = "Git Status", mode = "n" },
+    { "<leader>gsd", ":Git diff<CR>", desc = "Git Diff", mode = "n" },
+    { "<leader>gp", ":Git push<CR>", desc = "Git Push", mode = "n" },
 
-  { "<leader>ff", ":Telescope find_files<CR>", desc = "Find Files", mode = "n" },
-  { "<leader>fr", ":Telescope oldfiles<CR>", desc = "Recent Files", mode = "n" },
-  { "<leader>fp", ":Telescope git_files<CR>", desc = "Git Files", mode = "n" },
-  { "<leader>fm", ":Oil<CR>", desc = "Open Netrw", mode = "n" },
-  { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Help Tags", mode = "n" },
-  { "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]], desc = "Substitute Word Globally", mode = "n", remap = true, hidden = false},
-  { "<leader>sw", "<cmd>normal! *<CR>", desc = "Search Word Forward", mode = "n" },
-  { "<leader>sb", "<cmd>normal! #<CR>", desc = "Search Word Backward", mode = "n" },
-  { "<leader>fs", function()
-      require("telescope.builtin").grep_string({ search = vim.fn.input("Find String : ") })
+    { "<leader>ff", ":Telescope find_files<CR>", desc = "Find Files", mode = "n" },
+    { "<leader>fr", ":Telescope oldfiles<CR>", desc = "Recent Files", mode = "n" },
+    { "<leader>fp", ":Telescope git_files<CR>", desc = "Git Files", mode = "n" },
+    { "<leader>fm", ":Oil<CR>", desc = "Open Netrw", mode = "n" },
+    { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Help Tags", mode = "n" },
+    { "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]], desc = "Substitute Word Globally", mode = "n", remap = true, hidden = false},
+    { "<leader>sw", "<cmd>normal! *<CR>", desc = "Search Word Forward", mode = "n" },
+    { "<leader>sb", "<cmd>normal! #<CR>", desc = "Search Word Backward", mode = "n" },
+    { "<leader>fs", function()
+        require("telescope.builtin").grep_string({ search = vim.fn.input("Find String : ") })
     end,
-    desc = "Search String",
-    mode = "n",
-  },
+        desc = "Search String",
+        mode = "n",
+    },
 
-  { "<leader>be", ":enew<CR>", desc = "New Empty Buffer Tab", mode = "n" },
-  { "<leader>bn", ":bNext<CR>", desc = "Next Buffer", mode = "n" },
-  { "<leader>bp", ":bprev<CR>", desc = "Previous Buffer", mode = "n" },
-  { "<leader>bl", ":Telescope buffers<CR>", desc = "List Buffers", mode = "n" },
-  { "<leader>bs", ":vsp | Telescope buffers<CR>", desc = "Vertical Split and Select Buffer", mode = "n" },
-  { "<leader>bc", ":bd!<CR>", desc = "Delete Buffer", mode = "n" },
-  { "<leader>br", ":e<CR>", desc = "Reload Buffer", mode = "n" },
+    { "<leader>be", ":enew<CR>", desc = "New Empty Buffer Tab", mode = "n" },
+    { "<leader>bl", ":Telescope buffers<CR>", desc = "List Buffers", mode = "n" },
+    { "<leader>bc", ":bd!<CR>", desc = "Delete Buffer", mode = "n" },
+    { "<leader>bn", ":bNext<CR>", desc = "Next Buffer", mode = "n" },
+    { "<leader>bp", ":bprev<CR>", desc = "Previous Buffer", mode = "n" },
+    { "<leader>bs", ":vsp | Telescope buffers<CR>", desc = "Vertical Split and Select Buffer", mode = "n" },
+    { "<leader>br", ":e<CR>", desc = "Reload Buffer", mode = "n" },
 
-  { "<leader>lr", ":Telescope lsp_references<CR>", desc = "LSP References", mode = "n" },
-  { "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", desc = "Code Action", mode = "n" },
-  { "<leader>ld", ":Telescope diagnostics<CR>", desc = "Diagnostics", mode = "n" },
-  { "<leader>lf", ":set foldmethod=expr<CR>", desc = "Activate Folding", mode = "n" },
-  { "<leader>lfb", ":lua vim.lsp.buf.format()<CR>", desc = "Format Code", mode = "n" },
-  { "<leader>lqf", ":lua vim.diagnostic.setqflist()<CR>", desc = "Quickfix List", mode = "n" },
+    { "<leader>lr", ":Telescope lsp_references<CR>", desc = "LSP References", mode = "n" },
+    { "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", desc = "Code Action", mode = "n" },
+    { "<leader>ld", ":Telescope diagnostics<CR>", desc = "Diagnostics", mode = "n" },
+    { "<leader>lf", ":set foldmethod=expr<CR>", desc = "Activate Folding", mode = "n" },
+    { "<leader>lfb", ":lua vim.lsp.buf.format()<CR>", desc = "Format Code", mode = "n" },
+    { "<leader>lqf", ":lua vim.diagnostic.setqflist()<CR>", desc = "Quickfix List", mode = "n" },
 
-  { "<leader>cC", function() nvim_cc.input_compile_command() end, desc = "Input Compile Command", mode = "n" },
-  { "<leader>cc", function()
-      if Nvim_cc_term_buffn == nil or vim.fn.bufexists(Nvim_cc_term_buffn) ~= 1 then
-        nvim_cc.run_compile_command()
-      else
-        vim.api.nvim_buf_delete(Nvim_cc_term_buffn, { force = true })
-        nvim_cc.run_compile_command()
-      end
+    { "<leader>cC", function() nvim_cc.input_compile_command() end, desc = "Input Compile Command", mode = "n" },
+    { "<leader>cc", function()
+        if Nvim_cc_term_buffn == nil or vim.fn.bufexists(Nvim_cc_term_buffn) ~= 1 then
+            nvim_cc.run_compile_command()
+        else
+            vim.api.nvim_buf_delete(Nvim_cc_term_buffn, { force = true })
+            nvim_cc.run_compile_command()
+        end
     end,
-    desc = "Run Compile Command",
-    mode = "n",
-  },
-  { "<leader>co", function() Nvim_cc_compile_command = ""  end, desc = "Clear compile command", mode = "n" },
-  { "<leader>cf", function() nvim_cc.set_compile_command_from_file() end, desc = "Set Compile Command From File", mode = "n" },
-  { "<leader>cs", function()
-      nvim_cc.sync_directory_to_buffer()
-      nvim_cc.set_compile_command_from_file()
-      print("cwd & cc set.")
+        desc = "Run Compile Command",
+        mode = "n",
+    },
+    { "<leader>co", function() Nvim_cc_compile_command = ""  end, desc = "Clear compile command", mode = "n" },
+    { "<leader>cf", function() nvim_cc.set_compile_command_from_file() end, desc = "Set Compile Command From File", mode = "n" },
+    { "<leader>cs", function()
+        nvim_cc.sync_directory_to_buffer()
+        nvim_cc.set_compile_command_from_file()
+        print("cwd & cc set.")
     end,
-    desc = "Sync Directory & Set Compile Command",
-    mode = "n",
-  },
-  { "<leader>cw", function() nvim_cc.export_compile_command() end, desc = "Export Compile Command", mode = "n" },
-  { "<leader>cj", function() nvim_cc.jump_to_error_position() end, desc = "Jump to Error Position", mode = "n" },
+        desc = "Sync Directory & Set Compile Command",
+        mode = "n",
+    },
+    { "<leader>cw", function() nvim_cc.export_compile_command() end, desc = "Export Compile Command", mode = "n" },
+    { "<leader>cj", function() nvim_cc.jump_to_error_position() end, desc = "Jump to Error Position", mode = "n" },
 
-  -- { "mf", ":normal mf<CR>", desc = "Mark File (netrw)", mode = "v" },
+    -- { "mf", ":normal mf<CR>", desc = "Mark File (netrw)", mode = "v" },
 })

@@ -7,8 +7,7 @@ return {
         event = "VeryLazy",
         opts = { preset = "helix" },
         keys = {
-            {
-                "<leader>?",
+            {"<leader>?",
                 function()
                     require("which-key").show({ global = false })
                 end,
@@ -18,7 +17,7 @@ return {
     },
     -- {'sainnhe/gruvbox-material', lazy = true},
     -- {'catppuccin/nvim', name = 'catppuccin', lazy = true},
-    {"gbprod/nord.nvim", name = 'nord'},
+    {'gbprod/nord.nvim', name = 'nord'},
     {'goolord/alpha-nvim', lazy = true},
     {'tpope/vim-fugitive'},
     {'ethanholz/nvim-lastplace'},
@@ -29,10 +28,9 @@ return {
     {'mbbill/undotree'},
     {'dhruvasagar/vim-table-mode'},
     {'windwp/nvim-ts-autotag', lazy = true},
-    {
-        'stevearc/oil.nvim',
+    {'stevearc/oil.nvim',
         opts = {},
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
 
     ------------------------------------------
