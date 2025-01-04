@@ -23,3 +23,4 @@ require("plugconf") -- plugin configuration
 require("welcome") -- alpha dashboard configuration
 require("none") -- lint + format
 require("snip") -- user defined snippet
+require("statusbar") -- status line

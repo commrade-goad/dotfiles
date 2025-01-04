@@ -1,6 +1,6 @@
 return {
     {'nvim-tree/nvim-web-devicons', lazy = true},
-    {'nvim-lualine/lualine.nvim', lazy = true},
+    -- {'nvim-lualine/lualine.nvim', lazy = true},
     {'nvim-telescope/telescope.nvim', name = "telescope"},
     {'nvim-lua/plenary.nvim', lazy = true},
     {"folke/which-key.nvim",
@@ -26,7 +26,7 @@ return {
     {'lewis6991/gitsigns.nvim', lazy = true},
     {'uga-rosa/ccc.nvim', lazy = true},
     {'vidocqh/auto-indent.nvim', lazy = true},
-    {'mbbill/undotree', lazy = true},
+    {'mbbill/undotree'},
     {'dhruvasagar/vim-table-mode'},
     {'windwp/nvim-ts-autotag', lazy = true},
     {

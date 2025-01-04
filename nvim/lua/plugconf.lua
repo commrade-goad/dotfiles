@@ -1,51 +1,52 @@
-require('lualine').setup{
-    options = {
-        icons_enabled = true,
-        theme = 'iceberg_dark',
-        -- theme = "catppuccin",
-        -- component_separators = { left = '|', right = '|'},
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
-        disabled_filetypes = {'alpha'},
-        ignore_focus = {},
-        always_divide_middle = true,
-        globalstatus = false,
-        refresh = {
-            statusline = 200,
-            tabline = 500,
-            winbar = 500,
-        }
-    },
-    sections = {
-        -- new style
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff'},
-        -- lualine_c = {'buffers'},
-        lualine_c = {'filename'},
-        lualine_x = {'fileformat','location', 'filetype'},
-        lualine_y = {'diagnostics'},
-        lualine_z = {}
-        ----------------------------
-        -- lualine_a = {'mode'},
-        -- lualine_b = {'branch', 'diff','diagnostics'},
-        -- lualine_c = {'filename'},
-        -- lualine_x = {'encoding', 'fileformat', 'filetype'},
-        -- lualine_y = {'progress'},
-        -- lualine_z = {'location'}
-    },
-    inactive_sections = {
-        lualine_a = {},
-        lualine_b = {'branch', 'diff'},
-        lualine_c = {'filename'},
-        lualine_x = {'fileformat', 'location', 'filetype'},
-        lualine_y = {'diagnostics'},
-        lualine_z = {}
-    },
-    tabline = {},
-    winbar = {},
-    inactive_winbar = {},
-    extensions = {}
-}
+-- require('lualine').setup{
+--     options = {
+--         icons_enabled = true,
+--         theme = 'nord',
+--         -- theme = 'iceberg_dark',
+--         -- theme = "catppuccin",
+--         -- component_separators = { left = '|', right = '|'},
+--         component_separators = { left = '', right = ''},
+--         section_separators = { left = '', right = ''},
+--         disabled_filetypes = {'undotree', 'alpha'},
+--         ignore_focus = {},
+--         always_divide_middle = true,
+--         globalstatus = false,
+--         refresh = {
+--             statusline = 200,
+--             tabline = 500,
+--             winbar = 500,
+--         }
+--     },
+--     sections = {
+--         -- new style
+--         lualine_a = {'mode'},
+--         lualine_b = {'branch', 'diff'},
+--         -- lualine_c = {'buffers'},
+--         lualine_c = {'filename'},
+--         lualine_x = {'fileformat','location', 'filetype'},
+--         lualine_y = {'diagnostics'},
+--         lualine_z = {}
+--         ----------------------------
+--         -- lualine_a = {'mode'},
+--         -- lualine_b = {'branch', 'diff','diagnostics'},
+--         -- lualine_c = {'filename'},
+--         -- lualine_x = {'encoding', 'fileformat', 'filetype'},
+--         -- lualine_y = {'progress'},
+--         -- lualine_z = {'location'}
+--     },
+--     inactive_sections = {
+--         lualine_a = {},
+--         lualine_b = {'branch', 'diff'},
+--         lualine_c = {'filename'},
+--         lualine_x = {'fileformat', 'location', 'filetype'},
+--         lualine_y = {'diagnostics'},
+--         lualine_z = {}
+--     },
+--     tabline = {},
+--     winbar = {},
+--     inactive_winbar = {},
+--     extensions = {}
+-- }
 
 -- require('catppuccin')
 require('nord').setup({})

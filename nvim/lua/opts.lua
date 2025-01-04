@@ -1,4 +1,3 @@
--- [[ opts.lua ]]
 local opt = vim.opt
 local cmd = vim.api.nvim_command
 local o = vim.o
@@ -13,10 +12,11 @@ opt.number = true
 opt.rnu = true
 opt.timeoutlen = 500
 -- cmd('colorscheme catppuccin-mocha')
--- cmd('colorscheme nord')
-cmd('colorscheme default')
+cmd('colorscheme nord')
+-- cmd('colorscheme default')
 cmd('filetype plugin on')
 --o.clipboard = 'unnamedplus'
+-- o.showmode = true
 o.showmode = false
 o.completeopt = 'noinsert,menuone,noselect'
 o.cursorline = true
@@ -27,7 +27,7 @@ o.splitright = true
 o.title = true
 o.ttimeoutlen = 0
 o.wildmenu = true
-
+-- opt.guicursor = "n-v-i-c:block-Cursor"
 opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4

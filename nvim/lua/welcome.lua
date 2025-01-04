@@ -211,9 +211,10 @@ dashboard.section.buttons.val = {
 --       }
 --   end)
 --   ```
-local fortune = require("alpha.fortune")
-dashboard.section.footer.val = fortune()
+-- local fortune = require("alpha.fortune")
+-- dashboard.section.footer.val = fortune()
 -- dashboard.section.footer.val = "~-------={0}=-------~"
+dashboard.section.footer.val = "malloc(sizeof(char) * strlen(\"nvim\"));"
 
 -- Send config to alpha
 alpha.setup(dashboard.opts)
