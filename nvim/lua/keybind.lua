@@ -64,11 +64,11 @@ wk.add({
     },
 
     { "<leader>be", ":enew<CR>", desc = "New Empty Buffer Tab", mode = "n" },
-    { "<leader>bl", ":Telescope buffers<CR>", desc = "List Buffers", mode = "n" },
+    { "<leader>bs", ":Telescope buffers<CR>", desc = "List Buffers", mode = "n" },
     { "<leader>bc", ":bd!<CR>", desc = "Delete Buffer", mode = "n" },
+    -- { "<leader>bn", "<C-^>", desc = "Cycle Buffer", mode = "n" },
     { "<leader>bn", ":bNext<CR>", desc = "Next Buffer", mode = "n" },
     { "<leader>bp", ":bprev<CR>", desc = "Previous Buffer", mode = "n" },
-    { "<leader>bs", ":vsp | Telescope buffers<CR>", desc = "Vertical Split and Select Buffer", mode = "n" },
     { "<leader>br", ":e<CR>", desc = "Reload Buffer", mode = "n" },
 
     { "<leader>lr", ":Telescope lsp_references<CR>", desc = "LSP References", mode = "n" },
