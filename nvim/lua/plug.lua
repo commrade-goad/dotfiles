@@ -1,11 +1,10 @@
 return {
     {'nvim-tree/nvim-web-devicons', lazy = true},
-    -- {'nvim-lualine/lualine.nvim', lazy = true},
     {'nvim-telescope/telescope.nvim', name = "telescope"},
     {'nvim-lua/plenary.nvim', lazy = true},
     {"folke/which-key.nvim",
         event = "VeryLazy",
-        opts = { preset = "helix" },
+        opts = { preset = "helix", timeoutlen = 1500 },
         keys = {
             {"<leader>?",
                 function()
@@ -20,24 +19,25 @@ return {
     {'gbprod/nord.nvim', name = 'nord'},
     {'goolord/alpha-nvim', lazy = true},
     {'tpope/vim-fugitive'},
-    {'ethanholz/nvim-lastplace'},
+    {'ethanholz/nvim-lastplace', lazy = true},
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
     {'lewis6991/gitsigns.nvim', lazy = true},
-    {'uga-rosa/ccc.nvim', lazy = true},
-    {'vidocqh/auto-indent.nvim', lazy = true},
+    -- {'uga-rosa/ccc.nvim', lazy = true},
+    -- {'vidocqh/auto-indent.nvim', lazy = true},
     {'mbbill/undotree'},
     {'dhruvasagar/vim-table-mode'},
-    {'windwp/nvim-ts-autotag', lazy = true},
+    -- {'windwp/nvim-ts-autotag', lazy = true},
     {'stevearc/oil.nvim',
         opts = {},
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
+    -- {'github/copilot.vim'},
 
     ------------------------------------------
 
     -- LSP and syntax
     {'nvim-treesitter/nvim-treesitter'},
-    {'nvimtools/none-ls.nvim'},
+    {'nvimtools/none-ls.nvim', lazy = true},
     {'folke/lazydev.nvim',
         lazy = true,
         ft = "lua", -- only load on lua files

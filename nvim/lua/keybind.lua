@@ -1,20 +1,14 @@
 Nvim_cc_start_insert = false
 Nvim_cc_blacklist_dir_name = {"src", "bin"}
 
-local nvim_cc = require('nvim-cc')
+local nvim_cc = require("nvim-cc")
+local bj = require("jumpbuff")
 local wk = require("which-key")
 
--- make `J` didnt teleport cursor
 vim.keymap.set("n", "J", "mzJ`z")
--- make Ctrl d cursor still in the middle
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
--- make Ctrl u cursor still in the middle
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
--- make search cursor still in the middle
+vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "n", "nzzzv")
--- make search cursor still in the middle
 vim.keymap.set("n", "N", "Nzzzv")
--- Ctrl ^ to alternate file
 
 wk.add({
     { "<leader>", group = "Leader" },
@@ -31,7 +25,7 @@ wk.add({
     { "<leader>jh", "<cmd>normal! ^<CR>", desc = "Jump to Line Start", mode = { "n", "v" } },
     { "<leader>jl", "<cmd>normal! $<CR>", desc = "Jump to Line End", mode = { "n", "v" } },
     { "<leader><leader>x", "<cmd>source %<CR>", desc = "Source Current File (Lua)", mode = "n" },
-    { "<leader>pc", "<cmd>CccPick<CR>", desc = "Color Picker", mode = "n" },
+    -- { "<leader>pc", "<cmd>CccPick<CR>", desc = "Color Picker", mode = "n" },
     { "<leader>ut", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undo Tree", mode = "n" },
 
     { "<leader>dl", function()
@@ -69,7 +63,6 @@ wk.add({
     -- { "<leader>bn", "<C-^>", desc = "Cycle Buffer", mode = "n" },
     { "<leader>bn", ":bNext<CR>", desc = "Next Buffer", mode = "n" },
     { "<leader>bp", ":bprev<CR>", desc = "Previous Buffer", mode = "n" },
-    { "<leader>br", ":e<CR>", desc = "Reload Buffer", mode = "n" },
 
     { "<leader>lr", ":Telescope lsp_references<CR>", desc = "LSP References", mode = "n" },
     { "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", desc = "Code Action", mode = "n" },
@@ -103,5 +96,15 @@ wk.add({
     { "<leader>cw", function() nvim_cc.export_compile_command() end, desc = "Export Compile Command", mode = "n" },
     { "<leader>cj", function() nvim_cc.jump_to_error_position() end, desc = "Jump to Error Position", mode = "n" },
 
+    {"<C-s>a", function() bj.add_jumpbuff() end, desc = "Add current buf to jlist", mode="n"},
+    {"<C-s>p", function() bj.prev_jumpbuff() end, desc = "Go to prev buf", mode="n"},
+    {"<C-s>n", function() bj.next_jumpbuff() end, desc = "Go to next buf", mode="n"},
+    {"<C-s>r", function() bj.rem_jumpbuff() end, desc = "Remove current buf from jlist", mode="n"},
+    {"<C-s>1", function() bj.jumpto_jumpbuff(1) end, desc = "Jump to buf n1", mode="n"},
+    {"<C-s>2", function() bj.jumpto_jumpbuff(2) end, desc = "Jump to buf n2", mode="n"},
+    {"<C-s>3", function() bj.jumpto_jumpbuff(3) end, desc = "Jump to buf n3", mode="n"},
+    {"<C-s>m1", function() bj.move_jumpbuff_to(1) end, desc = "Move CBuf to n1", mode="n"},
+    {"<C-s>m2", function() bj.move_jumpbuff_to(2) end, desc = "Move CBuf to n2", mode="n"},
+    {"<C-s>m3", function() bj.move_jumpbuff_to(3) end, desc = "Move CBuf to n3", mode="n"},
     -- { "mf", ":normal mf<CR>", desc = "Mark File (netrw)", mode = "v" },
 })

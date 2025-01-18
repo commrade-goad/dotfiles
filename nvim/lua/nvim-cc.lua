@@ -196,7 +196,7 @@ function M.jump_to_error_position()
 end
 
 if Nvim_cc_auto_read == true then
-    vim.api.nvim_create_autocmd("BufEnter", {
+    vim.api.nvim_create_autocmd({"BufWinEnter", "BufEnter", "VimEnter"}, {
         group = vim.api.nvim_create_augroup("nvim-cc-autoread", {clear = true}),
         callback = function ()
             M.set_compile_command_from_file()
@@ -205,7 +205,7 @@ if Nvim_cc_auto_read == true then
 end
 
 if Nvim_cc_auto_sync == true then
-    vim.api.nvim_create_autocmd("BufEnter", {
+    vim.api.nvim_create_autocmd({"BufWinEnter", "BufEnter", "VimEnter"}, {
         group = vim.api.nvim_create_augroup("nvim-cc-autosync", {clear = true}),
         callback = function ()
             M.sync_directory_to_buffer()

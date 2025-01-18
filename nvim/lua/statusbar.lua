@@ -95,7 +95,6 @@ local function diagnostics(bufn) local counts = { 0, 0, 0, 0 }
     }
     for _, k in ipairs({ "errors", "warnings", "infos", "hints" }) do
         if counts[k] > 0 then
-            -- table.insert(items, set_hl(icons[k][2], (" %s%s "):format(icons[k][1], counts[k])))
             table.insert(items, ("%s%s"):format(icons[k][1], counts[k]))
         end
     end
@@ -172,19 +171,6 @@ local nlmode = ""
 local sl = ""
 vim.opt.laststatus = 0
 
-local function update_display()
-    if disableSl then
-        vim.o.statusline = ""
-        vim.opt.laststatus = 0
-    else
-        vim.opt.laststatus = 3
-        -- sl = mres .. " %f %m" .. diag ..  "%=" .. change .. branch .. "%y %l:%c "
-        sl = " %f %r%m" .. diag .. branch .. "%=" .. change .. " " ..  nlmode .. "%y %l:%c "
-        vim.o.statusline = sl
-    end
-    vim.defer_fn(update_display, 200)
-end
-
 local function check_buffer()
     local filetype = vim.bo.filetype
     local exclude = false
@@ -195,7 +181,20 @@ local function check_buffer()
         end
     end
     disableSl = exclude
-    vim.defer_fn(check_buffer, 200)
+end
+
+local function update_display()
+    check_buffer()
+    if disableSl then
+        vim.o.statusline = ""
+        vim.opt.laststatus = 0
+    else
+        vim.opt.laststatus = 3
+        -- sl = mres .. " %f %m" .. diag ..  "%=" .. change .. branch .. "%y %l:%c "
+        sl = " %f %r%m" .. diag .. branch .. "%=" .. change .. " " ..  nlmode .. "%y %l:%c "
+        vim.o.statusline = sl
+    end
+    vim.defer_fn(update_display, 500)
 end
 
 local function update_diagnostic()
@@ -207,15 +206,6 @@ local function update_diagnostic()
     end
 end
 
--- local function update_mode()
---     if disableSl then
---         vim.defer_fn(update_mode, 250)
---     else
---         mres = mode();
---         vim.defer_fn(update_mode, 250)
---     end
--- end
-
 local function get_buffer_nl()
     local ff = vim.o.fileformat
     if ff == "unix" then
@@ -226,7 +216,8 @@ local function get_buffer_nl()
 end
 
 local function setup_gitb()
-    vim.api.nvim_create_autocmd({"VimEnter", "BufEnter", "BufWinEnter"}, {
+    vim.api.nvim_create_autocmd({"vimenter", "bufenter", "bufwinenter"}, {
+        group = vim.api.nvim_create_augroup("statubar_gitb", {clear = true}),
         callback = function ()
             local curbuff = vim.api.nvim_get_current_buf()
             local curbuffname = vim.api.nvim_buf_get_name(curbuff)
@@ -242,6 +233,7 @@ end
 
 local function setup_gitc()
     vim.api.nvim_create_autocmd({"VimEnter", "BufWritePost", "BufEnter", "BufWinEnter"}, {
+        group = vim.api.nvim_create_augroup("statubar_gitc", {clear = true}),
         callback = function ()
             local curbuff = vim.api.nvim_get_current_buf()
             local curbuffname = vim.api.nvim_buf_get_name(curbuff)
@@ -260,13 +252,12 @@ local function setup_buffernl()
     -- out reloading the buffer. Using this settings make it more heavy for no
     -- reason at all so i dont include that.
     vim.api.nvim_create_autocmd({"VimEnter", "BufEnter", "BufWinEnter"}, {
+        group = vim.api.nvim_create_augroup("statubar_nline", {clear = true}),
         callback = function ()
             nlmode = get_buffer_nl()
         end
     })
 end
-
-check_buffer()
 
 setup_gitb()
 setup_gitc()

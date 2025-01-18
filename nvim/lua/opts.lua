@@ -50,7 +50,7 @@ opt.swapfile = false
 vim.opt.list = true
 -- vim.opt.listchars = {eol = '↲', space = '·', tab = " -󰌒", trail = '-', extends = '>', precedes = '<', nbsp = ' '}
 -- vim.opt.listchars = {eol = '↲', space = '·', trail = '>'}
-vim.opt.listchars = {eol = '↲'}
+vim.opt.listchars = {eol = '↲', tab = ">>>"}
 
 -- FOLD
 opt.foldmethod = "expr"
@@ -71,7 +71,7 @@ vim.g.netrw_keepdir = 1
 -- i > change view
 
 -- ZIG WHY?????
-vim.cmd("let g:zig_fmt_autosave = 0")
+-- vim.cmd("let g:zig_fmt_autosave = 0")
 
 -- COLOR STUFF
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
