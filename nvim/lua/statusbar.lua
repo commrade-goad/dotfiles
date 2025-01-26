@@ -4,14 +4,32 @@ local git_insertions = vim.regex [[\(\d\+\)\( insertions\)\@=]]
 local git_changed = vim.regex [[\(\d\+\)\( file changed\)\@=]]
 local git_deletions = vim.regex [[\(\d\+\)\( deletions\)\@=]]
 
--- local default_hl = vim.api.nvim_get_hl(0, {name = "Normal"})
--- local directory_hl = vim.api.nvim_get_hl(0, {name = "Directory"})
--- vim.api.nvim_set_hl(0, "StatusLine", {
---     fg= directory_hl.fg,
---     bg= default_hl.bg,
---     bold= true,
---     italic= false
--- })
+-- CUSTOM COLOR FOR DIAGNOSTIC
+local errormsg_hl = vim.api.nvim_get_hl(0, {name="ErrorMsg"})
+local moremsg_hl = vim.api.nvim_get_hl(0, {name="MoreMsg"})
+local warningmsg_hl = vim.api.nvim_get_hl(0, {name="WarningMsg"})
+local statusline_hl = vim.api.nvim_get_hl(0, {name="StatusLine"})
+
+vim.api.nvim_set_hl(0, "ErrorDiagnostics", {
+    fg = errormsg_hl.bg,
+    bg = statusline_hl.bg,
+    bold = true,
+    italic = false
+})
+
+vim.api.nvim_set_hl(0, "WarningDiagnostics", {
+    fg = warningmsg_hl.bg,
+    bg = statusline_hl.bg,
+    bold = true,
+    italic = false
+})
+
+vim.api.nvim_set_hl(0, "InfoDiagnostics", {
+    fg = moremsg_hl.fg,
+    bg = statusline_hl.bg,
+    bold = true,
+    italic = false
+})
 
 local function parse_shortstat_output(s)
     local result = {}
@@ -40,8 +58,8 @@ end
 
 local function get_git_changes(_, buffer)
     if
-        vim.api.nvim_buf_get_option(buffer.bufnr, "bufhidden") ~= ""
-        or vim.api.nvim_buf_get_option(buffer.bufnr, "buftype") == "nofile"
+        vim.api.nvim_get_option_value("bufhidden", {buf=buffer.bufnr}) ~= "" or
+        vim.api.nvim_get_option_value("buftype", {buf=buffer.bufnr}) == "nofile"
     then
         return
     end
@@ -67,18 +85,18 @@ local function get_git_changes(_, buffer)
     end
 end
 
--- local function set_hl(hls, s)
---     if not hls or not s then
---         return s
---     end
---     hls = type(hls) == "string" and { hls } or hls
---     for _, hl in ipairs(hls) do
---         if vim.fn.hlID(hl) > 0 then
---             return ("%%#%s#%s%%0*"):format(hl, s)
---         end
---     end
---     return s
--- end
+local function set_hl(hls, s)
+    if not hls or not s then
+        return s
+    end
+    hls = type(hls) == "string" and { hls } or hls
+    for _, hl in ipairs(hls) do
+        if vim.fn.hlID(hl) > 0 then
+            return ("%%#%s#%s%%0*"):format(hl, s)
+        end
+    end
+    return s
+end
 
 local function diagnostics(bufn) local counts = { 0, 0, 0, 0 }
     local diags = vim.diagnostic.get(bufn)
@@ -97,14 +115,14 @@ local function diagnostics(bufn) local counts = { 0, 0, 0, 0 }
     }
     local items = {}
     local icons = {
-        ["errors"] = { "E", "DiagnosticError" },
-        ["warnings"] = { "W", "DiagnosticWarn" },
-        ["infos"] = { "I", "DiagnosticInfo" },
-        ["hints"] = { "H", "DiagnosticHint" },
+        ["errors"] = { "E", "ErrorDiagnostics" },
+        ["warnings"] = { "W", "WarningDiagnostics" },
+        ["infos"] = { "I", "InfoDiagnostics" },
+        ["hints"] = { "H", "InfoDiagnostics" },
     }
     for _, k in ipairs({ "errors", "warnings", "infos", "hints" }) do
         if counts[k] > 0 then
-            table.insert(items, ("%s%s"):format(icons[k][1], counts[k]))
+            table.insert(items, set_hl(icons[k][2], ("%s%s"):format(icons[k][1], counts[k])))
         end
     end
     local fmt = "%s"
@@ -134,11 +152,14 @@ local function get_git_branch(_, buffer)
 end
 
 local function run_looping_task(interval_ms, action)
-    local timer = vim.loop.new_timer()
-    timer:start(0, interval_ms, vim.schedule_wrap(function()
-        action()
-    end))
-    return timer
+    local timer = vim.uv.new_timer()
+    if timer ~= nil then
+        timer:start(0, interval_ms, vim.schedule_wrap(function()
+            action()
+        end))
+        return timer
+    end
+    return nil
 end
 
 local excluded_filetypes = { "alpha", "undotree", "fugitive" }
@@ -173,7 +194,7 @@ end
 
 local function get_buffer_nl()
     local ff = vim.o.fileformat
-    if ff == "unix" then
+    if ff == "unix" or ff == "mac" then
         return "[LF]"
     else
         return "[CRLF]"
