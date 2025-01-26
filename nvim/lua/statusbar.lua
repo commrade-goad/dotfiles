@@ -4,6 +4,15 @@ local git_insertions = vim.regex [[\(\d\+\)\( insertions\)\@=]]
 local git_changed = vim.regex [[\(\d\+\)\( file changed\)\@=]]
 local git_deletions = vim.regex [[\(\d\+\)\( deletions\)\@=]]
 
+-- local default_hl = vim.api.nvim_get_hl(0, {name = "Normal"})
+-- local directory_hl = vim.api.nvim_get_hl(0, {name = "Directory"})
+-- vim.api.nvim_set_hl(0, "StatusLine", {
+--     fg= directory_hl.fg,
+--     bg= default_hl.bg,
+--     bold= true,
+--     italic= false
+-- })
+
 local function parse_shortstat_output(s)
     local result = {}
 
@@ -108,43 +117,6 @@ local function diagnostics(bufn) local counts = { 0, 0, 0, 0 }
     return final
 end
 
--- local function mode(_, _)
---     local modes = {
---         n = { "Normal", { "StatusLine" } },
---         niI = { "Normal", { "StatusLine" } },
---         niR = { "Normal", { "StatusLine" } },
---         niV = { "Normal", { "StatusLine" } },
---         no = { "N·OpPd", { "StatusLine" } },
---         v = { "Visual", { "Directory" } },
---         V = { "V·Line", { "Directory" } },
---         ['\22'] = { "V·Blck", { "Directory" } },
---         s = { "Select", { "Search" } },
---         S = { "S·Line", { "Search" } },
---         ['\19'] = { "S·Block", { "Search" } },
---         i = { "Insert", { "DiffText" } },
---         ic = { "ICompl" },
---         R = { "Rplace", { "WarningMsg", "IncSearch" } },
---         Rv = { "VRplce", { "WarningMsg", "IncSearch" } },
---         c = { "Cmmand", { "diffAdded", "DiffAdd" } },
---         cv = { "Vim Ex" },
---         ce = { "Ex (r)" },
---         r = { "Prompt" },
---         rm = { "More  " },
---         ["r?"] = { "Cnfirm" },
---         ["!"] = { "Shell ", { "DiffAdd", "diffAdded" } },
---         nt = { "Term  ", { "Visual" } },
---         t = { "Term  ", { "DiffAdd", "diffAdded" } },
---     }
---     local fmt = " %s "
---     local m = vim.api.nvim_get_mode().mode
---     local mode_data = modes and modes[m]
---     local hls = mode_data and mode_data[2]
---     m = mode_data and mode_data[1]:upper() or m
---     m = (fmt):format(m)
---     -- return set_hl(hls, m) or m
---     return m
--- end
-
 local function get_git_branch(_, buffer)
     local j = Job:new {
         command = "git",
@@ -161,14 +133,20 @@ local function get_git_branch(_, buffer)
     end
 end
 
-local excluded_filetypes = { "alpha", "undotree" }
--- local mres = ""
+local function run_looping_task(interval_ms, action)
+    local timer = vim.loop.new_timer()
+    timer:start(0, interval_ms, vim.schedule_wrap(function()
+        action()
+    end))
+    return timer
+end
+
+local excluded_filetypes = { "alpha", "undotree", "fugitive" }
 local diag = ""
-local disableSl = true
 local branch = ""
 local change = ""
 local nlmode = ""
-local sl = ""
+vim.o.statusline = ""
 vim.opt.laststatus = 0
 
 local function check_buffer()
@@ -180,30 +158,17 @@ local function check_buffer()
             break
         end
     end
-    disableSl = exclude
+    return exclude
 end
 
 local function update_display()
-    check_buffer()
-    if disableSl then
-        vim.o.statusline = ""
+    if check_buffer() then
         vim.opt.laststatus = 0
     else
-        vim.opt.laststatus = 3
-        -- sl = mres .. " %f %m" .. diag ..  "%=" .. change .. branch .. "%y %l:%c "
-        sl = " %f %r%m" .. diag .. branch .. "%=" .. change .. " " ..  nlmode .. "%y %l:%c "
-        vim.o.statusline = sl
-    end
-    vim.defer_fn(update_display, 500)
-end
-
-local function update_diagnostic()
-    if disableSl then
-        vim.defer_fn(update_diagnostic, 1000)
-    else
         diag = diagnostics(vim.api.nvim_get_current_buf())
-        vim.defer_fn(update_diagnostic, 1000)
+        vim.opt.laststatus = 3
     end
+    vim.o.statusline = " %f %r%m" .. diag .. branch .. "%=" .. change .. " " ..  nlmode .. "%y %l:%c "
 end
 
 local function get_buffer_nl()
@@ -216,7 +181,7 @@ local function get_buffer_nl()
 end
 
 local function setup_gitb()
-    vim.api.nvim_create_autocmd({"vimenter", "bufenter", "bufwinenter"}, {
+    vim.api.nvim_create_autocmd({"VimEnter", "BufEnter", "BufWinEnter"}, {
         group = vim.api.nvim_create_augroup("statubar_gitb", {clear = true}),
         callback = function ()
             local curbuff = vim.api.nvim_get_current_buf()
@@ -237,8 +202,7 @@ local function setup_gitc()
         callback = function ()
             local curbuff = vim.api.nvim_get_current_buf()
             local curbuffname = vim.api.nvim_buf_get_name(curbuff)
-            local lb = get_git_changes(nil, {name = curbuffname, bufnr = curbuff})
-            if lb then
+            local lb = get_git_changes(nil, {name = curbuffname, bufnr = curbuff}) if lb then
                 change = lb
             else
                 change = ""
@@ -259,10 +223,21 @@ local function setup_buffernl()
     })
 end
 
+local function setup_cleanup()
+    vim.api.nvim_create_autocmd("BufLeave", {
+        group = vim.api.nvim_create_augroup("statubar_cleanup", {clear = true}),
+        callback = function ()
+            nlmode = ""
+            diag = ""
+            branch = "" -- because it check current cwd this will not change until cwd sync
+            change = ""
+        end
+    })
+end
+
 setup_gitb()
 setup_gitc()
 setup_buffernl()
+setup_cleanup()
 
--- update_mode()
-update_diagnostic()
-update_display()
+run_looping_task(500, update_display)

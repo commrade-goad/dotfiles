@@ -31,7 +31,6 @@ return {
         opts = {},
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
-    -- {'github/copilot.vim'},
 
     ------------------------------------------
 

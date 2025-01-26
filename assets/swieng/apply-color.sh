@@ -12,6 +12,6 @@ FOOTPATH="$HOME/.config/foot/foot.ini"
 swieng -i $SWIENGPATH/color.conf -o $HYPRLANDCOLORPATH -d $COLORSCHEME
 swieng -i $SWIENGPATH/sel.rasi -o $ROFIPATH -d $COLORSCHEME
 swieng -i $SWIENGPATH/dunstrc -o $DUNSTPATH -d $COLORSCHEME
-swieng -i $SWIENGPATH/style.css -o $WAYBARPATH -d $COLORSCHEME
+swieng -i $SWIENGPATH/style.txt -o $WAYBARPATH -d $COLORSCHEME
 swieng -i $SWIENGPATH/alacritty-theme.toml -o $ALACRITTYPATH -d $COLORSCHEME
 swieng -i $SWIENGPATH/foot.ini -o $FOOTPATH -d $COLORSCHEME

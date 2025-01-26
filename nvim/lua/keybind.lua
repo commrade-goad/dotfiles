@@ -97,6 +97,7 @@ wk.add({
     { "<leader>cj", function() nvim_cc.jump_to_error_position() end, desc = "Jump to Error Position", mode = "n" },
 
     {"<C-s>a", function() bj.add_jumpbuff() end, desc = "Add current buf to jlist", mode="n"},
+    {"<C-s>c", function() JumpBuffTable = {} end, desc = "Clear jlist", mode="n"},
     {"<C-s>p", function() bj.prev_jumpbuff() end, desc = "Go to prev buf", mode="n"},
     {"<C-s>n", function() bj.next_jumpbuff() end, desc = "Go to next buf", mode="n"},
     {"<C-s>r", function() bj.rem_jumpbuff() end, desc = "Remove current buf from jlist", mode="n"},

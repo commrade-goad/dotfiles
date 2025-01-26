@@ -13,7 +13,8 @@ require'nvim-treesitter.configs'.setup {
     auto_install = true,
     highlight = {
         enable = true,
-        additional_vim_regex_highlighting = {'markdown'},
+        -- additional_vim_regex_highlighting = {'markdown'},
+        additional_vim_regex_highlighting = false,
     },
     incremental_selection = {
         disable = {},
@@ -254,7 +255,3 @@ require("oil").setup({
         border = "rounded",
     },
 })
-
--- FOR COPILOT
--- vim.g.copilot_no_tab_map = true
--- vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })

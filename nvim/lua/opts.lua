@@ -13,7 +13,6 @@ opt.rnu = true
 opt.timeoutlen = 500
 -- cmd('colorscheme catppuccin-mocha')
 cmd('colorscheme nord')
--- cmd('colorscheme default')
 
 cmd('filetype plugin on')
 --o.clipboard = 'unnamedplus'
@@ -30,6 +29,7 @@ o.splitright = true
 o.title = true
 o.ttimeoutlen = 0
 o.wildmenu = true
+-- opt.guicursor = "n-v-c-i-ci-ve-sm:block,r-cr-o:hor20"
 -- opt.guicursor = "n-v-i-c:block-Cursor"
 -- opt.colorcolumn="80"
 opt.tabstop = 4
@@ -71,7 +71,7 @@ vim.g.netrw_keepdir = 1
 -- i > change view
 
 -- ZIG WHY?????
--- vim.cmd("let g:zig_fmt_autosave = 0")
+vim.cmd("let g:zig_fmt_autosave = 0")
 
 -- COLOR STUFF
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
