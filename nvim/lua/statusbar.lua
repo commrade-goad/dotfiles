@@ -6,7 +6,7 @@ local git_deletions = vim.regex [[\(\d\+\)\( deletions\)\@=]]
 
 -- CUSTOM COLOR FOR DIAGNOSTIC
 local errormsg_hl = vim.api.nvim_get_hl(0, {name="ErrorMsg"})
-local moremsg_hl = vim.api.nvim_get_hl(0, {name="MoreMsg"})
+local default_hl = vim.api.nvim_get_hl(0, {name="Default"})
 local warningmsg_hl = vim.api.nvim_get_hl(0, {name="WarningMsg"})
 local statusline_hl = vim.api.nvim_get_hl(0, {name="StatusLine"})
 
@@ -25,7 +25,7 @@ vim.api.nvim_set_hl(0, "WarningDiagnostics", {
 })
 
 vim.api.nvim_set_hl(0, "InfoDiagnostics", {
-    fg = moremsg_hl.fg,
+    fg = default_hl.fg,
     bg = statusline_hl.bg,
     bold = true,
     italic = false
