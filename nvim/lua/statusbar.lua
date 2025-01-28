@@ -4,32 +4,31 @@ local git_insertions = vim.regex [[\(\d\+\)\( insertions\)\@=]]
 local git_changed = vim.regex [[\(\d\+\)\( file changed\)\@=]]
 local git_deletions = vim.regex [[\(\d\+\)\( deletions\)\@=]]
 
--- CUSTOM COLOR FOR DIAGNOSTIC
-local errormsg_hl = vim.api.nvim_get_hl(0, {name="ErrorMsg"})
-local default_hl = vim.api.nvim_get_hl(0, {name="Default"})
-local warningmsg_hl = vim.api.nvim_get_hl(0, {name="WarningMsg"})
-local statusline_hl = vim.api.nvim_get_hl(0, {name="StatusLine"})
-
-vim.api.nvim_set_hl(0, "ErrorDiagnostics", {
-    fg = errormsg_hl.bg,
-    bg = statusline_hl.bg,
-    bold = true,
-    italic = false
-})
-
-vim.api.nvim_set_hl(0, "WarningDiagnostics", {
-    fg = warningmsg_hl.bg,
-    bg = statusline_hl.bg,
-    bold = true,
-    italic = false
-})
-
-vim.api.nvim_set_hl(0, "InfoDiagnostics", {
-    fg = default_hl.fg,
-    bg = statusline_hl.bg,
-    bold = true,
-    italic = false
-})
+-- local errormsg_hl = vim.api.nvim_get_hl(0, {name="ErrorMsg"})
+-- local default_hl = vim.api.nvim_get_hl(0, {name="Default"})
+-- local warningmsg_hl = vim.api.nvim_get_hl(0, {name="WarningMsg"})
+-- local statusline_hl = vim.api.nvim_get_hl(0, {name="StatusLine"})
+--
+-- vim.api.nvim_set_hl(0, "ErrorDiagnostics", {
+--     fg = errormsg_hl.bg,
+--     bg = statusline_hl.bg,
+--     bold = true,
+--     italic = false
+-- })
+--
+-- vim.api.nvim_set_hl(0, "WarningDiagnostics", {
+--     fg = warningmsg_hl.bg,
+--     bg = statusline_hl.bg,
+--     bold = true,
+--     italic = false
+-- })
+--
+-- vim.api.nvim_set_hl(0, "InfoDiagnostics", {
+--     fg = default_hl.fg,
+--     bg = statusline_hl.bg,
+--     bold = true,
+--     italic = false
+-- })
 
 local function parse_shortstat_output(s)
     local result = {}
@@ -85,18 +84,18 @@ local function get_git_changes(_, buffer)
     end
 end
 
-local function set_hl(hls, s)
-    if not hls or not s then
-        return s
-    end
-    hls = type(hls) == "string" and { hls } or hls
-    for _, hl in ipairs(hls) do
-        if vim.fn.hlID(hl) > 0 then
-            return ("%%#%s#%s%%0*"):format(hl, s)
-        end
-    end
-    return s
-end
+-- local function set_hl(hls, s)
+--     if not hls or not s then
+--         return s
+--     end
+--     hls = type(hls) == "string" and { hls } or hls
+--     for _, hl in ipairs(hls) do
+--         if vim.fn.hlID(hl) > 0 then
+--             return ("%%#%s#%s%%0*"):format(hl, s)
+--         end
+--     end
+--     return s
+-- end
 
 local function diagnostics(bufn) local counts = { 0, 0, 0, 0 }
     local diags = vim.diagnostic.get(bufn)
@@ -122,7 +121,8 @@ local function diagnostics(bufn) local counts = { 0, 0, 0, 0 }
     }
     for _, k in ipairs({ "errors", "warnings", "infos", "hints" }) do
         if counts[k] > 0 then
-            table.insert(items, set_hl(icons[k][2], ("%s%s"):format(icons[k][1], counts[k])))
+            -- table.insert(items, set_hl(icons[k][2], ("%s%s"):format(icons[k][1], counts[k])))
+            table.insert(items, ("%s%s"):format(icons[k][1], counts[k]))
         end
     end
     local fmt = "%s"
@@ -162,6 +162,7 @@ local function run_looping_task(interval_ms, action)
     return nil
 end
 
+-- DEFINITION --
 local excluded_filetypes = { "alpha", "undotree", "fugitive" }
 local diag = ""
 local branch = ""
@@ -169,6 +170,7 @@ local change = ""
 local nlmode = ""
 vim.o.statusline = ""
 vim.opt.laststatus = 0
+----------------
 
 local function check_buffer()
     local filetype = vim.bo.filetype

@@ -3,10 +3,8 @@ local cmd = vim.api.nvim_command
 local o = vim.o
 
 local g = vim.g
-g.t_co = 256
 g.background = "dark"
 
-opt.syntax = "ON"
 opt.termguicolors = true
 opt.number = true
 opt.rnu = true
@@ -18,9 +16,9 @@ cmd('filetype plugin on')
 --o.clipboard = 'unnamedplus'
 
 o.showmode = true
--- o.showmode = false
 
 o.completeopt = 'noinsert,menuone,noselect'
+o.ignorecase = true -- case insensitive search
 o.cursorline = true
 o.hidden = true
 o.inccommand = 'split'
@@ -29,7 +27,7 @@ o.splitright = true
 o.title = true
 o.ttimeoutlen = 0
 o.wildmenu = true
--- opt.guicursor = "n-v-c-i-ci-ve-sm:block,r-cr-o:hor20"
+opt.guicursor = "n-v-c-i-ci-ve-sm:block,r-cr-o:hor20"
 -- opt.guicursor = "n-v-i-c:block-Cursor"
 -- opt.colorcolumn="80"
 opt.tabstop = 4
@@ -38,8 +36,7 @@ opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
 opt.wrap = true
-opt.hlsearch = false
--- opt.hlsearch = true
+opt.hlsearch = true
 opt.incsearch =true
 opt.scrolloff = 3
 opt.updatetime = 50
@@ -48,8 +45,6 @@ opt.swapfile = false
 -- NEWLINE AND ETC
 -- MORE INFO : https://neovim.io/doc/user/options.html#'listchars'
 vim.opt.list = true
--- vim.opt.listchars = {eol = '↲', space = '·', tab = " -󰌒", trail = '-', extends = '>', precedes = '<', nbsp = ' '}
--- vim.opt.listchars = {eol = '↲', space = '·', trail = '>'}
 vim.opt.listchars = {eol = '↲', tab = ">>>"}
 
 -- FOLD
@@ -66,7 +61,8 @@ vim.g.netrw_sizestyle= "h"
 vim.g.netrw_winsize = 25
 vim.g.netrw_localcopydircmd = "cp -r"
 vim.g.netrw_localrmdir = "rm -r"
-vim.g.netrw_keepdir = 1
+vim.g.netrw_keepdir = 0
+
 -- SHIFT+I > show banner
 -- i > change view
 
