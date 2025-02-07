@@ -27,7 +27,6 @@ wk.add({
     { "<leader>jh", "<cmd>normal! ^<CR>", desc = "Jump to Line Start", mode = { "n", "v" } },
     { "<leader>jl", "<cmd>normal! $<CR>", desc = "Jump to Line End", mode = { "n", "v" } },
     { "<leader><leader>x", "<cmd>source %<CR>", desc = "Source Current File (Lua)", mode = "n" },
-    -- { "<leader>pc", "<cmd>CccPick<CR>", desc = "Color Picker", mode = "n" },
     { "<leader>ut", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undo Tree", mode = "n" },
 
     { "<leader>dl", function()
@@ -69,7 +68,7 @@ wk.add({
     { "<leader>lr", ":Telescope lsp_references<CR>", desc = "LSP References", mode = "n" },
     { "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", desc = "Code Action", mode = "n" },
     { "<leader>ld", ":Telescope diagnostics<CR>", desc = "Diagnostics", mode = "n" },
-    { "<leader>lf", ":set foldmethod=expr<CR>", desc = "Activate Folding", mode = "n" },
+    { "<leader>lef", ":set foldmethod=expr<CR>", desc = "Enable Folding", mode = "n" },
     { "<leader>lfb", ":lua vim.lsp.buf.format()<CR>", desc = "Format Code", mode = "n" },
     { "<leader>lqf", ":lua vim.diagnostic.setqflist()<CR>", desc = "Quickfix List", mode = "n" },
 
@@ -109,5 +108,5 @@ wk.add({
     {"<C-s>m1", function() bj.move_jumpbuff_to(1) end, desc = "Move CBuf to n1", mode="n"},
     {"<C-s>m2", function() bj.move_jumpbuff_to(2) end, desc = "Move CBuf to n2", mode="n"},
     {"<C-s>m3", function() bj.move_jumpbuff_to(3) end, desc = "Move CBuf to n3", mode="n"},
-    -- { "mf", ":normal mf<CR>", desc = "Mark File (netrw)", mode = "v" },
+    { "mf", ":normal mf<CR>", desc = "Mark File (netrw)", mode = "v" },
 })
