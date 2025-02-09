@@ -22,7 +22,7 @@ command = [
     "loginctl lock-session && systemctl suspend",
     "~/.config/hypr/scripts/logout.sh",
     "loginctl lock-session",
-    "~/Documents/Programming/shell/wlr-display.sh",
+    "~/Programming/shell/wlr-display.sh",
     "rofi -show drun",
     "~/.config/sway/script/notif-history",
     "~/.config/sway/script/emoji.sh",

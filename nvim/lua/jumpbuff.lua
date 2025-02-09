@@ -1,5 +1,3 @@
--- TODO : Make it possible to change the index around.
--- TODO : Make the autocommand behave more better.
 local M = {}
 
 JumpBuffTable = {}

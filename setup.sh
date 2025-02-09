@@ -55,3 +55,4 @@ inst_all() {
 # inst_more_script
 
 echo -e " -=[!]=- Dont forget to install the needed package with your distro package manager. -=[!]=-\n"
+echo -e " -=[!]=- Dont forget to run ~/.local/share/assets/swieng/apply-color.sh to apply the theme -=[!]=-\n"

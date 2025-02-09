@@ -1,0 +1,62 @@
+# wm - use wallpaper color as the accent
+accent1      = "ea9a97"
+accent2      = "3e8fb0"
+inactive     = "595959"
+gradrotation = "45deg"
+round        = "0"
+gtextcolor   = "000000"
+
+# other apps
+accent     = "ea9a97"
+bgcolor    = "232136"
+fgcolor    = "e0def4"
+
+bluec      = "9ccfd8"
+cyanc      = "ea9a97"
+greenc     = "3e8fb0"
+purplec    = "c4a7e7"
+redc       = "eb6f92"
+yellowc    = "f6c177"
+orangec    = "ea9d34"
+lightbluec = "56949f"
+darkbluec  = "286983"
+
+# terminal stuff
+t_cur_color = "ea9a97"
+t_fgcolor   = "e0def4"
+# t_cur_color = "56526e"
+# t_fgcolor   = "e0def4"
+
+# other terminal use -> alacritty
+t_fgcolor_dim  = "908caa"
+t_select_color = "44415a"
+
+#  terminal bright - basically the other apps color
+t_b_black   = "6e6a86"
+t_b_blue    = "9ccfd8"
+t_b_cyan    = "ea9a97"
+t_b_green   = "3e8fb0"
+t_b_magenta = "c4a7e7"
+t_b_red     = "eb6f92"
+t_b_white   = "e0def4"
+t_b_yellow  = "f6c177"
+
+# terminal dim
+t_d_black   = "6e6a86"
+t_d_blue    = "eb6f92"
+t_d_cyan    = "3e8fb0"
+t_d_green   = "f6c177"
+t_d_magenta = "9ccfd8"
+t_d_red     = "c4a7e7"
+t_d_white   = "ea9a97"
+t_d_yellow  = "e0def4"
+
+# terminal normal
+t_n_black   = "393552"
+t_n_red     = "eb6f92"
+t_n_green   = "3e8fb0"
+t_n_yellow  = "f6c177"
+t_n_blue    = "9ccfd8"
+t_n_magenta = "c4a7e7"
+t_n_cyan    = "ea9a97"
+t_n_white   = "e0def4"

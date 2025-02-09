@@ -1,13 +1,8 @@
 vim.opt.signcolumn = 'yes' -- Reserve space for diagnostic icons
 
--- Reserve a space in the gutter
-vim.opt.signcolumn = 'yes'
-
 require('mason').setup()
 require('mason-lspconfig').setup()
 
--- Add cmp_nvim_lsp capabilities settings to lspconfig
--- This should be executed before you configure any language server
 local lspconfig_defaults = require('lspconfig').util.default_config
 lspconfig_defaults.capabilities = vim.tbl_deep_extend(
     'force',
@@ -53,17 +48,15 @@ local completion_mode = {
     {name = 'nvim_lsp'},
     {name = 'luasnip'},
     {name = 'async_path'},
-    -- {name = 'calc'},
     {name = 'nvim_lua'},
     {name = 'buffer', keyword_length = 4},
 }
 
 cmp.setup({
+    experimental = {
+        ghost_text = true
+    },
     sources = completion_mode,
-    --[[ window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-    }, ]]
     snippet = {
         expand = function(args)
             vim.snippet.expand(args.body)
@@ -119,6 +112,7 @@ cmp.setup({
 
     }),
     formatting = {
+        expandable_indicator = true,
         -- fields = {'menu', 'abbr', 'kind'},
         fields = {'abbr', 'kind', 'menu'},
         format = function(entry, item)
@@ -128,22 +122,11 @@ cmp.setup({
                 buffer = '',
                 async_path = '',
                 nvim_lua = '󰢱',
-                calc = '󰃬',
-                -- nvim_lsp = '[LSP]',
-                -- luasnip = '[SNP]',
-                -- buffer = '[BUF]',
-                -- async_path = '[DIR]',
-                -- nvim_lua = '[VIM]',
-                -- calc = '[CAL]',
             }
             item.menu = menu_icon[entry.source.name]
             return item
         end,
     },
 })
-
--- SNIPPETS STUFF
-require('luasnip.loaders.from_vscode').lazy_load()
-require('luasnip.loaders.from_snipmate').lazy_load()
 
 vim.lsp.set_log_level("off")

@@ -1,3 +1,6 @@
+require('luasnip.loaders.from_vscode').lazy_load()
+require('luasnip.loaders.from_snipmate').lazy_load()
+
 local ls = require("luasnip")  -- Load LuaSnip
 local s = ls.snippet           -- Shortcut for defining a snippet
 local t = ls.text_node         -- Shortcut for text nodes

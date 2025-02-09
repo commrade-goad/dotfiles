@@ -22,12 +22,10 @@ window#waybar {
 
 #workspaces button {
     color: #%inactive%;
-    margin: 4px 2px;
-    border-radius: 3px;
+    border: 4px solid #%bgcolor%;
+    border-radius: 0px;
     border-left: 0;
     border-right: 0;
-    padding: 0px 6px;
-    border: none;
 }
 
 #workspaces button:hover {
@@ -41,8 +39,8 @@ window#waybar {
 }
 
 #workspaces button.active:hover {
-    color: #%accent%;
-    background-color: #%bgcolor%;
+    color: #%bgcolor%;
+    background-color: #%accent%;
 }
 
 #workspaces button.urgent {
@@ -99,23 +97,20 @@ window#waybar {
 
 #battery {
     padding: 0 5px;
-    background-color: #%bgcolor%;
+    background-color: #2e3440;
     color: #%accent%;
 }
 
 #battery.charging,
 #battery.full,
 #battery.plugged {
-    margin: 4px 0;
-    border-radius: 3px;
-    background-color: #%yellowc%;
-    color: #%bgcolor%;
+    color: #%accent%;
 }
 
 @keyframes blink {
     to {
         background-color: rgba(30, 34, 42, 0.5);
-        color: #%fgcolor%;
+        color: #%accent%;
     }
 }
 
@@ -164,15 +159,15 @@ window#waybar {
 }
 
 #idle_inhibitor {
-    margin: 4px 0;
     padding: 0 7px;
     color: #%accent%;
 }
 
 #idle_inhibitor.activated{
+    border: 4px solid #%bgcolor%;
     border-left: 0;
     border-right: 0;
-    border-radius: 3px;
+    border-radius: 0;
     color: #%bgcolor%;
     background-color: #%yellowc%;
 }
@@ -186,15 +181,15 @@ window#waybar {
 }
 
 #custom-dunst {
-    margin: 4px 0;
     padding:0 7px;
     color: #%accent%;
 }
 
 #custom-dunst.disabled{
+    border: 4px solid #%bgcolor%;
     border-left: 0;
     border-right: 0;
-    border-radius: 3px;
+    border-radius: 0;
     color: #%bgcolor%;
     background-color: #%yellowc%;
 }

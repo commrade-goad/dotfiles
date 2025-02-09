@@ -12,6 +12,8 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
+-- on insert mode C-x C-f will autocomplete path
+
 wk.add({
     { "<leader>", group = "Leader" },
     { "<leader>y", "\"+y", desc = "Yank/Copy to System Clipboard", mode = "v" },
@@ -46,7 +48,8 @@ wk.add({
     { "<leader>ff", ":Telescope find_files<CR>", desc = "Find Files", mode = "n" },
     { "<leader>fr", ":Telescope oldfiles<CR>", desc = "Recent Files", mode = "n" },
     { "<leader>fp", ":Telescope git_files<CR>", desc = "Git Files", mode = "n" },
-    { "<leader>fm", ":Oil<CR>", desc = "Open Netrw", mode = "n" },
+    { "<leader>fm", ":Ex<CR>", desc = "Open Netrw", mode = "n" },
+    -- { "<leader>fm", ":Oil<CR>", desc = "Open Netrw", mode = "n" },
     { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Help Tags", mode = "n" },
     { "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]], desc = "Substitute Word Globally", mode = "n", remap = true, hidden = false},
     { "<leader>sw", "<cmd>normal! *<CR>", desc = "Search Word Forward", mode = "n" },

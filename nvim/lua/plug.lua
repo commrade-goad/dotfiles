@@ -1,6 +1,15 @@
 return {
+    {"rose-pine/neovim",
+        name = "rose-pine",
+        config = function ()
+            require('rose-pine').setup({})
+        end
+    },
     {'nvim-tree/nvim-web-devicons', lazy = true},
-    {'nvim-telescope/telescope.nvim', name = "telescope"},
+    {'nvim-telescope/telescope.nvim',
+        name = "telescope",
+        event="VeryLazy"
+    },
     {'nvim-lua/plenary.nvim', lazy = true},
     {"folke/which-key.nvim",
         event = "VeryLazy",
@@ -14,39 +23,44 @@ return {
             },
         },
     },
-    -- {'sainnhe/gruvbox-material', lazy = true},
-    -- {'catppuccin/nvim', name = 'catppuccin', lazy = true},
-    {'gbprod/nord.nvim', name = 'nord'},
     {'goolord/alpha-nvim', lazy = true},
-    {'tpope/vim-fugitive'},
-    {'ethanholz/nvim-lastplace', lazy = true},
+    {'tpope/vim-fugitive', event = "VeryLazy"},
+    {'ethanholz/nvim-lastplace'},
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
-    {'lewis6991/gitsigns.nvim', lazy = true},
-    -- {'uga-rosa/ccc.nvim', lazy = true},
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
+    {'lewis6991/gitsigns.nvim',
+        event = "VeryLazy",
+        config = function ()
+            require('gitsigns').setup()
+        end
     },
-    {'mbbill/undotree'},
-    {'dhruvasagar/vim-table-mode'},
-    -- {'windwp/nvim-ts-autotag', lazy = true},
-    -- {'stevearc/oil.nvim',
-    --     opts = {},
-    --     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    -- },
-
-    ------------------------------------------
+    {'mbbill/undotree',
+        event = "VeryLazy",
+        config = function ()
+            vim.cmd("set undofile")
+        end
+    },
+    {'dhruvasagar/vim-table-mode', event = "InsertEnter"},
+    { 'echasnovski/mini.align',
+        version = '*',
+        event = "VeryLazy",
+        config = function ()
+            require('mini.align').setup()
+        end
+    },
 
     -- LSP and syntax
     {'nvim-treesitter/nvim-treesitter'},
-    {'nvimtools/none-ls.nvim', lazy = true},
+    {'nvimtools/none-ls.nvim',
+        event = "VeryLazy",
+        config = function ()
+            require("none")
+        end
+    },
     {'folke/lazydev.nvim',
         lazy = true,
-        ft = "lua", -- only load on lua files
+        ft = "lua",
         opts = {
             library = {
-                -- See the configuration section for more details
-                -- Load luvit types when the `vim.uv` word is found
                 { path = "${3rd}/luv/library", words = { "vim%.uv" } },
             },
         }
@@ -56,16 +70,19 @@ return {
     {'williamboman/mason-lspconfig.nvim'},
 
     -- Autocompletion
-    {'hrsh7th/nvim-cmp'},
+    {'hrsh7th/nvim-cmp', event = "InsertEnter"},
     {'hrsh7th/cmp-buffer'},
     {'saadparwaiz1/cmp_luasnip'},
     {'hrsh7th/cmp-nvim-lsp'},
     {'hrsh7th/cmp-nvim-lua'},
-    -- {'hrsh7th/cmp-calc',},
     {'FelipeLema/cmp-async-path',},
 
     -- Snippets
-    {'L3MON4D3/LuaSnip'},
-    {'rafamadriz/friendly-snippets'},
-    ------------------------------------------
+    {'L3MON4D3/LuaSnip',
+        event = "InsertEnter",
+        config = function ()
+            require("snip")
+        end
+    },
+    {'rafamadriz/friendly-snippets', event = "VeryLazy"},
 }

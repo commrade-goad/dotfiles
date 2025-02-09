@@ -9,11 +9,10 @@ opt.termguicolors = true
 opt.number = true
 opt.rnu = true
 opt.timeoutlen = 500
--- cmd('colorscheme catppuccin-mocha')
-cmd('colorscheme nord')
+cmd('colorscheme rose-pine-moon')
 
 cmd('filetype plugin on')
---o.clipboard = 'unnamedplus'
+o.clipboard = 'unnamedplus' -- to use system clipboard
 
 o.showmode = true
 
@@ -45,7 +44,8 @@ opt.swapfile = false
 -- NEWLINE AND ETC
 -- MORE INFO : https://neovim.io/doc/user/options.html#'listchars'
 vim.opt.list = true
-vim.opt.listchars = {eol = '↲', tab = ">>>"}
+-- vim.opt.listchars = {eol = '↲', tab = "··>", space = "·", multispace = "   ~"}
+vim.opt.listchars = {eol = '↲', tab = "··>"}
 
 -- FOLD
 opt.foldmethod = "expr"
@@ -70,5 +70,5 @@ vim.g.netrw_keepdir = 0
 vim.cmd("let g:zig_fmt_autosave = 0")
 
 -- COLOR STUFF
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
