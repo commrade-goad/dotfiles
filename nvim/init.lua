@@ -13,10 +13,7 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plug") -- plugin
-
 require("keybind") -- keybind
 require("opts") -- options
 require("lspconf") -- lsp configuration
-require("plugconf") -- plugin configuration
-require("welcome") -- alpha dashboard configuration
 require("statusbar") -- status line

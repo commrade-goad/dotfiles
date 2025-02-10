@@ -23,20 +23,29 @@ return {
             },
         },
     },
-    {'goolord/alpha-nvim', lazy = true},
+    -- {'goolord/alpha-nvim',
+    --     config = function ()
+    --         require("plugconf.alpha");
+    --     end
+    -- },
     {'tpope/vim-fugitive', event = "VeryLazy"},
-    {'ethanholz/nvim-lastplace'},
+    {'ethanholz/nvim-lastplace',
+        event = "VeryLazy",
+        config = function ()
+            require("plugconf.nvim-lastplace")
+        end
+    },
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
     {'lewis6991/gitsigns.nvim',
         event = "VeryLazy",
         config = function ()
-            require('gitsigns').setup()
+            require('plugconf.gitsigns')
         end
     },
     {'mbbill/undotree',
         event = "VeryLazy",
         config = function ()
-            vim.cmd("set undofile")
+            require('plugconf.undotree')
         end
     },
     {'dhruvasagar/vim-table-mode', event = "InsertEnter"},
@@ -44,16 +53,21 @@ return {
         version = '*',
         event = "VeryLazy",
         config = function ()
-            require('mini.align').setup()
+            require('plugconf.mini-align')
         end
     },
 
     -- LSP and syntax
-    {'nvim-treesitter/nvim-treesitter'},
+    {'nvim-treesitter/nvim-treesitter',
+        event = "VeryLazy",
+        config = function()
+            require("plugconf.treesitter")
+        end
+    },
     {'nvimtools/none-ls.nvim',
         event = "VeryLazy",
         config = function ()
-            require("none")
+            require("plugconf.none")
         end
     },
     {'folke/lazydev.nvim',
@@ -75,13 +89,13 @@ return {
     {'saadparwaiz1/cmp_luasnip'},
     {'hrsh7th/cmp-nvim-lsp'},
     {'hrsh7th/cmp-nvim-lua'},
-    {'FelipeLema/cmp-async-path',},
+    {'FelipeLema/cmp-async-path'},
 
     -- Snippets
     {'L3MON4D3/LuaSnip',
         event = "InsertEnter",
         config = function ()
-            require("snip")
+            require("plugconf.luasnip")
         end
     },
     {'rafamadriz/friendly-snippets', event = "VeryLazy"},

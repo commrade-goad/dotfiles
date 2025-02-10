@@ -54,7 +54,7 @@ local completion_mode = {
 
 cmp.setup({
     experimental = {
-        ghost_text = true
+        ghost_text = false
     },
     sources = completion_mode,
     snippet = {

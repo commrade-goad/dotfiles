@@ -12,7 +12,7 @@ opt.timeoutlen = 500
 cmd('colorscheme rose-pine-moon')
 
 cmd('filetype plugin on')
-o.clipboard = 'unnamedplus' -- to use system clipboard
+-- o.clipboard = 'unnamedplus' -- to use system clipboard
 
 o.showmode = true
 
@@ -70,5 +70,5 @@ vim.g.netrw_keepdir = 0
 vim.cmd("let g:zig_fmt_autosave = 0")
 
 -- COLOR STUFF
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
