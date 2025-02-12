@@ -29,12 +29,6 @@ return {
     --     end
     -- },
     {'tpope/vim-fugitive', event = "VeryLazy"},
-    {'ethanholz/nvim-lastplace',
-        event = "VeryLazy",
-        config = function ()
-            require("plugconf.nvim-lastplace")
-        end
-    },
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
     {'lewis6991/gitsigns.nvim',
         event = "VeryLazy",

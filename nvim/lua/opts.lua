@@ -14,7 +14,7 @@ cmd('colorscheme rose-pine-moon')
 cmd('filetype plugin on')
 -- o.clipboard = 'unnamedplus' -- to use system clipboard
 
-o.showmode = true
+o.showmode = false
 
 o.completeopt = 'noinsert,menuone,noselect'
 o.ignorecase = true -- case insensitive search
@@ -23,7 +23,7 @@ o.hidden = true
 o.inccommand = 'split'
 o.splitbelow = true
 o.splitright = true
-o.title = true
+o.title = false
 o.ttimeoutlen = 0
 o.wildmenu = true
 -- opt.guicursor = "n-v-c-i-ci-ve-sm:block,r-cr-o:hor20"
@@ -35,7 +35,7 @@ opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
 opt.wrap = true
-opt.hlsearch = true
+opt.hlsearch = false
 opt.incsearch =true
 opt.scrolloff = 3
 opt.updatetime = 50
@@ -72,3 +72,24 @@ vim.cmd("let g:zig_fmt_autosave = 0")
 -- COLOR STUFF
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
+
+-- RESTORE CURSOR POSITION
+vim.api.nvim_create_autocmd('BufRead', {
+    callback = function(opts)
+        vim.api.nvim_create_autocmd('BufWinEnter', {
+            once = true,
+            buffer = opts.buf,
+            callback = function()
+                local ft = vim.bo[opts.buf].filetype
+                local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
+                if
+                    not (ft:match('commit') and ft:match('rebase'))
+                    and last_known_line > 1
+                    and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
+                then
+                    vim.api.nvim_feedkeys([[g`"]], 'nx', false)
+                end
+            end,
+        })
+    end,
+})

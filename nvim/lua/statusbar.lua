@@ -1,101 +1,17 @@
-local Job = require "plenary.job"
+local sbgit = require("statusbar-git")
 
-local git_insertions = vim.regex [[\(\d\+\)\( insertions\)\@=]]
-local git_changed = vim.regex [[\(\d\+\)\( file changed\)\@=]]
-local git_deletions = vim.regex [[\(\d\+\)\( deletions\)\@=]]
-
--- local errormsg_hl = vim.api.nvim_get_hl(0, {name="ErrorMsg"})
--- local default_hl = vim.api.nvim_get_hl(0, {name="Default"})
--- local warningmsg_hl = vim.api.nvim_get_hl(0, {name="WarningMsg"})
--- local statusline_hl = vim.api.nvim_get_hl(0, {name="StatusLine"})
---
--- vim.api.nvim_set_hl(0, "ErrorDiagnostics", {
---     fg = errormsg_hl.bg,
---     bg = statusline_hl.bg,
---     bold = true,
---     italic = false
--- })
---
--- vim.api.nvim_set_hl(0, "WarningDiagnostics", {
---     fg = warningmsg_hl.bg,
---     bg = statusline_hl.bg,
---     bold = true,
---     italic = false
--- })
---
--- vim.api.nvim_set_hl(0, "InfoDiagnostics", {
---     fg = default_hl.fg,
---     bg = statusline_hl.bg,
---     bold = true,
---     italic = false
--- })
-
-local function parse_shortstat_output(s)
-    local result = {}
-
-    local insert = { git_insertions:match_str(s) }
-    if not vim.tbl_isempty(insert) then
-        table.insert(result, string.format("+%s", string.sub(s, insert[1] + 1, insert[2])))
+local function set_hl(hls, s)
+    if not hls or not s then
+        return s
     end
-
-    local changed = { git_changed:match_str(s) }
-    if not vim.tbl_isempty(changed) then
-        table.insert(result, string.format("~%s", string.sub(s, changed[1] + 1, changed[2])))
+    hls = type(hls) == "string" and { hls } or hls
+    for _, hl in ipairs(hls) do
+        if vim.fn.hlID(hl) > 0 then
+            return ("%%#%s#%s%%0*"):format(hl, s)
+        end
     end
-
-    local delete = { git_deletions:match_str(s) }
-    if not vim.tbl_isempty(delete) then
-        table.insert(result, string.format("-%s", string.sub(s, delete[1] + 1, delete[2])))
-    end
-
-    if vim.tbl_isempty(result) then
-        return nil
-    end
-
-    return string.format("(%s)", table.concat(result, ", "))
+    return s
 end
-
-local function get_git_changes(_, buffer)
-    if
-        vim.api.nvim_get_option_value("bufhidden", {buf=buffer.bufnr}) ~= "" or
-        vim.api.nvim_get_option_value("buftype", {buf=buffer.bufnr}) == "nofile"
-    then
-        return
-    end
-
-    if vim.fn.filereadable(buffer.name) ~= 1 then
-        return
-    end
-
-    local j = Job:new {
-        command = "git",
-        args = { "diff", "--shortstat", buffer.name },
-        cwd = vim.fn.fnamemodify(buffer.name, ":h"),
-    }
-
-    local ok, result = pcall(function()
-        return parse_shortstat_output(vim.trim(j:sync()[1]))
-    end)
-
-    if ok then
-        return result
-    else
-        return ""
-    end
-end
-
--- local function set_hl(hls, s)
---     if not hls or not s then
---         return s
---     end
---     hls = type(hls) == "string" and { hls } or hls
---     for _, hl in ipairs(hls) do
---         if vim.fn.hlID(hl) > 0 then
---             return ("%%#%s#%s%%0*"):format(hl, s)
---         end
---     end
---     return s
--- end
 
 local function diagnostics(bufn) local counts = { 0, 0, 0, 0 }
     local diags = vim.diagnostic.get(bufn)
@@ -114,41 +30,23 @@ local function diagnostics(bufn) local counts = { 0, 0, 0, 0 }
     }
     local items = {}
     local icons = {
-        ["errors"] = { "E", "ErrorDiagnostics" },
-        ["warnings"] = { "W", "WarningDiagnostics" },
-        ["infos"] = { "I", "InfoDiagnostics" },
-        ["hints"] = { "H", "InfoDiagnostics" },
+        ["errors"] = "E",
+        ["warnings"] = "W",
+        ["infos"] = "I",
+        ["hints"] = "H",
     }
     for _, k in ipairs({ "errors", "warnings", "infos", "hints" }) do
         if counts[k] > 0 then
-            -- table.insert(items, set_hl(icons[k][2], ("%s%s"):format(icons[k][1], counts[k])))
-            table.insert(items, ("%s%s"):format(icons[k][1], counts[k]))
+            table.insert(items, ("%s%s"):format(icons[k], counts[k]))
         end
     end
     local fmt = "%s"
     if vim.tbl_isempty(items) then
         return ""
     end
-    -- local contents = ("%s"):format(table.concat(items, ""))
     local contents = ("%s"):format(table.concat(items, ":"))
     local final = "[" .. fmt:format(contents) .. "]"
     return final
-end
-
-local function get_git_branch(_, buffer)
-    local j = Job:new {
-        command = "git",
-        args = { "branch", "--show-current" },
-        cwd = vim.fn.fnamemodify(buffer.name, ":h"),
-    }
-
-    local ok, result = pcall(function()
-        return vim.trim(j:sync()[1])
-    end)
-
-    if ok then
-        return result
-    end
 end
 
 local function run_looping_task(interval_ms, action)
@@ -163,11 +61,11 @@ local function run_looping_task(interval_ms, action)
 end
 
 -- DEFINITION --
-local excluded_filetypes = { "alpha", "undotree", "fugitive" }
+local excluded_filetypes = { "undotree", "fugitive" }
 local diag = ""
 local branch = ""
 local change = ""
-local nlmode = ""
+local mode_s = ""
 vim.o.statusline = ""
 vim.opt.laststatus = 0
 ----------------
@@ -191,16 +89,7 @@ local function update_display()
         diag = diagnostics(vim.api.nvim_get_current_buf())
         vim.opt.laststatus = 3
     end
-    vim.o.statusline = " %f %r%m" .. diag .. branch .. "%=" .. change .. " " ..  nlmode .. "%y %l:%c "
-end
-
-local function get_buffer_nl()
-    local ff = vim.o.fileformat
-    if ff == "unix" or ff == "mac" then
-        return "[LF]"
-    else
-        return "[CRLF]"
-    end
+    vim.o.statusline = mode_s .. branch .. " %f%m " .. diag .. "%=" .. change .. " " ..  "%r%y[%l:%c]"
 end
 
 local function setup_gitb()
@@ -209,9 +98,9 @@ local function setup_gitb()
         callback = function ()
             local curbuff = vim.api.nvim_get_current_buf()
             local curbuffname = vim.api.nvim_buf_get_name(curbuff)
-            local lb = get_git_branch(nil, curbuffname)
+            local lb = sbgit.get_git_branch(nil, curbuffname)
             if lb then
-                branch = "(" .. lb .. ")"
+                branch = " " .. lb .. ":"
             else
                 branch = ""
             end
@@ -225,23 +114,11 @@ local function setup_gitc()
         callback = function ()
             local curbuff = vim.api.nvim_get_current_buf()
             local curbuffname = vim.api.nvim_buf_get_name(curbuff)
-            local lb = get_git_changes(nil, {name = curbuffname, bufnr = curbuff}) if lb then
+            local lb = sbgit.get_git_changes(nil, {name = curbuffname, bufnr = curbuff}) if lb then
                 change = lb
             else
                 change = ""
             end
-        end
-    })
-end
-
-local function setup_buffernl()
-    -- add `BufWritePost` to make it change the newline mode automatically with
-    -- out reloading the buffer. Using this settings make it more heavy for no
-    -- reason at all so i dont include that.
-    vim.api.nvim_create_autocmd({"VimEnter", "BufEnter", "BufWinEnter"}, {
-        group = vim.api.nvim_create_augroup("statubar_nline", {clear = true}),
-        callback = function ()
-            nlmode = get_buffer_nl()
         end
     })
 end
@@ -258,9 +135,50 @@ local function setup_cleanup()
     })
 end
 
+local function getcmode()
+    local lookuptbl = {
+        ['n']  = "NOR",
+        ['no'] = "N-O",
+        ['v']  = "VIS",
+        ['V']  = "VLn",
+        [''] = "VBl",
+        ['s']  = "SEL",
+        ['S']  = "SLn",
+        [''] = "SBl",
+        ['i']  = "INS",
+        ['ic'] = "I-C",
+        ['ix'] = "I-X",
+        ['R']  = "REP",
+        ['Rc'] = "R-C",
+        ['Rv'] = "V-R",
+        ['Rx'] = "R-X",
+        ['c']  = "CMD",
+        ['cv'] = "EX ",
+        ['ce'] = "EXM",
+        ['r']  = "HIT",
+        ['rm'] = "MOR",
+        ['r?'] = "C-O",
+        ['!']  = "SHE",
+        ['t']  = "TER",
+    }
+
+    local mode = vim.api.nvim_get_mode().mode
+    return set_hl("Normal", string.format("[%s]", lookuptbl[mode] or mode))
+end
+
+local function setup_cmode()
+    mode_s = getcmode()
+    vim.api.nvim_create_autocmd("ModeChanged", {
+        group = vim.api.nvim_create_augroup("statusbar_mode", {clear = true}),
+        callback = function ()
+            mode_s = getcmode()
+        end
+    })
+end
+
 setup_gitb()
 setup_gitc()
-setup_buffernl()
 setup_cleanup()
+setup_cmode()
 
-run_looping_task(500, update_display)
+run_looping_task(250, update_display)
