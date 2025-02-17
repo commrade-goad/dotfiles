@@ -24,6 +24,7 @@ darkbluec  = "286983"
 # terminal stuff
 t_cur_color = "ea9a97"
 t_fgcolor   = "e0def4"
+t_surface   = "2a273f"
 # t_cur_color = "56526e"
 # t_fgcolor   = "e0def4"
 

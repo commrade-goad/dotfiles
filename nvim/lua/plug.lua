@@ -1,8 +1,8 @@
 return {
-    {"rose-pine/neovim",
-        name = "rose-pine",
+    {"RRethy/base16-nvim",
         config = function ()
-            require('rose-pine').setup({})
+            local custom_color = require('custom-color')
+            require('base16-colorscheme').setup(custom_color)
         end
     },
     {'nvim-tree/nvim-web-devicons', lazy = true},

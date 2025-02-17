@@ -9,7 +9,7 @@ opt.termguicolors = true
 opt.number = true
 opt.rnu = true
 opt.timeoutlen = 500
-cmd('colorscheme rose-pine-moon')
+-- cmd('colorscheme base16-rose-pine')
 
 cmd('filetype plugin on')
 -- o.clipboard = 'unnamedplus' -- to use system clipboard

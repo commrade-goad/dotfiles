@@ -13,6 +13,13 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- on insert mode C-x C-f will autocomplete path
+-- cib change inside bracket
+-- ci" change inside quote
+-- ci{ change inside curly 
+-- ciw change inside word 
+-- NOTE : there is a too instead of i which delete the specified char too
+-- NOTE : c can be change to v to highlight
+-- NOTE : can add mini surround if you want
 
 wk.add({
     { "<leader>", group = "Leader" },

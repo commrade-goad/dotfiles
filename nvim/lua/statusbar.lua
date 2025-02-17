@@ -139,6 +139,7 @@ local function getcmode()
     local lookuptbl = {
         ['n']  = "NOR",
         ['no'] = "N-O",
+        ['nt'] = "N-T",
         ['v']  = "VIS",
         ['V']  = "VLn",
         [''] = "VBl",

@@ -1,5 +1,5 @@
 * {
-    font-family: "JetBrainsMono Nerd Font Mono";
+    font-family: "JetBrainsMono Nerd Font Mono, Noto Sans";
     font-size: 14px;
     font-weight: bold;
     transition: box-shadow ease-in 0.1s;
