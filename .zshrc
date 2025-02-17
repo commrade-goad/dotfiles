@@ -3,6 +3,7 @@
 # source ~/Documents/Programming/shell/default.sh
 export EDITOR="nvim"
 export PATH="$PATH:/home/fernando/.local/bin"
+export PYTHON_HISTORY="$HOME/.cache/py_hist"
 # export MANPAGER='nvim +Man!'
 
 ## Enable auto-completion
@@ -107,6 +108,7 @@ alias calendar="cal -3"
 alias v="nvim"
 alias sv="sudoedit"
 alias vn-wine="WINEPREFIX='$HOME/.local/share/wineprefixes/VisNov/' wine"
+alias sy-wine="WINEPREFIX=$HOME/share/wineprefixes/sybase wine"
 alias jplocale="LC_ALL=ja_JP.UTF8"
 alias jplocale-shift="LC_ALL=ja_JP.sjis"
 alias touhou-playlist="mpv 'https://www.youtube.com/playlist?list=PLXZnhQ4xFkPXkPd0aiW3V12UMBFD38tXg' --no-video"
@@ -115,12 +117,13 @@ alias img2ascii-py="python3 $HOME/Documents/Programming/Python/linux/ascii-proje
 alias :wq="exit"
 alias open="frun xdg-open"
 alias user-mount="udisksctl"
-alias vkeybind="nvim $HOME/.config/nvim/lua/keys.lua"
+alias vkeybind="nvim ~/.config/nvim/lua/keys.lua"
 alias neofetch="fastfetch"
-alias reload-waybar="pkill waybar && hyprctl dispatch -- exec waybar -s ~/.config/hypr/waybar/alternative/style.css -c ~/.config/hypr/waybar/alternative/config.jsonc"
+alias reload-waybar="pkill waybar && hyprctl dispatch -- exec waybar -s ~/.config/hypr/waybar/style.css -c ~/.config/hypr/waybar/config.jsonc"
+alias m-build="meson build && cp ./build/compile_commands.json ./"
 alias tarx="tar -xvzf"
 alias grep="grep --color=always"
 alias ip="ip --color=always"
 alias tm="tmux a || tmux"
+alias crm="command rm"
 alias rm="trash"
-alias crm="rm"

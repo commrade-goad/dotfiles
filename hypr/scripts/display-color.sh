@@ -1,5 +1,5 @@
 #!/bin/bash
-p_command="wl-gammactl -c 0.935 -b 0.998 -g 0.806"
+p_command="$HOME/.local/bin/wl-gammactl -c 0.935 -b 0.998 -g 0.806"
 status=$(pidof wl-gammactl)
 
 if [ -z "$status"]

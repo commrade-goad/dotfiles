@@ -2,12 +2,7 @@
 # dependencies : mpvpaper socat
 
 ARGS1=$1
-# PATHTOVID="$HOME/Videos/live-wp/elaina-butterflies-wandering-witch-moewalls-com.mp4"
-# PATHTOVID="$HOME/Videos/live-wp/sed-edited.mp4"
-# PATHTOVID="$HOME/Videos/live-wp/Mumei Terror.mp4"
-# PATHTOVID="$HOME/Videos/live-wp/inaaaaa.mp4"
-PATHTOVID="$HOME/Videos/live-wp/shiki-ryougi-saber-fate-grand-order-moewalls-com.mp4"
-PATHTOVID="$HOME/Videos/live-wp/Ushio Noa.mp4"
+PATHTOVID="$HOME/Videos/livewp/Ushio Noa.webm"
 
 main () {
     case "$ARGS1" in

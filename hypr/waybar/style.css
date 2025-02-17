@@ -1,0 +1,208 @@
+* {
+    font-family: "JetBrainsMono Nerd Font Mono, Noto Sans";
+    font-size: 14px;
+    font-weight: bold;
+    transition: box-shadow ease-in 0.1s;
+    transition: color ease-in 0.1s;
+    transition: background-color ease-in 0.1s;
+    margin: 0 2px;
+}
+
+window#waybar {
+    background-color: #232136;
+    color: #ea9a97;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+    border-radius: 0px;
+}
+
+#workspace {
+    margin-left: 0;
+}
+
+#workspaces button {
+    color: #595959;
+    margin: 4px 2px;
+    border-radius: 3px;
+    border-left: 0;
+    border-right: 0;
+    padding: 0px 6px;
+    border: none;
+}
+
+#workspaces button:hover {
+    color: #ea9a97;
+    background-color: #232136;
+}
+
+#workspaces button.active {
+    color: #232136;
+    background-color: #ea9a97;
+}
+
+#workspaces button.active:hover {
+    color: #ea9a97;
+    background-color: #232136;
+}
+
+#workspaces button.urgent {
+    color: #e0def4;
+    background-color: #eb6f92
+}
+
+#window {
+    margin-left: 0;
+    color: #ea9a97;
+}
+
+#cpu {
+    min-width: 26px;
+    padding: 0 5px;
+    color: #ea9a97;
+}
+
+#cpu:hover {
+    color: #e0def4;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#pulseaudio {
+    padding: 0 5px;
+    color: #ea9a97;
+}
+
+#pulseaudio:hover {
+    color: #e0def4;
+}
+
+#pulseaudio.muted {
+    color: #eb6f92;
+}
+
+#clock {
+    color: #ea9a97;
+    padding: 0 5px;
+}
+
+#clock:hover {
+    color: #e0def4;
+}
+
+#battery {
+    padding: 0 5px;
+    background-color: #232136;
+    color: #ea9a97;
+}
+
+#battery.charging,
+#battery.full,
+#battery.plugged {
+    margin: 4px 0;
+    border-radius: 3px;
+    background-color: #ea9a97;
+    color: #232136;
+}
+
+@keyframes blink {
+    to {
+        background-color: rgba(30, 34, 42, 0.5);
+        color: #e0def4;
+    }
+}
+
+#battery.critical:not(.charging) {
+    color: #eb6f92;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#battery:hover {
+    color: #e0def4;
+}
+
+#network {
+    padding: 0 5px;
+    color: #ea9a97;
+}
+
+#network:hover {
+    color: #e0def4;
+}
+
+#network.disconnected {
+    color: #eb6f92;
+}
+
+#custom-media {
+    padding: 0 5px;
+    color: #ea9a97;
+}
+
+#custom-media:hover {
+    color: #e0def4;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb6f92;
+}
+
+#idle_inhibitor {
+    margin: 4px 0;
+    padding: 0 7px;
+    color: #ea9a97;
+}
+
+#idle_inhibitor.activated{
+    border-left: 0;
+    border-right: 0;
+    border-radius: 3px;
+    color: #232136;
+    background-color: #ea9a97;
+}
+
+#idle_inhibitor:hover {
+    color: #e0def4;
+}
+
+#idle_inhibitor.activated:hover {
+    color: #232136;
+}
+
+#custom-dunst {
+    margin: 4px 0;
+    padding:0 7px;
+    color: #ea9a97;
+}
+
+#custom-dunst.disabled{
+    border-left: 0;
+    border-right: 0;
+    border-radius: 3px;
+    color: #232136;
+    background-color: #ea9a97;
+}
+
+#custom-dunst:hover {
+    color: #e0def4;
+}
+
+#custom-dunst.disabled:hover {
+    color: #232136;
+}
