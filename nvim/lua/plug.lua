@@ -23,11 +23,6 @@ return {
             },
         },
     },
-    -- {'goolord/alpha-nvim',
-    --     config = function ()
-    --         require("plugconf.alpha");
-    --     end
-    -- },
     {'tpope/vim-fugitive', event = "VeryLazy"},
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
     {'lewis6991/gitsigns.nvim',
