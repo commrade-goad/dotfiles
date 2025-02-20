@@ -19,6 +19,7 @@ require'nvim-treesitter.configs'.setup {
             scope_incremental = "grc"
         },
     },
+    textobjects = { enable = true },
     indent = {
         disable = {},
         enable = true,

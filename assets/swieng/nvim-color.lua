@@ -13,8 +13,8 @@ local my_colorscheme = {
     base0B = '#%t_b_green%',
     base0C = '#%t_b_blue%',
     base0D = '#%t_b_magenta%',
-    base0E = '#%accent%', -- supposed to use t_b_yellow again so i change it.
-    base0F = '#%t_d_red%' -- change it to 56526e if it looks bad
+    base0E = '#%t_n_blue%', -- supposed to use t_b_yellow again so i change it.
+    base0F = '#%t_d_black%' -- change it to 56526e if it looks bad
 }
 
 return my_colorscheme

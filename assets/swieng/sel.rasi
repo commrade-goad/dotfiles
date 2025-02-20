@@ -5,7 +5,7 @@
     selected-col: #%bgcolor%;
     fg-col: #%fgcolor%;
     grey: #6c7086;
-    accent-color: #%accent%;
+    accent-color: #%accent1%;
 
     width: 720;
     font: "JetBrainsMono Nerd Font Mono 12";

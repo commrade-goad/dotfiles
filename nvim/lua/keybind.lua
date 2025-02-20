@@ -38,6 +38,7 @@ wk.add({
     { "<leader>jl", "<cmd>normal! $<CR>", desc = "Jump to Line End", mode = { "n", "v" } },
     { "<leader><leader>x", "<cmd>source %<CR>", desc = "Source Current File (Lua)", mode = "n" },
     { "<leader>ut", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undo Tree", mode = "n" },
+    { "<leader>.", "<cmd>Ex<CR>", desc = "Open Netrw", mode = "n"},
 
     { "<leader>dl", function()
         local cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -50,13 +51,13 @@ wk.add({
     },
 
     { "<leader>gs", ":Git<CR>", desc = "Git Status", mode = "n" },
-    { "<leader>gsd", ":Git diff<CR>", desc = "Git Diff", mode = "n" },
+    { "<leader>gd", ":Git diff<CR>", desc = "Git Diff", mode = "n" },
     { "<leader>gp", ":Git push<CR>", desc = "Git Push", mode = "n" },
 
     { "<leader>ff", ":Telescope find_files<CR>", desc = "Find Files", mode = "n" },
     { "<leader>fr", ":Telescope oldfiles<CR>", desc = "Recent Files", mode = "n" },
     { "<leader>fp", ":Telescope git_files<CR>", desc = "Git Files", mode = "n" },
-    { "<leader>fm", ":Ex<CR>", desc = "Open Netrw", mode = "n" },
+    -- { "<leader>fm", ":Ex<CR>", desc = "Open Netrw", mode = "n" },
     -- { "<leader>fm", ":Oil<CR>", desc = "Open Netrw", mode = "n" },
     { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Help Tags", mode = "n" },
     { "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]], desc = "Substitute Word Globally", mode = "n", remap = true, hidden = false},

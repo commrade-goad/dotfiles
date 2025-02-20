@@ -10,7 +10,7 @@
 
 window#waybar {
     background-color: #%bgcolor%;
-    color: #%accent%;
+    color: #%accent1%;
     transition-property: background-color;
     transition-duration: 0.5s;
     border-radius: 0px;
@@ -31,34 +31,34 @@ window#waybar {
 }
 
 #workspaces button:hover {
-    color: #%accent%;
+    color: #%accent1%;
     background-color: #%bgcolor%;
 }
 
 #workspaces button.active {
     color: #%bgcolor%;
-    background-color: #%accent%;
+    background-color: #%accent1%;
 }
 
 #workspaces button.active:hover {
-    color: #%accent%;
+    color: #%accent1%;
     background-color: #%bgcolor%;
 }
 
 #workspaces button.urgent {
     color: #%fgcolor%;
-    background-color: #%redc%
+    background-color: #%t_n_red%
 }
 
 #window {
     margin-left: 0;
-    color: #%accent%;
+    color: #%accent1%;
 }
 
 #cpu {
     min-width: 26px;
     padding: 0 5px;
-    color: #%accent%;
+    color: #%accent1%;
 }
 
 #cpu:hover {
@@ -77,7 +77,7 @@ window#waybar {
 
 #pulseaudio {
     padding: 0 5px;
-    color: #%accent%;
+    color: #%accent1%;
 }
 
 #pulseaudio:hover {
@@ -85,11 +85,11 @@ window#waybar {
 }
 
 #pulseaudio.muted {
-    color: #%redc%;
+    color: #%t_n_red%;
 }
 
 #clock {
-    color: #%accent%;
+    color: #%accent1%;
     padding: 0 5px;
 }
 
@@ -100,7 +100,7 @@ window#waybar {
 #battery {
     padding: 0 5px;
     background-color: #%bgcolor%;
-    color: #%accent%;
+    color: #%accent1%;
 }
 
 #battery.charging,
@@ -108,7 +108,7 @@ window#waybar {
 #battery.plugged {
     margin: 4px 0;
     border-radius: 3px;
-    background-color: #%accent%;
+    background-color: #%accent1%;
     color: #%bgcolor%;
 }
 
@@ -120,7 +120,7 @@ window#waybar {
 }
 
 #battery.critical:not(.charging) {
-    color: #%redc%;
+    color: #%t_n_red%;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -134,7 +134,7 @@ window#waybar {
 
 #network {
     padding: 0 5px;
-    color: #%accent%;
+    color: #%accent1%;
 }
 
 #network:hover {
@@ -142,12 +142,12 @@ window#waybar {
 }
 
 #network.disconnected {
-    color: #%redc%;
+    color: #%t_n_red%;
 }
 
 #custom-media {
     padding: 0 5px;
-    color: #%accent%;
+    color: #%accent1%;
 }
 
 #custom-media:hover {
@@ -160,13 +160,13 @@ window#waybar {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: #%redc%;
+    background-color: #%t_n_red%;
 }
 
 #idle_inhibitor {
     margin: 4px 0;
     padding: 0 7px;
-    color: #%accent%;
+    color: #%accent1%;
 }
 
 #idle_inhibitor.activated{
@@ -174,7 +174,7 @@ window#waybar {
     border-right: 0;
     border-radius: 3px;
     color: #%bgcolor%;
-    background-color: #%accent%;
+    background-color: #%accent1%;
 }
 
 #idle_inhibitor:hover {
@@ -188,7 +188,7 @@ window#waybar {
 #custom-dunst {
     margin: 4px 0;
     padding:0 7px;
-    color: #%accent%;
+    color: #%accent1%;
 }
 
 #custom-dunst.disabled{
@@ -196,7 +196,7 @@ window#waybar {
     border-right: 0;
     border-radius: 3px;
     color: #%bgcolor%;
-    background-color: #%accent%;
+    background-color: #%accent1%;
 }
 
 #custom-dunst:hover {
