@@ -1,3 +1,5 @@
+local max_filesize = 100 * 1024 -- 100KB
+
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {"c", "cpp", "rust", "python", "lua"},
     sync_install = false,
@@ -7,10 +9,16 @@ require'nvim-treesitter.configs'.setup {
     auto_install = true,
     highlight = {
         enable = true,
+        disable = function(lang, buf)
+            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+                print("disabled treesitter highlight on large file.")
+                return true
+            end
+        end,
         additional_vim_regex_highlighting = false,
     },
     incremental_selection = {
-        disable = {},
         enable = true,
         keymaps = {
             init_selection = "gnn",
@@ -18,10 +26,32 @@ require'nvim-treesitter.configs'.setup {
             node_incremental = "grn",
             scope_incremental = "grc"
         },
+        disable = function(lang, buf)
+            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+                print("disabled treesitter incremental_selection on large file.")
+                return true
+            end
+        end,
     },
-    textobjects = { enable = true },
-    indent = {
-        disable = {},
+    textobjects = {
         enable = true,
+        disable = function(lang, buf)
+            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+                print("disabled treesitter textobjects on large file.")
+                return true
+            end
+        end,
+    },
+    indent = {
+        enable = true,
+        disable = function(lang, buf)
+            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+            if ok and stats and stats.size > max_filesize then
+                print("disabled treesitter indent on large file.")
+                return true
+            end
+        end,
     }
 }

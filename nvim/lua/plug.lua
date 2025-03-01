@@ -24,7 +24,11 @@ return {
         },
     },
     {'tpope/vim-fugitive', event = "VeryLazy"},
-    -- {"github/copilot.vim"},
+    {"github/copilot.vim",
+        config = function()
+            require('plugconf.copilot')
+        end
+    },
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
     {'lewis6991/gitsigns.nvim',
         event = "VeryLazy",

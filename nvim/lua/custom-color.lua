@@ -1,20 +1,20 @@
 local my_colorscheme = {
-    base00 = '#1e1514', -- background color
-    base01 = '#372524', -- current line color and the bar color
-    base02 = '#372524', -- visual mode color
-    base03 = '#684745', -- comment and newline icon
-    base04 = '#d2bdbb',
-    base05 = '#eae1e0', -- normal text color
-    base06 = '#c1a486',
-    base07 = '#c18b86',
-    base08 = '#c18b86',
-    base09 = '#b48557',
-    base0A = '#86c1a4',
-    base0B = '#a4c186',
-    base0C = '#86a4c1',
-    base0D = '#a486c1',
-    base0E = '#5785b4',
-    base0F = '#684745' -- delimiter
+    base00 = '#1e1914', -- background color
+    base01 = '#372e24', -- current line color and the bar color
+    base02 = '#372e24', -- visual mode color
+    base03 = '#685745', -- comment and newline icon
+    base04 = '#d2c7bb',
+    base05 = '#eae5e0', -- normal text color
+    base06 = '#c4a98c',
+    base07 = '#c4a98c',
+    base08 = '#c48ca7',
+    base09 = '#b78c5d',
+    base0A = '#8cc4a9',
+    base0B = '#a7c48c',
+    base0C = '#8ca7c4',
+    base0D = '#a98cc4',
+    base0E = '#5d88b7',
+    base0F = '#685745' -- delimiter
 }
 
 function Reapply_color()

@@ -9,8 +9,8 @@
 }
 
 window#waybar {
-    background-color: #232136;
-    color: #ea9a97;
+    background-color: #1e1914;
+    color: #c4a98c;
     transition-property: background-color;
     transition-duration: 0.5s;
     border-radius: 0px;
@@ -21,7 +21,7 @@ window#waybar {
 }
 
 #workspaces button {
-    color: #595959;
+    color: #4f4235;
     margin: 4px 2px;
     border-radius: 3px;
     border-left: 0;
@@ -31,38 +31,38 @@ window#waybar {
 }
 
 #workspaces button:hover {
-    color: #ea9a97;
-    background-color: #232136;
+    color: #c4a98c;
+    background-color: #1e1914;
 }
 
 #workspaces button.active {
-    color: #232136;
-    background-color: #ea9a97;
+    color: #1e1914;
+    background-color: #c4a98c;
 }
 
 #workspaces button.active:hover {
-    color: #ea9a97;
-    background-color: #232136;
+    color: #c4a98c;
+    background-color: #1e1914;
 }
 
 #workspaces button.urgent {
-    color: #e0def4;
-    background-color: #eb6f92
+    color: #eae5e0;
+    background-color: #c48ca7
 }
 
 #window {
     margin-left: 0;
-    color: #ea9a97;
+    color: #c4a98c;
 }
 
 #cpu {
     min-width: 26px;
     padding: 0 5px;
-    color: #ea9a97;
+    color: #c4a98c;
 }
 
 #cpu:hover {
-    color: #e0def4;
+    color: #eae5e0;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -77,30 +77,30 @@ window#waybar {
 
 #pulseaudio {
     padding: 0 5px;
-    color: #ea9a97;
+    color: #c4a98c;
 }
 
 #pulseaudio:hover {
-    color: #e0def4;
+    color: #eae5e0;
 }
 
 #pulseaudio.muted {
-    color: #eb6f92;
+    color: #c48ca7;
 }
 
 #clock {
-    color: #ea9a97;
+    color: #c4a98c;
     padding: 0 5px;
 }
 
 #clock:hover {
-    color: #e0def4;
+    color: #eae5e0;
 }
 
 #battery {
     padding: 0 5px;
-    background-color: #232136;
-    color: #ea9a97;
+    background-color: #1e1914;
+    color: #c4a98c;
 }
 
 #battery.charging,
@@ -108,19 +108,19 @@ window#waybar {
 #battery.plugged {
     margin: 4px 0;
     border-radius: 3px;
-    background-color: #ea9a97;
-    color: #232136;
+    background-color: #c4a98c;
+    color: #1e1914;
 }
 
 @keyframes blink {
     to {
         background-color: rgba(30, 34, 42, 0.5);
-        color: #e0def4;
+        color: #eae5e0;
     }
 }
 
 #battery.critical:not(.charging) {
-    color: #eb6f92;
+    color: #c48ca7;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -129,29 +129,29 @@ window#waybar {
 }
 
 #battery:hover {
-    color: #e0def4;
+    color: #eae5e0;
 }
 
 #network {
     padding: 0 5px;
-    color: #ea9a97;
+    color: #c4a98c;
 }
 
 #network:hover {
-    color: #e0def4;
+    color: #eae5e0;
 }
 
 #network.disconnected {
-    color: #eb6f92;
+    color: #c48ca7;
 }
 
 #custom-media {
     padding: 0 5px;
-    color: #ea9a97;
+    color: #c4a98c;
 }
 
 #custom-media:hover {
-    color: #e0def4;
+    color: #eae5e0;
 }
 
 #tray > .passive {
@@ -160,49 +160,49 @@ window#waybar {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: #eb6f92;
+    background-color: #c48ca7;
 }
 
 #idle_inhibitor {
     margin: 4px 0;
     padding: 0 7px;
-    color: #ea9a97;
+    color: #c4a98c;
 }
 
 #idle_inhibitor.activated{
     border-left: 0;
     border-right: 0;
     border-radius: 3px;
-    color: #232136;
-    background-color: #ea9a97;
+    color: #1e1914;
+    background-color: #c4a98c;
 }
 
 #idle_inhibitor:hover {
-    color: #e0def4;
+    color: #eae5e0;
 }
 
 #idle_inhibitor.activated:hover {
-    color: #232136;
+    color: #1e1914;
 }
 
 #custom-dunst {
     margin: 4px 0;
     padding:0 7px;
-    color: #ea9a97;
+    color: #c4a98c;
 }
 
 #custom-dunst.disabled{
     border-left: 0;
     border-right: 0;
     border-radius: 3px;
-    color: #232136;
-    background-color: #ea9a97;
+    color: #1e1914;
+    background-color: #c4a98c;
 }
 
 #custom-dunst:hover {
-    color: #e0def4;
+    color: #eae5e0;
 }
 
 #custom-dunst.disabled:hover {
-    color: #232136;
+    color: #1e1914;
 }
