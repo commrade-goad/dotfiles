@@ -16,4 +16,4 @@ require("lazy").setup("plug") -- plugin
 require("keybind") -- keybind
 require("opts") -- options
 require("lspconf") -- lsp configuration
-require("statusbar") -- status line
+require("autocmd") -- autocmd def

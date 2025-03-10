@@ -1,8 +1,8 @@
 Nvim_cc_start_insert = false
 Nvim_cc_blacklist_dir_name = {"src", "bin"}
 
-local nvim_cc = require("nvim-cc")
-local bj = require("jumpbuff")
+local nvim_cc = require("mod.nvim-cc")
+local bj = require("mod.jumpbuff")
 local wk = require("which-key")
 
 vim.keymap.set("n", "J", "mzJ`z")
@@ -15,8 +15,8 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 -- on insert mode C-x C-f will autocomplete path
 -- cib change inside bracket
 -- ci" change inside quote
--- ci{ change inside curly 
--- ciw change inside word 
+-- ci{ change inside curly
+-- ciw change inside word
 -- NOTE : there is a too instead of i which delete the specified char too
 -- NOTE : c can be change to v to highlight
 -- NOTE : can add mini surround if you want
@@ -26,7 +26,6 @@ wk.add({
     { "<leader>y", "\"+y", desc = "Yank/Copy to System Clipboard", mode = "v" },
     { "<leader>nt", ":tabe .<CR>", desc = "Open New Tab", mode = "n" },
     { "<leader>os", ":cd ~/.config/nvim | :Telescope find_files<CR>", desc = "Open Nvim Config"},
-    -- { "<leader>h", ":tab Alpha<CR>", desc = "Open Home (Alpha)", mode = "n" },
     { "<leader><Esc>", "<C-\\><C-n>", desc = "Exit Terminal Mode", mode = "t", hidden = true },
     { "<Esc>", ":noh<CR>", desc = "Clear Search Highlight", mode = "n", hidden = true },
     { "<C-j>", ":m '>+1<CR>gv=gv", desc = "Move Selection Down", mode = "v" },
@@ -37,8 +36,9 @@ wk.add({
     { "<leader>jh", "<cmd>normal! ^<CR>", desc = "Jump to Line Start", mode = { "n", "v" } },
     { "<leader>jl", "<cmd>normal! $<CR>", desc = "Jump to Line End", mode = { "n", "v" } },
     { "<leader><leader>x", "<cmd>source %<CR>", desc = "Source Current File (Lua)", mode = "n" },
-    { "<leader>ut", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undo Tree", mode = "n" },
+    -- { "<leader>ut", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undo Tree", mode = "n" },
     { "<leader>.", "<cmd>Ex<CR>", desc = "Open Netrw", mode = "n"},
+    {"<leader>mp", "<cmd>Man<CR>", desc = "Open man page of the current word", mode = "n"},
 
     { "<leader>dl", function()
         local cursor_pos = vim.api.nvim_win_get_cursor(0)
@@ -57,19 +57,16 @@ wk.add({
     { "<leader>ff", ":Telescope find_files<CR>", desc = "Find Files", mode = "n" },
     { "<leader>fr", ":Telescope oldfiles<CR>", desc = "Recent Files", mode = "n" },
     { "<leader>fp", ":Telescope git_files<CR>", desc = "Git Files", mode = "n" },
-    -- { "<leader>fm", ":Ex<CR>", desc = "Open Netrw", mode = "n" },
-    -- { "<leader>fm", ":Oil<CR>", desc = "Open Netrw", mode = "n" },
     { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Help Tags", mode = "n" },
     { "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left><Left>]], desc = "Substitute Word Globally", mode = "n", remap = true, hidden = false},
     { "<leader>sw", "<cmd>normal! *<CR>", desc = "Search Word Forward", mode = "n" },
     { "<leader>sb", "<cmd>normal! #<CR>", desc = "Search Word Backward", mode = "n" },
-    { "<leader>fs", function()
-        require("telescope.builtin").grep_string({ search = vim.fn.input("Find String : ") })
+    { "<leader>fs", function ()
+        -- require("telescope.builtin").grep_string() -- only grep on the current file
+        require("telescope.builtin").live_grep()
     end,
-        desc = "Search String",
-        mode = "n",
+        desc = "Search String", mode = "n"
     },
-
     { "<leader>be", ":enew<CR>", desc = "New Empty Buffer Tab", mode = "n" },
     { "<leader>bs", ":Telescope buffers<CR>", desc = "List Buffers", mode = "n" },
     { "<leader>bc", ":bd!<CR>", desc = "Delete Buffer", mode = "n" },
@@ -80,7 +77,6 @@ wk.add({
     { "<leader>lr", ":Telescope lsp_references<CR>", desc = "LSP References", mode = "n" },
     { "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", desc = "Code Action", mode = "n" },
     { "<leader>ld", ":Telescope diagnostics<CR>", desc = "Diagnostics", mode = "n" },
-    { "<leader>lef", ":set foldmethod=expr<CR>", desc = "Enable Folding", mode = "n" },
     { "<leader>lfb", ":lua vim.lsp.buf.format()<CR>", desc = "Format Code", mode = "n" },
     { "<leader>lqf", ":lua vim.diagnostic.setqflist()<CR>", desc = "Quickfix List", mode = "n" },
 

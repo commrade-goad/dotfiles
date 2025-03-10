@@ -130,3 +130,21 @@ cmp.setup({
 })
 
 vim.lsp.set_log_level("off")
+
+-- use system clangd
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+local clangd_path = vim.fn.exepath("clangd");
+if clangd_path then
+  require("lspconfig").clangd.setup({
+    cmd = {
+      clangd_path,
+      "--background-index",
+      "--all-scopes-completion",
+      "--completion-style=detailed",
+      "--header-insertion=never",
+    },
+    capabilities = capabilities
+  })
+end

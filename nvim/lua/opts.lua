@@ -9,12 +9,11 @@ opt.termguicolors = true
 opt.number = true
 opt.rnu = true
 opt.timeoutlen = 500
--- cmd('colorscheme base16-rose-pine')
 
 cmd('filetype plugin on')
 -- o.clipboard = 'unnamedplus' -- to use system clipboard
 
-o.showmode = false
+o.showmode = true
 
 o.completeopt = 'noinsert,menuone,noselect'
 o.ignorecase = true -- case insensitive search
@@ -26,8 +25,7 @@ o.splitright = true
 o.title = false
 o.ttimeoutlen = 0
 o.wildmenu = true
-opt.guicursor = "n-v-c-i-ci-ve-sm:block,r-cr-o:hor20"
--- opt.guicursor = "n-v-i-c:block-Cursor"
+-- opt.guicursor = "n-v-c-i-ci-ve-sm:block,r-cr-o:hor20"
 -- opt.colorcolumn="80"
 opt.tabstop = 4
 opt.softtabstop = 4
@@ -44,15 +42,7 @@ opt.swapfile = false
 -- NEWLINE AND ETC
 -- MORE INFO : https://neovim.io/doc/user/options.html#'listchars'
 vim.opt.list = false
--- vim.opt.listchars = {eol = '↲', tab = "··>", space = "·", multispace = "   ~"}
-vim.opt.listchars = {eol = '↲', tab = "··>"}
-
--- FOLD
--- opt.foldmethod = "expr"
--- opt.foldexpr = "nvim_treesitter#foldexpr()"
--- opt.foldenable = true
--- opt.foldlevel = 99
--- opt.foldlevelstart = -1
+-- vim.opt.listchars = {eol = '↲', tab = "··>"}
 
 -- NETRW STUFF
 vim.g.netrw_liststyle = 0
@@ -72,24 +62,4 @@ vim.cmd("let g:zig_fmt_autosave = 0")
 -- COLOR STUFF
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
-
--- RESTORE CURSOR POSITION
-vim.api.nvim_create_autocmd('BufRead', {
-    callback = function(opts)
-        vim.api.nvim_create_autocmd('BufWinEnter', {
-            once = true,
-            buffer = opts.buf,
-            callback = function()
-                local ft = vim.bo[opts.buf].filetype
-                local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
-                if
-                    not (ft:match('commit') and ft:match('rebase'))
-                    and last_known_line > 1
-                    and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
-                then
-                    vim.api.nvim_feedkeys([[g`"]], 'nx', false)
-                end
-            end,
-        })
-    end,
-})
+require("mod.statusbar")

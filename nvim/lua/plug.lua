@@ -1,14 +1,13 @@
 return {
     {"RRethy/base16-nvim",
         config = function ()
-            local custom_color = require('custom-color')
+            local custom_color = require('plugconf.custom-color')
             require('base16-colorscheme').setup(custom_color)
         end
     },
-    {'nvim-tree/nvim-web-devicons', lazy = true},
     {'nvim-telescope/telescope.nvim',
         name = "telescope",
-        event="VeryLazy"
+        event= "VeryLazy"
     },
     {'nvim-lua/plenary.nvim', lazy = true},
     {"folke/which-key.nvim",
@@ -36,12 +35,12 @@ return {
             require('plugconf.gitsigns')
         end
     },
-    {'mbbill/undotree',
-        event = "VeryLazy",
-        config = function ()
-            require('plugconf.undotree')
-        end
-    },
+    -- {'mbbill/undotree',
+    --     event = "VeryLazy",
+    --     config = function ()
+    --         require('plugconf.undotree')
+    --     end
+    -- },
     {'dhruvasagar/vim-table-mode', event = "InsertEnter"},
     { 'echasnovski/mini.align',
         version = '*',
@@ -64,15 +63,15 @@ return {
             require("plugconf.none")
         end
     },
-    {'folke/lazydev.nvim',
-        lazy = true,
-        ft = "lua",
-        opts = {
-            library = {
-                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-            },
-        }
-    },
+    -- {'folke/lazydev.nvim',
+    --     lazy = true,
+    --     ft = "lua",
+    --     opts = {
+    --         library = {
+    --             { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+    --         },
+    --     }
+    -- },
     {'neovim/nvim-lspconfig'},
     {'williamboman/mason.nvim'},
     {'williamboman/mason-lspconfig.nvim'},
@@ -92,5 +91,5 @@ return {
             require("plugconf.luasnip")
         end
     },
-    {'rafamadriz/friendly-snippets', event = "VeryLazy"},
+    -- {'rafamadriz/friendly-snippets', event = "VeryLazy"},
 }
