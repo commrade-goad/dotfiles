@@ -1,10 +1,20 @@
 ## export and startup
-# ~/Documents/Programming/shell/reimoo.sh
-# source ~/Documents/Programming/shell/default.sh
+NEWPATH="$HOME/.local/bin":$PATH
+export PATH=$NEWPATH
 export EDITOR="nvim"
-export PATH="$PATH:/home/fernando/.local/bin"
 export PYTHON_HISTORY="$HOME/.cache/py_hist"
-# export MANPAGER='nvim +Man!'
+export GOPATH="$HOME/.cache/go"
+export GNUPGHOME="$HOME/.local/share/gnupg"
+export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc"
+export npm_config_cache="$HOME/.cache/npm"
+export CARGO_HOME="$HOME/.cache/cargo"
+export RUSTUP_HOME="$HOME/.local/opt/rustup"
+export MANPAGER='nvim +Man!'
+
+export ACCENT_COLOR=$(cat $HOME/.local/share/assets/swieng/custom-color-ref | grep 'accent' | awk -F ' ' '{print $3}' | sed 's/"//g')
+
+## zsh hooks
+autoload -Uz add-zsh-hook
 
 ## Enable auto-completion
 autoload -Uz compinit
@@ -39,14 +49,70 @@ zstyle ':completion:*' completer _complete _approximate
 
 ## Prompt setup
 NEWLINE=$'\n'
-PROMPT="%B┌[%F{cyan}%b%n%f%B@%b%F{blue}%m%B%f]%b-%B[%F{cyan}%b%(3~|../%2~|%3~)%B%f]%b${NEWLINE}└> "
+BOLD_BEGIN="%B"
+BOLD_END="%b"
+RESET_COLOR="%f"
 
-precmd() {
-  if [[ $? -eq 0 ]]; then
-    PROMPT="%B┌[%F{green}%b%n%f%B@%b%F{blue}%m%B%f]%b-%B[%F{cyan}%b%(3~|../%2~|%3~)%B%f]%b${NEWLINE}└> "
-  else
-    PROMPT="%B%F{red}┌%f[%F{green}%b%n%f%B@%b%F{blue}%m%B%f]%b%F{red}-%f%B[%F{cyan}%b%(3~|../%2~|%3~)%B%f]%b${NEWLINE}%F{red}└>%f "
-  fi
+USERNAME_FORMAT="%n"
+MACHINENAME_FORMAT="%m"
+TRUNCATED_PATH="%(3~|../%2~|%3~)"
+
+ERROR_COLOR="red"
+MACHINE_COLOR="blue"
+USER_COLOR="#$ACCENT_COLOR"
+FG_COLOR="yellow"
+
+function COLOR_PROMPT() {
+    if [[ -n "$1" ]]; then
+        echo "%F{$1}"
+    else
+        echo "%F{white}"
+    fi
+}
+
+function check_foreground_process() {
+    JOBCOUNT=$(jobs -p | wc -l)
+    if [[ $JOBCOUNT -gt 0 ]]; then
+        echo "$JOBCOUNT"
+    else
+        echo ""
+    fi
+}
+
+function set_prompt() {
+    local last_exit_status=$?
+
+    if [[ $last_exit_status -eq 0 ]]; then
+        TOP_FIRST="${BOLD_BEGIN}┌[$(COLOR_PROMPT $USER_COLOR)${BOLD_END}${USERNAME_FORMAT}${RESET_COLOR}${BOLD_BEGIN}@${BOLD_END}$(COLOR_PROMPT $MACHINE_COLOR)${MACHINENAME_FORMAT}${BOLD_BEGIN}${RESET_COLOR}]${BOLD_END}"
+        TOP_SECOND="-${BOLD_BEGIN}[$(COLOR_PROMPT $USER_COLOR)${BOLD_END}${TRUNCATED_PATH}${BOLD_BEGIN}${RESET_COLOR}]${BOLD_END}"
+        BOTTOM_PROMPT="└> "
+    else
+        TOP_FIRST="$(COLOR_PROMPT $ERROR_COLOR)${BOLD_BEGIN}┌${RESET_COLOR}[$(COLOR_PROMPT $USER_COLOR)${BOLD_END}${USERNAME_FORMAT}${RESET_COLOR}${BOLD_BEGIN}@${BOLD_END}$(COLOR_PROMPT $MACHINE_COLOR)${MACHINENAME_FORMAT}${BOLD_BEGIN}${RESET_COLOR}]${BOLD_END}"
+        TOP_SECOND="$(COLOR_PROMPT $ERROR_COLOR)-${RESET_COLOR}${BOLD_BEGIN}[$(COLOR_PROMPT $USER_COLOR)${BOLD_END}${TRUNCATED_PATH}${BOLD_BEGIN}${RESET_COLOR}]${BOLD_END}"
+        BOTTOM_PROMPT="$(COLOR_PROMPT $ERROR_COLOR)└>${RESET_COLOR} "
+    fi
+
+    local foreground_status=$(check_foreground_process)
+    if [[ -n "$foreground_status" ]]; then
+        TOP_THIRD=" » $(COLOR_PROMPT yellow)${foreground_status}${RESET_COLOR}"
+    else
+        TOP_THIRD=""
+    fi
+
+    TOP_PROMPT="${TOP_FIRST}${TOP_SECOND}${TOP_THIRD}"
+    PROMPT="${TOP_PROMPT}${NEWLINE}${BOTTOM_PROMPT}"
+}
+
+add-zsh-hook precmd set_prompt
+
+# yazi stuff
+function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
 }
 
 ## plugin stuff
@@ -73,13 +139,7 @@ bindkey "^[[5D" backward-word
 bindkey '^[[A' history-substring-search-up   # Up arrow to search backward
 bindkey '^[[B' history-substring-search-down # Down arrow to search forward
 
-## emacs mode
-## ^f -> accept suggestion or forward
-## ^p or ^n next or prev the history
-## ^b backward from the prompt
-## ^a start of the prompt
-## ^e end of the prompt
-# bindkey -e
+## vim keybind
 bindkey -v
 
 ## Zoxide
@@ -88,18 +148,14 @@ eval "$(zoxide init zsh)"
 ## fzf
 eval "$(fzf --zsh)"
 
-## Yazi
-function y() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-    yazi "$@" --cwd-file="$tmp"
-    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-        builtin cd -- "$cwd"
-    fi
-    rm -f -- "$tmp"
-}
+## Check if its ssh
+# if [[ -z "$SSH_CONNECTION" && -z "$SSH_TTY" && -z $TMUX ]]; then
+#     tmux a || tmux
+# fi
 
 ## Alias setup
-alias ls="eza -l --all --icons --header --git --group-directories-first --sort=date"
+alias ls="eza -l --all --icons --header --git --group-directories-first"
+alias lsd="eza -l --all --icons --header --git --group-directories-first --sort=date"
 alias clean-orphan="sudo pacman -Qtdq | sudo pacman -Rns -"
 alias clean-orphan-all="sudo pacman -Qttdq | sudo pacman -Rns -"
 alias yt-dl="python3 '$HOME/git/goad-yt-dlp-helper/src/yt-dlp-helper-v2-5.py'"
@@ -108,14 +164,13 @@ alias calendar="cal -3"
 alias v="nvim"
 alias sv="sudoedit"
 alias vn-wine="WINEPREFIX='$HOME/.local/share/wineprefixes/VisNov/' wine"
-alias sy-wine="WINEPREFIX=$HOME/share/wineprefixes/sybase wine"
+alias sy-wine="WINEPREFIX=$HOME/.local/share/wineprefixes/sybase wine"
 alias jplocale="LC_ALL=ja_JP.UTF8"
 alias jplocale-shift="LC_ALL=ja_JP.sjis"
 alias touhou-playlist="mpv 'https://www.youtube.com/playlist?list=PLXZnhQ4xFkPXkPd0aiW3V12UMBFD38tXg' --no-video"
 alias convert-sjis="~/Documents/Programming/shell/convert-sjis.sh"
 alias img2ascii-py="python3 $HOME/Documents/Programming/Python/linux/ascii-project/ascii-v2-unix.py"
 alias :wq="exit"
-alias open="frun xdg-open"
 alias user-mount="udisksctl"
 alias vkeybind="nvim ~/.config/nvim/lua/keys.lua"
 alias neofetch="fastfetch"
@@ -125,5 +180,7 @@ alias tarx="tar -xvzf"
 alias grep="grep --color=always"
 alias ip="ip --color=always"
 alias tm="tmux a || tmux"
-alias crm="command rm"
-alias rm="trash"
+alias rm="rm -I"
+alias crm="trash"
+alias rsync="rsync -ah --info=progress2"
+alias reloadmime="update-desktop-database ~/.local/share/applications/"

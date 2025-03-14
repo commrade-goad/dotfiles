@@ -30,13 +30,13 @@ inst_all() {
     inst_zsh
     inst_more_script
     cp -r ./assets/ $LOCAL_PATH
-    cp -r ./alacritty $CONFIG_PATH 
-    cp -r ./dunst $CONFIG_PATH 
-    cp -r ./foot $CONFIG_PATH 
-    cp -r ./hypr $CONFIG_PATH 
-    cp -r ./rofi $CONFIG_PATH 
-    cp -r ./sway $CONFIG_PATH 
-    cp -r ./waybar $CONFIG_PATH 
+    cp -r ./alacritty $CONFIG_PATH
+    cp -r ./dunst $CONFIG_PATH
+    cp -r ./foot $CONFIG_PATH
+    cp -r ./hypr $CONFIG_PATH
+    cp -r ./rofi $CONFIG_PATH
+    cp -r ./sway $CONFIG_PATH
+    cp -r ./waybar $CONFIG_PATH
     cp ./cusprus.toml $CONFIG_PATH
     cp ./cusprus-hypr.toml $CONFIG_PATH
     echo -e "installed all the config."

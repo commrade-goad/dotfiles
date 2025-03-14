@@ -63,15 +63,7 @@ return {
             require("plugconf.none")
         end
     },
-    -- {'folke/lazydev.nvim',
-    --     lazy = true,
-    --     ft = "lua",
-    --     opts = {
-    --         library = {
-    --             { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-    --         },
-    --     }
-    -- },
+
     {'neovim/nvim-lspconfig'},
     {'williamboman/mason.nvim'},
     {'williamboman/mason-lspconfig.nvim'},

@@ -1,4 +1,4 @@
-vim.opt.signcolumn = 'yes' -- Reserve space for diagnostic icons
+vim.opt.signcolumn = 'yes'
 
 require('mason').setup()
 require('mason-lspconfig').setup()
@@ -19,8 +19,6 @@ require("mason-lspconfig").setup_handlers {
     end ]]
 }
 
--- This is where you enable features that only work
--- if there is a language server active in the file
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
@@ -39,8 +37,48 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
--- require('lspconfig').gleam.setup({})
--- require('lspconfig').ocamllsp.setup({})
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- use system clangd
+local clangd_path = vim.fn.exepath("clangd");
+if clangd_path then
+    require("lspconfig").clangd.setup({
+        cmd = {
+            clangd_path,
+            "--background-index",
+            "--all-scopes-completion",
+            "--completion-style=detailed",
+            "--header-insertion=never",
+        },
+        capabilities = capabilities
+    })
+end
+
+-- for lua lsp on vim file to be happy
+require'lspconfig'.lua_ls.setup {
+    on_init = function(client)
+        local path = client.workspace_folders[1].name
+        if vim.uv.fs_stat(path..'/.luarc.json') or vim.uv.fs_stat(path..'/.luarc.jsonc') then
+            return
+        end
+
+        client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+                version = 'LuaJIT'
+            },
+            workspace = {
+                checkThirdParty = false,
+                library = {
+                    vim.env.VIMRUNTIME
+                }
+            }
+        })
+    end,
+    settings = {
+        Lua = {}
+    }
+}
 
 local cmp = require('cmp')
 
@@ -113,15 +151,14 @@ cmp.setup({
     }),
     formatting = {
         expandable_indicator = true,
-        -- fields = {'menu', 'abbr', 'kind'},
         fields = {'abbr', 'kind', 'menu'},
         format = function(entry, item)
             local menu_icon = {
-                nvim_lsp = '',
-                luasnip = '',
-                buffer = '',
-                async_path = '',
-                nvim_lua = '󰢱',
+                nvim_lsp = '[LSP]',
+                luasnip = '[SNP]',
+                buffer = '[BUF]',
+                async_path = '[PTH]',
+                nvim_lua = '[NVL]',
             }
             item.menu = menu_icon[entry.source.name]
             return item
@@ -130,21 +167,3 @@ cmp.setup({
 })
 
 vim.lsp.set_log_level("off")
-
--- use system clangd
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-local clangd_path = vim.fn.exepath("clangd");
-if clangd_path then
-  require("lspconfig").clangd.setup({
-    cmd = {
-      clangd_path,
-      "--background-index",
-      "--all-scopes-completion",
-      "--completion-style=detailed",
-      "--header-insertion=never",
-    },
-    capabilities = capabilities
-  })
-end

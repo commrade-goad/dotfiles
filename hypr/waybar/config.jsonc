@@ -48,15 +48,15 @@
         // "format": "{:󰃵 %d/%m/%y 󰥔 %R}",
         "format": " {:%d/%m/%y 󰥔 %R}",
         "tooltip-format": "<big>{:%d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-        "on-click": "foot -o app-id=calendar-dialog -o initial-window-size-chars=80x25 -e ~/.config/hypr/scripts/calendar.sh",
-        "on-click-right": "foot -o app-id=calendar-dialog -o initial-window-size-chars=80x25 -e ~/.config/hypr/scripts/curtime",
+        "on-click": "kitty --class calendar-dialog -o initial_window_width=640 -o initial_window_height=480 -e ~/.config/hypr/scripts/calendar.sh",
+        "on-click-right": "kitty --class calendar-dialog -o initial_window_width=640 -o initial_window_height=480 -e ~/.config/hypr/scripts/curtime",
         "interval": 30
     },
     "cpu": {
         "interval": 10,
         "format": "{usage}%",
         "max-length": 10,
-        "on-click": "foot -o app-id=rmon-dialog -o initial-window-size-chars=120x32 -e btop",
+        "on-click": "kitty --class rmon-dialog -o initial_window_width=640 -o initial_window_height=480 -e btop",
     },
     "memory": {
         "interval": 30,
@@ -84,7 +84,7 @@
         "format-ethernet": "󰈀 wired",
         "format-disconnected": "n/a ",
         "tooltip-format": "{ifname} on {essid} via {gwaddr} ",
-        "on-click": "foot -o app-id=nmtui-dialog -o initial-window-size-chars=120x32 -e nmtui",
+        "on-click": "kitty --class nmtui-dialog -o initial_window_width=640 -o initial_window_height=480 -e nmtui",
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",

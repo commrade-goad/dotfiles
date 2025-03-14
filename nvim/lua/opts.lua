@@ -41,8 +41,9 @@ opt.swapfile = false
 
 -- NEWLINE AND ETC
 -- MORE INFO : https://neovim.io/doc/user/options.html#'listchars'
-vim.opt.list = false
+vim.opt.list = true
 -- vim.opt.listchars = {eol = '↲', tab = "··>"}
+vim.opt.listchars = {tab = "··>"}
 
 -- NETRW STUFF
 vim.g.netrw_liststyle = 0

@@ -12,7 +12,6 @@ require'nvim-treesitter.configs'.setup {
         disable = function(lang, buf)
             local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
-                print("disabled treesitter highlight on large file.")
                 return true
             end
         end,
@@ -29,7 +28,6 @@ require'nvim-treesitter.configs'.setup {
         disable = function(lang, buf)
             local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
-                print("disabled treesitter incremental_selection on large file.")
                 return true
             end
         end,
@@ -39,7 +37,6 @@ require'nvim-treesitter.configs'.setup {
         disable = function(lang, buf)
             local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
-                print("disabled treesitter textobjects on large file.")
                 return true
             end
         end,
@@ -49,7 +46,6 @@ require'nvim-treesitter.configs'.setup {
         disable = function(lang, buf)
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
-                print("disabled treesitter indent on large file.")
                 return true
             end
         end,

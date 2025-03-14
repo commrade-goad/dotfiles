@@ -39,14 +39,12 @@ vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     if first_line == nil or first_line == "" then
       local filename = vim.fn.expand("%:t:r"):upper()
       local guard = string.format(
-                [[
-#ifndef %s_H_
+[[#ifndef %s_H_
 #define %s_H_
 
 
 
-#endif // %s_H_
-                ]]
+#endif // %s_H_]]
                 , filename, filename, filename)
       vim.api.nvim_buf_set_lines(0, 0, 0, false, vim.split(guard, "\n"))
       vim.api.nvim_win_set_cursor(0, {4, 0})
