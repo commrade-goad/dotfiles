@@ -1,5 +1,5 @@
 * {
-    font-family: "JetBrainsMono Nerd Font Mono, Noto Sans";
+    font-family: "JetBrainsMono Nerd Font Mono, Noto Sans CJK HK";
     font-size: 14px;
     font-weight: bold;
     transition: box-shadow ease-in 0.1s;
@@ -20,28 +20,33 @@ window#waybar {
     margin-left: 0;
 }
 
+#tray menu {
+    color: #%fgcolor%;
+    background: #%bgcolor%;
+    border-radius: 0;
+}
+
 #workspaces button {
     color: #%inactive%;
-    margin: 4px 2px;
-    border-radius: 3px;
+    border-radius: 0;
     border-left: 0;
     border-right: 0;
-    padding: 0px 6px;
+    padding: 0px 4px;
     border: none;
 }
 
 #workspaces button:hover {
-    color: #%accent1%;
+    color: #%fgcolor%;
     background-color: #%bgcolor%;
 }
 
 #workspaces button.active {
-    color: #%bgcolor%;
-    background-color: #%accent1%;
+    color: #%accent1%;
+    background-color: #%bgcolor%;
 }
 
 #workspaces button.active:hover {
-    color: #%accent1%;
+    color: #%fgcolor%;
     background-color: #%bgcolor%;
 }
 
@@ -98,23 +103,15 @@ window#waybar {
 }
 
 #battery {
+    border-radius: 0;
     padding: 0 5px;
     background-color: #%bgcolor%;
     color: #%accent1%;
 }
 
-#battery.charging,
-#battery.full,
-#battery.plugged {
-    margin: 4px 0;
-    border-radius: 3px;
-    background-color: #%accent1%;
-    color: #%bgcolor%;
-}
-
 @keyframes blink {
     to {
-        background-color: rgba(30, 34, 42, 0.5);
+        background-color: #%inactive%;
         color: #%fgcolor%;
     }
 }
@@ -166,43 +163,33 @@ window#waybar {
 #idle_inhibitor {
     margin: 4px 0;
     padding: 0 7px;
-    color: #%accent1%;
+    color: #%t_d_white%;
 }
 
 #idle_inhibitor.activated{
     border-left: 0;
     border-right: 0;
     border-radius: 3px;
-    color: #%bgcolor%;
-    background-color: #%accent1%;
+    color: #%accent1%;
 }
 
 #idle_inhibitor:hover {
     color: #%fgcolor%;
 }
 
-#idle_inhibitor.activated:hover {
-    color: #%bgcolor%;
-}
-
 #custom-dunst {
     margin: 4px 0;
     padding:0 7px;
-    color: #%accent1%;
+    color: #%t_d_white%;
 }
 
 #custom-dunst.disabled{
     border-left: 0;
     border-right: 0;
     border-radius: 3px;
-    color: #%bgcolor%;
-    background-color: #%accent1%;
+    color: #%accent1%;
 }
 
 #custom-dunst:hover {
     color: #%fgcolor%;
-}
-
-#custom-dunst.disabled:hover {
-    color: #%bgcolor%;
 }

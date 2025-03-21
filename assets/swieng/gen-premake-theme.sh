@@ -2,19 +2,15 @@
 
 set -xe
 
-WALLPAPER=$1
+PREMAKE_THEME=$1
 SWIENGPATH="$HOME/.local/share/assets/swieng"
 COLORSCHEME="$SWIENGPATH/custom-color.toml"
 
-if [[ -z $WALLPAPER ]] then
+if [[ -z $PREMAKE_THEME ]] then
     exit 1
 fi
 
-swieng-colorgen -o "$SWIENGPATH/template/custom-color-ref" "$WALLPAPER"
-echo -e "wallpaper_path = \"$WALLPAPER\"" >> "$SWIENGPATH/template/custom-color-ref"
-swieng -i "$SWIENGPATH/template/custom-color-gen.toml" -o "$SWIENGPATH/custom-color.toml" -d "$SWIENGPATH/template/custom-color-ref"
-
-swww img "$WALLPAPER" --transition-step 15 --transition-fps 60
+swieng -i "$SWIENGPATH/template/custom-color-gen.toml" -o "$SWIENGPATH/custom-color.toml" -d "$SWIENGPATH/premake/$PREMAKE_THEME"
 
 $SWIENGPATH/apply-color.sh
 pkill waybar

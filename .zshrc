@@ -11,7 +11,7 @@ export CARGO_HOME="$HOME/.cache/cargo"
 export RUSTUP_HOME="$HOME/.local/opt/rustup"
 export MANPAGER='nvim +Man!'
 
-export ACCENT_COLOR=$(cat $HOME/.local/share/assets/swieng/custom-color-ref | grep 'accent' | awk -F ' ' '{print $3}' | sed 's/"//g')
+export ACCENT_COLOR=$(cat $HOME/.local/share/assets/swieng/custom-color.toml | grep 'accent1' | awk -F ' ' '{print $3}' | sed 's/"//g')
 
 ## zsh hooks
 autoload -Uz add-zsh-hook
@@ -79,19 +79,11 @@ function check_foreground_process() {
     fi
 }
 
+TOP_FIRST="${BOLD_BEGIN}┌[$(COLOR_PROMPT $USER_COLOR)${BOLD_END}${USERNAME_FORMAT}${RESET_COLOR}${BOLD_BEGIN}@${BOLD_END}$(COLOR_PROMPT $MACHINE_COLOR)${MACHINENAME_FORMAT}${BOLD_BEGIN}${RESET_COLOR}]${BOLD_END}"
+TOP_SECOND="-${BOLD_BEGIN}[$(COLOR_PROMPT $USER_COLOR)${BOLD_END}${TRUNCATED_PATH}${BOLD_BEGIN}${RESET_COLOR}]${BOLD_END}"
+BOTTOM_PROMPT="└> "
+
 function set_prompt() {
-    local last_exit_status=$?
-
-    if [[ $last_exit_status -eq 0 ]]; then
-        TOP_FIRST="${BOLD_BEGIN}┌[$(COLOR_PROMPT $USER_COLOR)${BOLD_END}${USERNAME_FORMAT}${RESET_COLOR}${BOLD_BEGIN}@${BOLD_END}$(COLOR_PROMPT $MACHINE_COLOR)${MACHINENAME_FORMAT}${BOLD_BEGIN}${RESET_COLOR}]${BOLD_END}"
-        TOP_SECOND="-${BOLD_BEGIN}[$(COLOR_PROMPT $USER_COLOR)${BOLD_END}${TRUNCATED_PATH}${BOLD_BEGIN}${RESET_COLOR}]${BOLD_END}"
-        BOTTOM_PROMPT="└> "
-    else
-        TOP_FIRST="$(COLOR_PROMPT $ERROR_COLOR)${BOLD_BEGIN}┌${RESET_COLOR}[$(COLOR_PROMPT $USER_COLOR)${BOLD_END}${USERNAME_FORMAT}${RESET_COLOR}${BOLD_BEGIN}@${BOLD_END}$(COLOR_PROMPT $MACHINE_COLOR)${MACHINENAME_FORMAT}${BOLD_BEGIN}${RESET_COLOR}]${BOLD_END}"
-        TOP_SECOND="$(COLOR_PROMPT $ERROR_COLOR)-${RESET_COLOR}${BOLD_BEGIN}[$(COLOR_PROMPT $USER_COLOR)${BOLD_END}${TRUNCATED_PATH}${BOLD_BEGIN}${RESET_COLOR}]${BOLD_END}"
-        BOTTOM_PROMPT="$(COLOR_PROMPT $ERROR_COLOR)└>${RESET_COLOR} "
-    fi
-
     local foreground_status=$(check_foreground_process)
     if [[ -n "$foreground_status" ]]; then
         TOP_THIRD=" » $(COLOR_PROMPT yellow)${foreground_status}${RESET_COLOR}"
@@ -105,7 +97,7 @@ function set_prompt() {
 
 add-zsh-hook precmd set_prompt
 
-# yazi stuff
+## yazi stuff
 function y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
     yazi "$@" --cwd-file="$tmp"
@@ -148,11 +140,6 @@ eval "$(zoxide init zsh)"
 ## fzf
 eval "$(fzf --zsh)"
 
-## Check if its ssh
-# if [[ -z "$SSH_CONNECTION" && -z "$SSH_TTY" && -z $TMUX ]]; then
-#     tmux a || tmux
-# fi
-
 ## Alias setup
 alias ls="eza -l --all --icons --header --git --group-directories-first"
 alias lsd="eza -l --all --icons --header --git --group-directories-first --sort=date"
@@ -178,9 +165,9 @@ alias reload-waybar="pkill waybar && hyprctl dispatch -- exec waybar -s ~/.confi
 alias m-build="meson build && cp ./build/compile_commands.json ./"
 alias tarx="tar -xvzf"
 alias grep="grep --color=always"
-alias ip="ip --color=always"
 alias tm="tmux a || tmux"
 alias rm="rm -I"
 alias crm="trash"
 alias rsync="rsync -ah --info=progress2"
 alias reloadmime="update-desktop-database ~/.local/share/applications/"
+alias pyvenv="python -m venv ./ --system-site-packages"

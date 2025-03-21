@@ -42,7 +42,7 @@
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
-    alignment = right
+    alignment = left
     vertical_alignment = center
 
     show_age_threshold = 60

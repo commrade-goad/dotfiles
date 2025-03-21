@@ -11,7 +11,7 @@ lspconfig_defaults.capabilities = vim.tbl_deep_extend(
 )
 
 require("mason-lspconfig").setup_handlers {
-    function (server_name)
+    function(server_name)
         require("lspconfig")[server_name].setup {}
     end,
     --[[ ["rust_analyzer"] = function ()
@@ -22,7 +22,7 @@ require("mason-lspconfig").setup_handlers {
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
-        local opts = {buffer = event.buf}
+        local opts = { buffer = event.buf }
         vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
         vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
         vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
         vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
         vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-        vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+        vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
         vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
     end,
 })
@@ -55,11 +55,19 @@ if clangd_path then
     })
 end
 
+-- use system rust_analyzer
+local rust_path = vim.fn.exepath("rust_analyzer");
+if rust_path then
+    require("lspconfig").rust_analyzer.setup({
+        capabilities = capabilities
+    })
+end
+
 -- for lua lsp on vim file to be happy
-require'lspconfig'.lua_ls.setup {
+require 'lspconfig'.lua_ls.setup {
     on_init = function(client)
         local path = client.workspace_folders[1].name
-        if vim.uv.fs_stat(path..'/.luarc.json') or vim.uv.fs_stat(path..'/.luarc.jsonc') then
+        if vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc') then
             return
         end
 
@@ -83,11 +91,11 @@ require'lspconfig'.lua_ls.setup {
 local cmp = require('cmp')
 
 local completion_mode = {
-    {name = 'nvim_lsp'},
-    {name = 'luasnip'},
-    {name = 'async_path'},
-    {name = 'nvim_lua'},
-    {name = 'buffer', keyword_length = 4},
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+    { name = 'async_path' },
+    { name = 'nvim_lua' },
+    { name = 'buffer',    keyword_length = 4 },
 }
 
 cmp.setup({
@@ -129,14 +137,15 @@ cmp.setup({
             local col = vim.fn.col('.') - 1
 
             if cmp.visible() then
-                cmp.select_next_item({behavior = 'select'}) elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+                cmp.select_next_item({ behavior = 'select' })
+            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
                 fallback()
             elseif vim.snippet and vim.snippet.active({ direction = 1 }) then
                 vim.cmd('lua vim.snippet.jump(1)')
             else
                 cmp.complete()
             end
-        end, {'i', 's'}),
+        end, { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item({ behavior = 'select' })
@@ -151,7 +160,7 @@ cmp.setup({
     }),
     formatting = {
         expandable_indicator = true,
-        fields = {'abbr', 'kind', 'menu'},
+        fields = { 'abbr', 'kind', 'menu' },
         format = function(entry, item)
             local menu_icon = {
                 nvim_lsp = '[LSP]',

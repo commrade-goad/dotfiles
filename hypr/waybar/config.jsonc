@@ -12,9 +12,9 @@
     "position": "top",
     "spacing": 5,
     "modules-left": [
-        "cpu",
-        "hyprland/workspaces",
-        "hyprland/window"
+        // "cpu",
+        "hyprland/workspaces"
+        // "hyprland/window"
     ],
     "modules-center": [
         "custom/media"
@@ -23,13 +23,28 @@
         "tray",
         "custom/dunst",
         "idle_inhibitor",
-        // "keyboard-state",
-        "pulseaudio",
         "network",
+        "pulseaudio",
         "battery",
         "clock"
     ],
     "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "一",
+            "2": "二",
+            "3": "三",
+            "4": "四",
+            "5": "五",
+            "6": "六",
+            "7": "七",
+            "8": "八",
+            "9": "九",
+            "10": "十"
+        },
+        "persistent-workspaces": {
+            "*": [ 1,2,3,4,5,6,7,8,9,10 ]
+        },
         "disable-scroll": true,
         "all-outputs": true,
         "on-click": "activate",
@@ -44,12 +59,10 @@
         "icon-size": 12
     },
     "clock": {
-        // "format": " {:%d/%m/%y}",
-        // "format": "{:󰃵 %d/%m/%y 󰥔 %R}",
-        "format": " {:%d/%m/%y 󰥔 %R}",
-        "tooltip-format": "<big>{:%d %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+        // "format": "󰥔 {:%R}",
+        "format": "󰥔 {:%R | %d/%m/%y}",
+        "tooltip-format": "<tt>{calendar}</tt>",
         "on-click": "kitty --class calendar-dialog -o initial_window_width=640 -o initial_window_height=480 -e ~/.config/hypr/scripts/calendar.sh",
-        "on-click-right": "kitty --class calendar-dialog -o initial_window_width=640 -o initial_window_height=480 -e ~/.config/hypr/scripts/curtime",
         "interval": 30
     },
     "cpu": {
@@ -80,27 +93,27 @@
         "on-click": ""
     },
     "network": {
-        "format-wifi": "󰤨 {signalStrength}%",
-        "format-ethernet": "󰈀 wired",
-        "format-disconnected": "n/a ",
-        "tooltip-format": "{ifname} on {essid} via {gwaddr} ",
-        "on-click": "kitty --class nmtui-dialog -o initial_window_width=640 -o initial_window_height=480 -e nmtui",
+        "format-wifi": "󰤨",
+        //"format-wifi": "󰤨 {signalStrength}",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "!",
+        "tooltip-format": "{ifname}: {gwaddr}({essid}, {signalStrength}%)",
+        "on-click": "kitty --class nmtui-dialog -o initial_window_width=32 -o initial_window_height=32 -e nmtui",
+        "max-length": 12
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
-        "format-bluetooth": "󰋋  {volume}%",
-        "format-bluetooth-muted": "󰝟 ",
-        "format-muted": "󰝟",
+        "format-bluetooth": " {volume}",
+        "format-bluetooth-muted": "x",
+        "format-muted": "󰖁 {volume}%",
         "format-icons": {
-            "headphone": "󰋋",
-            "headset": "󰋎",
-            "phone": "",
-            "portable": "",
-            "car": "",
+            //"headphone": "󰋋",
+            //"headset": "󰋎",
+            //"phone": "",
+            //"portable": "",
+            //"car": "",
             "default": [
-                "",
-                "",
-                ""
+                "󰕾",
             ]
         },
         "on-click": "pavucontrol",
@@ -136,7 +149,7 @@
         "format": "{}",
         "escape": true,
         "return-type": "json",
-        "max-length": 40,
+        "max-length": 50,
         "format-icons": {
             "default": ""
         },

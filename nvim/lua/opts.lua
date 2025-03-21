@@ -54,6 +54,8 @@ vim.g.netrw_localcopydircmd = "cp -r"
 vim.g.netrw_localrmdir = "rm -r"
 vim.g.netrw_keepdir = 0
 
+vim.g.editorconfig = true
+
 -- SHIFT+I > show banner
 -- i > change view
 

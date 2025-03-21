@@ -4,4 +4,5 @@ ratio = [1, 4, 3]
 sort_by = "mtime"
 sort_sensitive = false
 sort_dir_first = true
+sort_reverse = true
 linemode = "size_and_mtime"

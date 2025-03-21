@@ -57,13 +57,6 @@ return {
             require("plugconf.treesitter")
         end
     },
-    {'nvimtools/none-ls.nvim',
-        event = "VeryLazy",
-        config = function ()
-            require("plugconf.none")
-        end
-    },
-
     {'neovim/nvim-lspconfig'},
     {'williamboman/mason.nvim'},
     {'williamboman/mason-lspconfig.nvim'},
@@ -83,5 +76,5 @@ return {
             require("plugconf.luasnip")
         end
     },
-    -- {'rafamadriz/friendly-snippets', event = "VeryLazy"},
+    -- sample snippets : rafamadriz/friendly-snippets
 }

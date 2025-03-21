@@ -20,7 +20,7 @@
     progress_bar_max_width = 320
 
     progress_bar_corner_radius = 2
-    highlight = "#cd7b59"
+    highlight = "#A7C080"
 
     indicate_hidden = yes
 
@@ -30,7 +30,7 @@
     text_icon_padding = 0
     frame_width = 2
 
-    frame_color = "#cd7b59"
+    frame_color = "#A7C080"
     separator_color = frame
     sort = yes
 
@@ -42,7 +42,7 @@
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
-    alignment = right
+    alignment = left
     vertical_alignment = center
 
     show_age_threshold = 60
@@ -86,20 +86,20 @@
 
 
 [urgency_low]
-    background = "#1e1714"
-    foreground = "#eae3e0"
+    background = "#2D353B"
+    foreground = "#D3C6AA"
     timeout = 10
 
 [urgency_normal]
-    background = "#1e1714"
-    foreground = "#eae3e0"
+    background = "#2D353B"
+    foreground = "#D3C6AA"
     timeout = 10
 
 [urgency_critical]
-    background = "#1e1714"
-    foreground = "#cd7b59"
-    frame_color = "#cd7b59"
-    highlight = "#cd7b59"
+    background = "#2D353B"
+    foreground = "#E67E80"
+    frame_color = "#E67E80"
+    highlight = "#E67E80"
     timeout = 0
 
 [history-ignore]
