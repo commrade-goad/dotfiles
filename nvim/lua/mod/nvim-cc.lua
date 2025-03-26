@@ -33,6 +33,10 @@ if Nvim_cc_start_insert == nil then
 end
 
 function M.set_compile_command_from_file()
+    -- || OLD WAYS TO DO IT : WILL BE AN OPTION IN THE FUTURE. ||
+    -- local current_buffer = vim.api.nvim_get_current_buf()
+    -- local current_file = vim.api.nvim_buf_get_name(current_buffer)
+    -- local directory = vim.fn.fnamemodify(current_file, ":h")
     local directory = vim.fn.getcwd(0, 0);
 
     for i = 1, #Nvim_cc_blacklist_dir_name, 1 do

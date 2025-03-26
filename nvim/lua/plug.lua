@@ -42,13 +42,13 @@ return {
     --     end
     -- },
     {'dhruvasagar/vim-table-mode', event = "InsertEnter"},
-    { 'echasnovski/mini.align',
-        version = '*',
-        event = "VeryLazy",
-        config = function ()
-            require('plugconf.mini-align')
-        end
-    },
+    -- { 'echasnovski/mini.align',
+    --     version = '*',
+    --     event = "VeryLazy",
+    --     config = function ()
+    --         require('plugconf.mini-align')
+    --     end
+    -- },
 
     -- LSP and syntax
     {'nvim-treesitter/nvim-treesitter',

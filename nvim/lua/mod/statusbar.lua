@@ -74,7 +74,7 @@ local function update_display()
         vim.opt.laststatus = 0
     else
         diag = diagnostics(vim.api.nvim_get_current_buf())
-        vim.opt.laststatus = 3
+        vim.opt.laststatus = 2
     end
     vim.o.statusline = branch .. " %f%m " .. diag .. "%=" .. change .. " " ..  "%r%y[%l:%c]"
 end
