@@ -95,7 +95,7 @@ local completion_mode = {
     { name = 'luasnip' },
     { name = 'async_path' },
     { name = 'nvim_lua' },
-    { name = 'buffer',    keyword_length = 4 },
+    { name = 'buffer', keyword_length = 3 },
 }
 
 cmp.setup({
@@ -176,3 +176,18 @@ cmp.setup({
 })
 
 vim.lsp.set_log_level("off")
+
+-- The default way --
+vim.diagnostic.config({ virtual_text = true })
+
+-- The other new stuff (I DONT LIKE THIS ONE WASTE ALOT OF SPACE) --
+-- vim.diagnostic.config({
+--     virtual_lines = {
+--         current_line = true,
+--     },
+-- })
+
+-- The new stuff --
+-- vim.diagnostic.config({
+--     virtual_text = { current_line = true }
+-- })

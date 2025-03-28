@@ -1,4 +1,4 @@
-Nvim_cc_start_insert = false
+-- Nvim_cc_start_insert = false
 Nvim_cc_blacklist_dir_name = {"src", "bin"}
 
 local nvim_cc = require("mod.nvim-cc")

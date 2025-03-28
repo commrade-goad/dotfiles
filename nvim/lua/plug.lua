@@ -29,12 +29,12 @@ return {
         end
     },
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
-    {'lewis6991/gitsigns.nvim',
-        event = "VeryLazy",
-        config = function ()
-            require('plugconf.gitsigns')
-        end
-    },
+    -- {'lewis6991/gitsigns.nvim',
+    --     event = "VeryLazy",
+    --     config = function ()
+    --         require('plugconf.gitsigns')
+    --     end
+    -- },
     -- {'mbbill/undotree',
     --     event = "VeryLazy",
     --     config = function ()
