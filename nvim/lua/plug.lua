@@ -29,12 +29,6 @@ return {
         end
     },
     {'windwp/nvim-autopairs', event = "InsertEnter", opts = {}},
-    -- {'lewis6991/gitsigns.nvim',
-    --     event = "VeryLazy",
-    --     config = function ()
-    --         require('plugconf.gitsigns')
-    --     end
-    -- },
     -- {'mbbill/undotree',
     --     event = "VeryLazy",
     --     config = function ()
@@ -42,13 +36,6 @@ return {
     --     end
     -- },
     {'dhruvasagar/vim-table-mode', event = "InsertEnter"},
-    -- { 'echasnovski/mini.align',
-    --     version = '*',
-    --     event = "VeryLazy",
-    --     config = function ()
-    --         require('plugconf.mini-align')
-    --     end
-    -- },
 
     -- LSP and syntax
     {'nvim-treesitter/nvim-treesitter',
@@ -76,5 +63,4 @@ return {
             require("plugconf.luasnip")
         end
     },
-    -- sample snippets : rafamadriz/friendly-snippets
 }

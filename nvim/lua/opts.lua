@@ -5,6 +5,8 @@ local o = vim.o
 local g = vim.g
 g.background = "dark"
 
+vim.cmd("colorscheme base16-everforest")
+
 opt.termguicolors = true
 opt.number = true
 opt.rnu = true
@@ -33,14 +35,13 @@ opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
 opt.wrap = true
-opt.hlsearch = true
-opt.incsearch =true
+opt.hlsearch = false
+opt.incsearch = true
 opt.scrolloff = 3
 opt.updatetime = 50
 opt.swapfile = false
 
 -- NEWLINE AND ETC
--- MORE INFO : https://neovim.io/doc/user/options.html#'listchars'
 vim.opt.list = true
 -- vim.opt.listchars = {eol = '↲', tab = "··>"}
 vim.opt.listchars = {tab = "··>"}
@@ -65,4 +66,5 @@ vim.cmd("let g:zig_fmt_autosave = 0")
 -- COLOR STUFF
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
+
 require("mod.statusbar")

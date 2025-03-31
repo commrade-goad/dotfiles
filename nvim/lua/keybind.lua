@@ -12,14 +12,20 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
--- on insert mode C-x C-f will autocomplete path
--- cib change inside bracket
--- ci" change inside quote
--- ci{ change inside curly
--- ciw change inside word
--- NOTE : there is a too instead of i which delete the specified char too
--- NOTE : c can be change to v to highlight
--- NOTE : can add mini surround if you want
+--== NEW NOTES 0.11 BINDINGS ==--
+
+--   grn in Normal mode maps to vim.lsp.buf.rename()
+--   grr in Normal mode maps to vim.lsp.buf.references()
+--   gri in Normal mode maps to vim.lsp.buf.implementation()
+--   gO  in Normal mode maps to vim.lsp.buf.document_symbol()
+--   gra in Normal and Visual mode maps to vim.lsp.buf.code_action()
+--   [q, ]q, [Q, ]Q, [CTRL-Q, ]CTRL-Q navigate through the quickfix list
+--   [a, ]a, [A, ]A navigate through the argument list
+--   [b, ]b, [B, ]B navigate through the buffer list
+--   [<Space>, ]<Space> add an empty line above and below the cursor
+
+--== END NOTES 0.11 BINDINGS ==--
+
 
 wk.add({
     { "<leader>", group = "Leader" },

@@ -5,28 +5,29 @@
     "margin-left": 0,
     "margin-bottom": 0,
     "margin-right": 0,
-    // "margin-top": 6,
-    // "margin-left": 10,
-    // "margin-bottom": 0,
-    // "margin-right": 10,
     "position": "top",
     "spacing": 5,
     "modules-left": [
-        // "cpu",
+        "clock",
+        "custom/separator",
         "hyprland/workspaces"
-        // "hyprland/window"
+        // "hyprland/window",
     ],
     "modules-center": [
-        "custom/media"
+        "custom/media",
     ],
     "modules-right": [
         "tray",
         "custom/dunst",
         "idle_inhibitor",
-        "network",
+        "custom/separator",
+        // "network",
+        // "custom/separator",
         "pulseaudio",
+        "custom/separator",
         "battery",
-        "clock"
+        "custom/separator",
+        "cpu"
     ],
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -40,7 +41,7 @@
             "7": "七",
             "8": "八",
             "9": "九",
-            "10": "十"
+            "10":"十"
         },
         "persistent-workspaces": {
             "*": [ 1,2,3,4,5,6,7,8,9,10 ]
@@ -59,59 +60,38 @@
         "icon-size": 12
     },
     "clock": {
-        // "format": "󰥔 {:%R}",
-        "format": "󰥔 {:%R | %d/%m/%y}",
-        "tooltip-format": "<tt>{calendar}</tt>",
+        "format": "{:%R}",
+        // "tooltip-format": "<i>{:%d %B %Y}</i>\n\n<tt>{calendar}</tt>",
+        "tooltip-format": "<i>{:%d %B %Y}</i>",
         "on-click": "kitty --class calendar-dialog -o initial_window_width=640 -o initial_window_height=480 -e ~/.config/hypr/scripts/calendar.sh",
         "interval": 30
     },
     "cpu": {
         "interval": 10,
-        "format": "{usage}%",
+        "format": "CPU:{usage}%",
         "max-length": 10,
         "on-click": "kitty --class rmon-dialog -o initial_window_width=640 -o initial_window_height=480 -e btop",
     },
     "memory": {
         "interval": 30,
-        "format": " {}%",
+        "format": " {}%",
         "format-alt": " {used:0.1f}G",
         "max-length": 10
     },
-    "backlight": {
-        "format": "{icon} {percent}%",
-        "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        ],
-        "on-click": ""
-    },
     "network": {
-        "format-wifi": "󰤨",
-        //"format-wifi": "󰤨 {signalStrength}",
-        "format-ethernet": "󰈀",
-        "format-disconnected": "!",
+        "format-wifi": "W",
+        "format-ethernet": "E",
+        "format-disconnected": "!",
         "tooltip-format": "{ifname}: {gwaddr}({essid}, {signalStrength}%)",
         "on-click": "kitty --class nmtui-dialog -o initial_window_width=32 -o initial_window_height=32 -e nmtui",
-        "max-length": 12
+        "max-length": 5
     },
     "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-bluetooth": " {volume}",
-        "format-bluetooth-muted": "x",
-        "format-muted": "󰖁 {volume}%",
+        "format": "VOL:{volume}%",
+        "format-bluetooth": "VOL:{volume}",
+        "format-bluetooth-muted":"VOL: x",
+        "format-muted": "VOL:x{volume}%",
         "format-icons": {
-            //"headphone": "󰋋",
-            //"headset": "󰋎",
-            //"phone": "",
-            //"portable": "",
-            //"car": "",
             "default": [
                 "󰕾",
             ]
@@ -127,10 +107,9 @@
         },
         "on-click": "~/.config/hypr/scripts/tuned-gui",
         "max-length": 20,
-        "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": " {capacity}%",
-        // "format-alt": "{time} {icon}",
+        "format": "BAT:{capacity}%",
+        "format-charging": "BAT:{capacity}+",
+        "format-plugged": "BAT:{capacity}+",
         "format-icons": [
             "󰂎",
             "󰁺",
@@ -149,7 +128,7 @@
         "format": "{}",
         "escape": true,
         "return-type": "json",
-        "max-length": 50,
+        "max-length": 45,
         "format-icons": {
             "default": ""
         },
@@ -158,24 +137,13 @@
         "smooth-scrolling-threshold": 10,
         "on-scroll-up": "playerctl next",
         "on-scroll-down": "playerctl previous",
-        // "exec": "$HOME/.config/waybar/scripts/waybar-mpris-json -i 350 -emsg \"~----={0}=----~\""
-        "exec": "$HOME/.config/waybar/scripts/waybar-mpris-json -i 350 -emsg \"None\""
+        "exec": "$HOME/.config/waybar/scripts/waybar-mpris-json -i 350 -emsg \"No Media.\""
     },
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "󰈈",
-            "deactivated": ""
-        }
-    },
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": false,
-        // "capslock": true,
-        "format": "{icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
+            "activated": "󰅶",
+            "deactivated": "󰾪"
         }
     },
     "custom/dunst": {
@@ -184,6 +152,10 @@
         "restart-interval": 1,
         "exec": "~/.config/waybar/scripts/dunst.sh",
         "on-click": "dunstctl set-paused toggle",
-        "on-click-right": "~/.config/sway/script/notif-history"
+        "on-click-right": "~/.config/hypr/scripts/notif-history"
+    },
+
+    "custom/separator": {
+        "format": "::",
     }
 }
