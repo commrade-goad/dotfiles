@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Yazi Inode Directory Opener
+Exec=foot -- yazi %f
+MimeType=inode/directory;

@@ -1,0 +1,6 @@
+set $red       #E67E80
+set $green     #A7C080
+set $text      #D3C6AA
+set $overlay1  #4F585E
+set $overlay0  #3D484D
+set $base      #2D353B

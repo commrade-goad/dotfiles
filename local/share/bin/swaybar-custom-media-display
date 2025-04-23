@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+MAX_LENGTH=20
+
+empty="No media"
+
+status=$(playerctl status)
+status_stat=$?
+
+if [ $status_stat -eq 1 ]; then
+    echo "$empty"
+    exit
+fi
+
+title=$(playerctl metadata xesam:title)
+artist=$(playerctl metadata xesam:artist)
+
+title=$(echo "$title" | awk -v len="$MAX_LENGTH" '{print substr($0, 1, len)}')
+artist=$(echo "$artist" | awk -v len="$MAX_LENGTH" '{print substr($0, 1, len)}')
+
+status_msg="[$status] "
+
+msg="$status_msg $title - $artist"
+
+echo -n "$msg"
