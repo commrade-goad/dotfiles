@@ -12,8 +12,8 @@ if not vim.uv.fs_stat(lazypath) then
     })
 end
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup("plug") -- plugin
-require("keybind") -- keybind
-require("opts") -- options
-require("lspconf") -- lsp configuration
-require("autocmd") -- autocmd def
+require("lazy").setup("plug")
+require("keybind")
+require("opts")
+require("lspconf")
+require("autocmd")

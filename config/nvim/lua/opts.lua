@@ -5,9 +5,6 @@ local o = vim.o
 local g = vim.g
 g.background = "dark"
 
-vim.cmd("colorscheme everforest")
-vim.api.nvim_set_hl(0, "TrailingWhitespace", { bg = "#E67E80" })
-
 opt.termguicolors = true
 opt.number = true
 opt.rnu = true
@@ -28,8 +25,10 @@ o.splitright = true
 o.title = false
 o.ttimeoutlen = 0
 o.wildmenu = true
--- opt.guicursor = "n-v-c-i-ci-ve-sm:block,r-cr-o:hor20"
+
+opt.guicursor = "n-v-c-i-ci-ve-sm:block,r-cr-o:hor20"
 -- opt.colorcolumn="80"
+
 opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4
@@ -45,7 +44,8 @@ opt.swapfile = false
 -- NEWLINE AND ETC
 vim.opt.list = true
 -- vim.opt.listchars = {eol = '↲', tab = "··>"}
-vim.opt.listchars = {tab = "··>"}
+-- vim.opt.listchars = {tab = "··>"}
+vim.opt.listchars = {tab = "  >"}
 
 -- NETRW STUFF
 vim.g.netrw_liststyle = 0
@@ -65,7 +65,7 @@ vim.g.editorconfig = true
 vim.cmd("let g:zig_fmt_autosave = 0")
 
 -- COLOR STUFF
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
 
 require("mod.statusbar")

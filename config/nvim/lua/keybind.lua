@@ -38,7 +38,6 @@ wk.add({
     { "<leader>jh", "<cmd>normal! ^<CR>", desc = "Jump to Line Start", mode = { "n", "v" } },
     { "<leader>jl", "<cmd>normal! $<CR>", desc = "Jump to Line End", mode = { "n", "v" } },
     { "<leader><leader>x", "<cmd>source %<CR>", desc = "Source Current File (Lua)", mode = "n" },
-    -- { "<leader>ut", "<cmd>UndotreeToggle<CR>", desc = "Toggle Undo Tree", mode = "n" },
     { "<leader>.", "<cmd>Ex<CR>", desc = "Open Netrw", mode = "n"},
     {"<leader>mp", "<cmd>Man<CR>", desc = "Open man page of the current word", mode = "n"},
 
@@ -64,7 +63,6 @@ wk.add({
     { "<leader>sw", "<cmd>normal! *<CR>", desc = "Search Word Forward", mode = "n" },
     { "<leader>sb", "<cmd>normal! #<CR>", desc = "Search Word Backward", mode = "n" },
     { "<leader>fs", function ()
-        -- require("telescope.builtin").grep_string() -- only grep on the current file
         require("telescope.builtin").live_grep()
     end,
         desc = "Search String", mode = "n"
@@ -72,7 +70,6 @@ wk.add({
     { "<leader>be", ":enew<CR>", desc = "New Empty Buffer Tab", mode = "n" },
     { "<leader>bs", ":Telescope buffers<CR>", desc = "List Buffers", mode = "n" },
     { "<leader>bc", ":bd!<CR>", desc = "Delete Buffer", mode = "n" },
-    -- { "<leader>bn", "<C-^>", desc = "Cycle Buffer", mode = "n" },
     { "<leader>bn", ":bNext<CR>", desc = "Next Buffer", mode = "n" },
     { "<leader>bp", ":bprev<CR>", desc = "Previous Buffer", mode = "n" },
 

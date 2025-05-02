@@ -33,7 +33,7 @@ local function diagnostics(bufn)
         return ""
     end
     local contents = ("%s"):format(table.concat(items, ":"))
-    local final = ":: [" .. fmt:format(contents) .. "]"
+    local final = "[" .. fmt:format(contents) .. "]"
     return final
 end
 
@@ -84,8 +84,8 @@ local function update_display()
         filepath = "temp"
     end
     local modified = vim.bo[buf].modified and "*" or ""
-    local readonly = vim.bo[buf].readonly and "RO ::" or ""
-    local filetype = vim.bo[buf].filetype ~= "" and vim.bo[buf].filetype .. " ::" or "N/A ::"
+    local readonly = vim.bo[buf].readonly and "RO |" or ""
+    local filetype = vim.bo[buf].filetype ~= "" and vim.bo[buf].filetype .. " |" or "N/A |"
     local cursor = vim.api.nvim_win_get_cursor(0)
     local line, col = cursor[1], cursor[2] + 1
     local final = string.format(" %s%s%s %s %%=%s %s %d:%d ", branch, filepath, modified, diag, readonly,

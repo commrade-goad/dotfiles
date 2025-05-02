@@ -1,6 +1,27 @@
-set $red       #E67E80
-set $green     #A7C080
-set $text      #D3C6AA
-set $overlay1  #4F585E
-set $overlay0  #3D484D
-set $base      #2D353B
+# set $red       #E67E80
+# set $accent    #A7C080
+# set $text      #D3C6AA
+# set $overlay1  #4F585E
+# set $overlay0  #3D484D
+# set $base      #2D353B
+
+# set $woh_red       E67E80
+# set $woh_accent    A7C080
+# set $woh_text      D3C6AA
+# set $woh_overlay1  4F585E
+# set $woh_overlay0  3D484D
+# set $woh_base      2D353B
+
+set $woh_red       C4B0B0
+set $woh_accent    ffffff
+set $woh_text      ffffff
+set $woh_overlay1  3e3e3e
+set $woh_overlay0  2e2e2e
+set $woh_base      1e1e1e
+
+set $red       #$woh_red
+set $accent    #$woh_accent
+set $text      #$woh_text
+set $overlay1  #$woh_overlay1
+set $overlay0  #$woh_overlay0
+set $base      #$woh_base

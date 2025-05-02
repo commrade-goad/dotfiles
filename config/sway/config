@@ -1,3 +1,5 @@
+include active-theme
+
 # VARIABLES
 set $mod Mod4
 set $left h
@@ -5,10 +7,13 @@ set $down j
 set $up k
 set $right l
 set $term foot
-set $wmenu_command wmenu-run -bi -f "Iosevka Nerd Font Mono 12" -N 2D353B -n D3C6AA -S A7C080 -s 2D353B -M A7C080 -m 2D353B
-# set $menu $wmenu_command | xargs swaymsg exec --
+
+set $wmenu_args -bi -f "Iosevka Nerd Font Mono 12" -N $woh_base -n $woh_text -S $woh_accent -s $woh_base
+set $wmenu_command wmenu-run $wmenu_args
 set $menu $wmenu_command
-set $wallpaper_path ~/Downloads/fog_forest_1.png
+
+# set $wallpaper_path ~/Downloads/firewife.jpg
+set $wallpaper_path ~/Downloads/monochrome.jpg
 set $screenlock swaylock -f -i $wallpaper_path -s fill
 
 seat seat0 xcursor_theme Adwaita 24
@@ -20,8 +25,6 @@ exec "wl-gammactl -c 0.935 -b 0.998 -g 0.806"
 # exec /usr/lib/polkit-kde-authentication-agent-1
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec pipewire
-exec xdg-desktop-portal
-exec xdg-desktop-portal-wlr
 exec dunst
 exec playerctld
 exec copyq
@@ -52,8 +55,10 @@ input "10077:2982:USB_OPTICAL_MOUSE" {
 input * xkb_options compose:rctrl
 
 input "type:keyboard" {
+    # xkb_options caps:swapescape,ctrl:swap_lalt_lctl
     xkb_options caps:escape
 }
+
 # input "type:Mouse" {
 #     dwt disable
 #     accel_profile "flat"
@@ -193,9 +198,8 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# smart_gaps on
 default_border pixel 2
-gaps inner 0
+gaps inner 4
 
 for_window [class=.*] inhibit_idle fullscreen
 for_window [app_id=.*] inhibit_idle fullscreen
@@ -238,35 +242,38 @@ for_window [app_id="calendar-dialog"] floating enable
 for_window [app_id="nmtui-dialog"] floating enable
 for_window [app_id="rmon-dialog"] floating enable
 for_window [title="File Operation Progress" app_id="thunar"] floating enable
-# for_window [app_id="" title=""] floating enable
 
-include active-theme
+focus_follows_mouse always
+
+# set $basebar $basef4
+set $basebar $baseff
 
 bar {
     position top
-    separator_symbol " :: "
-    # gaps 5 5
+    height 26
+    # gaps 4 4
+    separator_symbol " | "
 
-    workspace_min_width 35
+    workspace_min_width 32
     pango_markup enabled
 
-    status_command ~/.config/sway/status.py
+    status_command gobar
 
     colors {
-        background         #2B3339
-        statusline         #A7C080
-        inactive_workspace #2B3339 #2B3339 #5C6A72
-        focused_workspace  #A7C080 #A7C080 #323232
-        urgent_workspace   #E67E80 #E67E80 #323232
-        binding_mode       #A7C080 #A7C080 #323232
+        background         $basebar
+        statusline         $accent
+        inactive_workspace $basebar   $basebar   $overlay1
+        focused_workspace  $accent    $accent    $base
+        urgent_workspace   $red       $red       $base
+        binding_mode       $accent    $accent    $base
     }
 }
 
-client.focused           $green       $base $text       $green      $green
+client.focused           $accent      $base $text       $accent      $accent
 client.focused_inactive  $overlay1    $base $overlay1   $overlay1   $overlay1
 client.unfocused         $overlay1    $base $overlay1   $overlay1   $overlay1
 client.urgent            $red         $base $red        $red        $red
 client.placeholder       $overlay0    $base $text       $overlay0   $overlay0
 client.background        $base
 
-font pango:Iosevka Nerd Font Mono 11
+font pango:Iosevka Nerd Font 11

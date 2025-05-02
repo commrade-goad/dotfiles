@@ -1,11 +1,21 @@
 vim.opt.signcolumn = 'yes'
 
+require('mason').setup()
+require('mason-lspconfig').setup()
+
 local lspconfig_defaults = require('lspconfig').util.default_config
 lspconfig_defaults.capabilities = vim.tbl_deep_extend(
     'force',
     lspconfig_defaults.capabilities,
     require('cmp_nvim_lsp').default_capabilities()
 )
+
+require("mason-lspconfig").setup_handlers {
+    function(server_name)
+        require("lspconfig")[server_name].setup {}
+    end,
+}
+
 
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
@@ -49,53 +59,29 @@ if rust_an_path ~= "" then
     })
 end
 
-local pyright_path = vim.fn.exepath("pyright")
-if pyright_path ~= "" then
-    require("lspconfig").pyright.setup({
-        capabilities = capabilities
-    })
-end
+require ("lspconfig").lua_ls.setup {
+    on_init = function(client)
+        local path = client.workspace_folders[1].name
+        if vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc') then
+            return
+        end
 
-local gopls_path = vim.fn.exepath("gopls")
-if gopls_path ~= "" then
-    require("lspconfig").gopls.setup({
-        capabilities = capabilities
-    })
-end
-
-local phpactor_path = vim.fn.exepath("phpactor")
-if phpactor_path ~= "" then
-    require("lspconfig").phpactor.setup({
-        capabilities = capabilities
-    })
-end
-
-local lua_ls_path = vim.fn.exepath("lua-language-server")
-if lua_ls_path ~= "" then
-    require ("lspconfig").lua_ls.setup {
-        on_init = function(client)
-            local path = client.workspace_folders[1].name
-            if vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc') then
-                return
-            end
-
-            client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-                runtime = {
-                    version = 'LuaJIT'
-                },
-                workspace = {
-                    checkThirdParty = false,
-                    library = {
-                        vim.env.VIMRUNTIME
-                    }
+        client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+                version = 'LuaJIT'
+            },
+            workspace = {
+                checkThirdParty = false,
+                library = {
+                    vim.env.VIMRUNTIME
                 }
-            })
-        end,
-        settings = {
-            Lua = {}
-        }
+            }
+        })
+    end,
+    settings = {
+        Lua = {}
     }
-end
+}
 
 local cmp = require('cmp')
 
@@ -103,7 +89,6 @@ local completion_mode = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'async_path' },
-    { name = 'nvim_lua' },
     { name = 'buffer', keyword_length = 3 },
 }
 
@@ -175,7 +160,6 @@ cmp.setup({
                 luasnip = '[SNP]',
                 buffer = '[BUF]',
                 async_path = '[PTH]',
-                nvim_lua = '[NVL]',
             }
             item.menu = menu_icon[entry.source.name]
             return item

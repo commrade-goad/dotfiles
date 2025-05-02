@@ -1,7 +1,7 @@
 local max_filesize = 100 * 1024 -- 100KB
 
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"c", "cpp", "rust", "python", "lua"},
+    ensure_installed = {"c", "cpp", "python", "lua"},
     sync_install = false,
 
     modules = {},
@@ -9,7 +9,7 @@ require'nvim-treesitter.configs'.setup {
     auto_install = true,
     highlight = {
         enable = true,
-        disable = function(lang, buf)
+        disable = function(_, buf)
             local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
                 return true
@@ -25,7 +25,7 @@ require'nvim-treesitter.configs'.setup {
             node_incremental = "grn",
             scope_incremental = "grc"
         },
-        disable = function(lang, buf)
+        disable = function(_, buf)
             local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
                 return true
@@ -34,7 +34,7 @@ require'nvim-treesitter.configs'.setup {
     },
     textobjects = {
         enable = true,
-        disable = function(lang, buf)
+        disable = function(_, buf)
             local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
                 return true
@@ -43,7 +43,7 @@ require'nvim-treesitter.configs'.setup {
     },
     indent = {
         enable = true,
-        disable = function(lang, buf)
+        disable = function(_, buf)
             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
             if ok and stats and stats.size > max_filesize then
                 return true

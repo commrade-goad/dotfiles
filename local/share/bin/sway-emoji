@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
-# wtype 0
-# if [ $? -eq 0 ]
-# then
-#     sed '1,/^### DATA ###$/d' $0 | rofi -dmenu -window-title ' 🙂 Emoji ' -i | cut -d ' ' -f 1 | tr -d '\n' | wtype -
-# else
-#     sed '1,/^### DATA ###$/d' $0 | rofi -dmenu -window-title ' 🙂 Emoji ' -i | cut -d ' ' -f 1 | tr -d '\n' | wl-copy
-# fi
 
-USER_CHOICE=$(sed '1,/^### DATA ###$/d' $0 | wmenu -l 10 -bi -f "Iosevka Nerd Font Mono 12" -N 2D353B -n D3C6AA -S A7C080 -s 2D353B -M A7C080 -m 2D353B -p'Emoji ' -i | cut -d ' ' -f 1 | tr -d '\n')
+# USER_CHOICE=$(sed '1,/^### DATA ###$/d' $0 | wmenu -l 10 -bi -f "Iosevka Nerd Font Mono 12" -N 2D353B -n D3C6AA -S A7C080 -s 2D353B -M A7C080 -m 2D353B -p'Emoji ' -i | cut -d ' ' -f 1 | tr -d '\n')
+USER_CHOICE=$(sed '1,/^### DATA ###$/d' $0 | wmenu -l 10 -bi -f "Iosevka Nerd Font Mono 12" -N 000000 -n aaaaaa -S dddddd -s 000000 -M dddddd -m 000000 -p'Emoji ' -i | cut -d ' ' -f 1 | tr -d '\n')
 wtype $USER_CHOICE
 wl-copy $USER_CHOICE
 exit
